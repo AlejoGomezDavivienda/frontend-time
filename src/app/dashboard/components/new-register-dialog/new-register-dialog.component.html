@@ -1,0 +1,52 @@
+<div class="text-center">
+    <h1 mat-dialog-title>Agregar Registro</h1>
+    <div mat-dialog-content>
+        <p>Registrar en el Time Report</p>
+        <div class="row">
+            <!-- Fecha -->
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Seleccionar Fecha</mat-label>
+                <input matInput [matDatepicker]="picker">
+                <mat-datepicker-toggle matSuffix [for]="picker">
+                <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                </mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <!-- Actividad -->
+            <mat-form-field appearance="fill">
+                <mat-label>Seleccionar Actividad</mat-label>
+                <mat-select name="food">
+                  <mat-option value="1">
+                    1
+                  </mat-option>
+                  <mat-option value="1">
+                    1
+                  </mat-option>
+                  <mat-option value="1">
+                    1
+                  </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <!-- Detalle -->
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Detalle</mat-label>
+                <textarea matInput placeholder="Ingrese la información especifica de la actividad..."></textarea>
+            </mat-form-field>
+
+            <!-- Número de horas -->
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Horas</mat-label>
+                <input type="number" matInput placeholder="Número de horas gastadas!" value="Sushi">
+            </mat-form-field>
+            
+        </div>
+    </div>
+    <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancelar</button>
+    <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Guardar</button> -->
+    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Guardar</button>
+
+    </div>
+</div>
