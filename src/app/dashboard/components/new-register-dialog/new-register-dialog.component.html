@@ -2,13 +2,13 @@
     <h1 mat-dialog-title>Agregar Registro</h1>
     <div mat-dialog-content>
         <p>Registrar en el Time Report</p>
-        <div class="row">
+        <div class="row justify-content-center">
             <!-- Fecha -->
             <mat-form-field class="example-full-width" appearance="fill">
                 <mat-label>Seleccionar Fecha</mat-label>
-                <input matInput [matDatepicker]="picker">
+                <input matInput [matDatepicker]="picker" [(ngModel)]="data.date">
                 <mat-datepicker-toggle matSuffix [for]="picker">
-                <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                <mat-icon matDatepickerToggleIcon>calendar_today</mat-icon>
                 </mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
@@ -16,15 +16,9 @@
             <!-- Actividad -->
             <mat-form-field appearance="fill">
                 <mat-label>Seleccionar Actividad</mat-label>
-                <mat-select name="food">
-                  <mat-option value="1">
-                    1
-                  </mat-option>
-                  <mat-option value="1">
-                    1
-                  </mat-option>
-                  <mat-option value="1">
-                    1
+                <mat-select [(ngModel)]="data.activity">
+                  <mat-option *ngFor="let activity of activities" [value]="activity">
+                    {{ activity }}
                   </mat-option>
                 </mat-select>
             </mat-form-field>
@@ -32,21 +26,21 @@
             <!-- Detalle -->
             <mat-form-field class="example-full-width" appearance="fill">
                 <mat-label>Detalle</mat-label>
-                <textarea matInput placeholder="Ingrese la información especifica de la actividad..."></textarea>
+                <textarea [(ngModel)]="data.detail" matInput placeholder="Ingrese la información especifica de la actividad..."></textarea>
             </mat-form-field>
 
             <!-- Número de horas -->
             <mat-form-field class="example-full-width" appearance="fill">
                 <mat-label>Horas</mat-label>
-                <input type="number" matInput placeholder="Número de horas gastadas!" value="Sushi">
+                <input [(ngModel)]="data.hours" type="number" matInput placeholder="Número de horas gastadas!">
             </mat-form-field>
             
         </div>
     </div>
-    <div mat-dialog-actions>
+    <div mat-dialog-actions class="justify-content-center">
     <button mat-button (click)="onNoClick()">Cancelar</button>
     <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Guardar</button> -->
-    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Guardar</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="data" cdkFocusInitial>Guardar</button>
 
     </div>
 </div>
