@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { NewRegisterDialogComponent } from '../../components/new-register-dialog/new-register-dialog.component';
 import { TimeData } from '../../interfaces/TimeData';
 import { UserTimeReportService } from '../../services/user-time-report.service';
@@ -15,6 +16,8 @@ import { UserTimeReportService } from '../../services/user-time-report.service';
 })
 export class UserTimeReportComponent implements OnInit, AfterViewInit
 {
+  public userName: string = '';
+
   private data: TimeData = {
     date: new Date(),
     activity: '',
@@ -33,25 +36,38 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  private timeData: TimeData[] = [
-    {date: new Date(), activity: 'Innovación', detail: 'Actualización del bot', hours: 8}
-  ];
+  private timeData: TimeData[] = [];
 
   constructor(
     private userTimeReportService: UserTimeReportService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private sweetAlert: SweetAlertService
   ) 
   { 
     // Assign the data to the data source for the table to render
     this.dataSource = new MatTableDataSource(this.timeData);
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void 
+  {
+    this.userName = localStorage.getItem('user-name') || '';
+    this.loadData();
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+  loadData()
+  {
+    this.userTimeReportService.getAllTimeData().subscribe(
+      responseTimeData => { 
+        this.timeData = responseTimeData.reports; 
+        this.dataSource.data = this.timeData;
+      },
+      error => { console.log(error) }
+    );
   }
 
   applyFilter(event: Event) {
@@ -78,13 +94,20 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit
         const checkData = this.verifyTimeData(result);
         if(checkData)
         {
+          this.userTimeReportService.createTimeData( result ).subscribe(
+            timeData => {
+              this.loadData();
+              this.sweetAlert.presentSuccess('Registro Creado Correctamente!');
+            },
+            error => { console.log(error) }
+          );
           console.log(result);
-          this.timeData.push(result);
-          this.dataSource.data = this.timeData;
+          // this.timeData.push(result);
+          // this.dataSource.data = this.timeData;
         }
         else
         {
-          window.alert('Información invalida sweet alert');
+          this.sweetAlert.presentError('Información Inválida!');
         }
       }
     });

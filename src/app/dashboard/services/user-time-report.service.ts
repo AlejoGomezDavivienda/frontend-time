@@ -1,5 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { ResponseTimeData } from '../interfaces/ResponseTimeData';
 import { TimeData } from '../interfaces/TimeData';
 
 @Injectable({
@@ -15,9 +18,9 @@ export class UserTimeReportService
   /**
    * Obtiene el time report del usuario.
    */
-  getTimeData()
+  getAllTimeData(): Observable<ResponseTimeData>
   {
-    return this.http.get(``);
+    return this.http.get<ResponseTimeData>(`${environment.API_URL}/reports`);
   }
 
   /**
@@ -26,7 +29,7 @@ export class UserTimeReportService
    */
   createTimeData(timeData: TimeData)
   {
-    return this.http.post('', {});
+    return this.http.post(`${environment.API_URL}/reports`, timeData);
   }
 
   /**
@@ -45,6 +48,12 @@ export class UserTimeReportService
   deleteTimeData(id: string)
   {
     return this.http.delete(`${id}`);
+  }
+
+  // **************ESPECIALES******************ESPECIALES************ESPECIALES*************//
+  getAllActivitiesFromUser(): Observable<string[]>
+  {
+    return this.http.get<string[]>(`${environment.API_URL}/reports/activities`);
   }
 
 }

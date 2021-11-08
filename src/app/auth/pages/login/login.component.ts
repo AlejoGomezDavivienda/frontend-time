@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { LoginData } from '../../interfaces/LoginData';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +18,9 @@ export class LoginComponent implements OnInit
   };
 
   constructor(
-    private router: Router
+    private authService: AuthService,
+    private router: Router,
+    private sweetAlert: SweetAlertService
   ) { }
 
   ngOnInit(): void {
@@ -24,7 +28,18 @@ export class LoginComponent implements OnInit
 
   login()
   {
-    this.router.navigate(['/dashboard']);
+    this.authService.login(this.loginData).subscribe(
+      res => {
+        console.log(res);
+        // Guardar en el localstorage
+        localStorage.setItem('x-token', res.token);
+        localStorage.setItem('user-name', res.user.name);
+        this.router.navigate(['/dashboard']);
+      },
+      error => {
+        this.sweetAlert.presentError( 'Datos inválidos!' );
+      }
+    );
   }
 
 }
