@@ -86,7 +86,7 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit
     if(timeData) this.data = timeData;
 
     const dialogRef = this.dialog.open(NewRegisterDialogComponent, {
-      width: '270px',
+      width: '50%',
       data: this.data
     });
 

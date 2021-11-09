@@ -1,95 +1,104 @@
 <div class="container mt-3">
 
-    <div class="row ml-1 justify-content-center">
-        <h1>Time Report - {{ userName }}</h1>
-    </div>
+  <div class="row ml-1 md-6 justify-content-center">
+    <h1>Time Report - {{ userName }}</h1>
+  </div>
 
-    <mat-divider></mat-divider>
+  <mat-divider></mat-divider>
 
-    <div class="row">
-        <div class="col-md-6">
-            <div class="mt-3">
-                <mat-form-field appearance="fill" style="width: 50%;">
-                    <mat-label>Filtar Por Rango</mat-label>
-                    <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
-                        <input matStartDate formControlName="start" placeholder="Start date">
-                        <input matEndDate formControlName="end" placeholder="End date" (dateChange)="filterReport()">
-                    </mat-date-range-input>
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-date-range-picker #picker></mat-date-range-picker>
-        
-                    <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
-                    <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
-                </mat-form-field>
-            </div>
-        </div>
-        <div class="col-md-6 text-right">
-            <button mat-raised-button color="primary" class="mt-3" (click)="openDialog()">
-                Agregar Registro
-                <mat-icon>add</mat-icon>
-            </button>
-        </div>
-    </div>
+  <div class="row">
 
-    <!-- Table Data -->
-    <div class="row mb-5">
-        <mat-form-field appearance="standard">
-            <mat-label>Buscar...</mat-label>
-            <input matInput (keyup)="applyFilter($event)" placeholder="Buscar un registro en la tabla" #input>
+    <div class="col-md-6 col-xs-6">
+      <div class="mt-3">
+        <mat-form-field appearance="fill" class="filtro">
+          <mat-label>Filtar Por Rango</mat-label>
+          <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+            <input matStartDate formControlName="start" placeholder="Start date">
+            <input matEndDate formControlName="end" placeholder="End date">
+          </mat-date-range-input>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+
+          <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+          <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
         </mat-form-field>
-          
-          <div class="mat-elevation-z8" style="width: 100%;">
-            <table mat-table [dataSource]="dataSource" matSort>
-          
-              <!-- Column -->
-              <ng-container matColumnDef="date">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
-                <td mat-cell *matCellDef="let row"> {{row.date | date:"dd/MM/yyyy"}} </td>
-              </ng-container>
-          
-              <!-- Column -->
-              <ng-container matColumnDef="activity">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Actividad </th>
-                <td mat-cell *matCellDef="let row"> {{row.activity}} </td>
-              </ng-container>
-          
-              <!--Column -->
-              <ng-container matColumnDef="detail">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Detalle </th>
-                <td mat-cell *matCellDef="let row"> {{row.detail}} </td>
-              </ng-container>
-          
-              <!-- Column -->
-              <ng-container matColumnDef="hours">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Horas </th>
-                <td mat-cell *matCellDef="let row"> {{row.hours}} </td>
-              </ng-container>
-
-              <!-- Acciones -->
-              <ng-container matColumnDef="actions">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
-                <td mat-cell *matCellDef="let row" class="d-flex flex-row bd-highlight">
-                    <button mat-mini-fab class="bd-highlight" (click)="openDialog(row)">
-                        <mat-icon>edit</mat-icon>
-                    </button>
-                    <button mat-mini-fab color="warn" class="bd-highlight" (click)="deleteReport(row)">
-                        <mat-icon>delete</mat-icon>
-                    </button>
-                </td>    
-              </ng-container>
-          
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-          
-              <!-- Row shown when there is no matching data. -->
-              <tr class="mat-row" *matNoDataRow>
-                <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-              </tr>
-            </table>
-          
-            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
-          </div>
+      </div>
     </div>
 
+    <div class="col-md-6 col-xs-6 text-right">
+      <button mat-raised-button color="primary" class="boton mt-3" (click)="openDialog()">
+        Agregar Registro
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Table Data -->
+  <div class="row">
+    <mat-form-field appearance="standard">
+      <mat-label>Buscar...</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Buscar un registro en la tabla" #input>
+    </mat-form-field>
+
+    <div class="mat-elevation-z8" style="width: 100%;">
+      <table mat-table [dataSource]="dataSource" matSort>
+
+        <!-- Column -->
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
+          <td mat-cell *matCellDef="let row"> {{row.date | date:"dd/MM/yyyy"}} </td>
+        </ng-container>
+
+        <!-- Column -->
+        <ng-container matColumnDef="activity">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Actividad </th>
+          <td mat-cell *matCellDef="let row"> {{row.activity}} </td>
+        </ng-container>
+
+        <!--Column -->
+        <ng-container matColumnDef="detail">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Detalle </th>
+          <td mat-cell *matCellDef="let row"> {{row.detail}} </td>
+        </ng-container>
+
+        <!-- Column -->
+        <ng-container matColumnDef="hours">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Horas </th>
+          <td mat-cell *matCellDef="let row"> {{row.hours}} </td>
+        </ng-container>
+
+        <!-- Acciones -->
+        <ng-container matColumnDef="actions">
+
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
+
+          <td mat-cell *matCellDef="let row" class="d-flex flex-row bd-highlight">
+
+            <button mat-mini-fab class="bd-highlight fab-icono" (click)="openDialog(row)">
+              <mat-icon>edit</mat-icon>
+            </button>
+
+            <button mat-mini-fab color="warn" class="bd-highlight" (click)="deleteReport(row)">
+              <mat-icon>delete</mat-icon>
+            </button>
+
+          </td>
+
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+        </tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+    </div>
+
+  </div>
 
 </div>
