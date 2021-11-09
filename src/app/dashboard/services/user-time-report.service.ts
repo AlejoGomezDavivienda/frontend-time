@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { RangeTime } from '../interfaces/RangeTime';
 import { ResponseTimeData } from '../interfaces/ResponseTimeData';
 import { TimeData } from '../interfaces/TimeData';
 
@@ -18,9 +19,19 @@ export class UserTimeReportService
   /**
    * Obtiene el time report del usuario.
    */
-  getAllTimeData(): Observable<ResponseTimeData>
+  getAllTimeData(rangeTime?: RangeTime): Observable<ResponseTimeData>
   {
-    return this.http.get<ResponseTimeData>(`${environment.API_URL}/reports`);
+    let httpOptions = {};
+
+    if(rangeTime)
+    {
+      httpOptions = {
+        params: new HttpParams().set('start', rangeTime.start.toDateString())
+                                .set('end', rangeTime.end.toDateString())
+      };
+    }
+
+    return this.http.get<ResponseTimeData>(`${environment.API_URL}/reports`, httpOptions);
   }
 
   /**
@@ -48,7 +59,7 @@ export class UserTimeReportService
    */
   deleteTimeData(id: string)
   {
-    return this.http.delete(`${id}`);
+    return this.http.delete(`${environment.API_URL}/reports/${id}`);
   }
 
   // **************ESPECIALES******************ESPECIALES************ESPECIALES*************//
@@ -56,5 +67,4 @@ export class UserTimeReportService
   {
     return this.http.get<string[]>(`${environment.API_URL}/reports/activities`);
   }
-
 }

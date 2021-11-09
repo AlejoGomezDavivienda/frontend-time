@@ -1,11 +1,12 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { NewRegisterDialogComponent } from '../../components/new-register-dialog/new-register-dialog.component';
+import { RangeTime } from '../../interfaces/RangeTime';
 import { TimeData } from '../../interfaces/TimeData';
 import { UserTimeReportService } from '../../services/user-time-report.service';
 
@@ -25,9 +26,9 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit
     hours: 0
   };
 
-  range = new FormGroup({
-    start: new FormControl(),
-    end: new FormControl(),
+  public range = new FormGroup({
+    start: new FormControl('', Validators.required),
+    end: new FormControl('', Validators.required),
   });
 
   displayedColumns: string[] = ['date', 'activity', 'detail', 'hours', 'actions'];
@@ -97,9 +98,9 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit
           if(!timeData) // Si se desea agregar uno nuevo
           {
             this.userTimeReportService.createTimeData( result ).subscribe(
-              () => {
-                this.loadData();
+              () => {                
                 this.sweetAlert.presentSuccess('Registro Creado Correctamente!');
+                this.loadData();
               },
               () => { this.sweetAlert.presentError('No Fue Posible Crear El Registro!') }
             );
@@ -108,12 +109,12 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit
           {
             this.userTimeReportService.editTimeData(timeData).subscribe(
               () => {
-                this.loadData();
                 this.sweetAlert.presentSuccess('Registro Editado Correctamente!');
+                this.loadData();
               },
               () => { this.sweetAlert.presentError('No Fue Posible Editar El Registro!') }
             );
-          }
+          }          
         }
         else
         {
@@ -121,6 +122,22 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit
         }
       }
     });
+  }
+
+  async deleteReport(timeData: TimeData)
+  {
+    const { isConfirmed } = await this.sweetAlert.presentDelete('El registro de la base de datos!');
+    if(isConfirmed)
+    {
+      const { id } = timeData;
+      if( id )
+      {
+        this.userTimeReportService.deleteTimeData( id ).subscribe(
+          () => this.sweetAlert.presentSuccess('Registro eliminado correctamente!'),
+          () => this.sweetAlert.presentError('No fue posible eliminar el registro!')
+        );
+      }
+    }
   }
 
   verifyTimeData(timeData: TimeData): boolean
@@ -136,4 +153,22 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit
     return false;
   }
 
+  filterReport()
+  {
+    const rangeTime: RangeTime = this.range.value;
+    const { start, end } = rangeTime;
+    if(start && end)
+    {
+      console.log(rangeTime);
+
+      this.userTimeReportService.getAllTimeData( rangeTime ).subscribe(
+        responseTimeData => { 
+          console.log(responseTimeData.reports);
+          this.timeData = responseTimeData.reports; 
+          this.dataSource.data = this.timeData;
+        },
+        error => { console.log(error) }
+      );
+    }
+  }
 }
