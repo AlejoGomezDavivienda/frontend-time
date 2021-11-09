@@ -1,10 +1,10 @@
-<div class="text-center">
+<div class="container mt-2 text-center">
     <h1 mat-dialog-title>Agregar Registro</h1>
     <div mat-dialog-content>
         <p>Registrar en el Time Report</p>
         <div class="row justify-content-center">
             <!-- Fecha -->
-            <mat-form-field class="example-full-width" appearance="fill">
+            <mat-form-field class="inputs" appearance="fill">
                 <mat-label>Seleccionar Fecha</mat-label>
                 <input matInput [matDatepicker]="picker" [(ngModel)]="data.date">
                 <mat-datepicker-toggle matSuffix [for]="picker">
@@ -14,7 +14,7 @@
             </mat-form-field>
 
             <!-- Actividad -->
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="fill" class="inputs">
                 <mat-label>Seleccionar Actividad</mat-label>
                 <mat-select [(ngModel)]="data.activity">
                   <mat-option *ngFor="let activity of activities" [value]="activity">
@@ -24,13 +24,13 @@
             </mat-form-field>
 
             <!-- Detalle -->
-            <mat-form-field class="example-full-width" appearance="fill">
+            <mat-form-field class="inputs" appearance="fill">
                 <mat-label>Detalle</mat-label>
-                <textarea [(ngModel)]="data.detail" matInput placeholder="Ingrese la información especifica de la actividad..."></textarea>
+                <textarea [(ngModel)]="data.detail" matInput placeholder="Ingrese la información especifica de la actividad..." rows="5"></textarea>
             </mat-form-field>
 
             <!-- Número de horas -->
-            <mat-form-field class="example-full-width" appearance="fill">
+            <mat-form-field class="inputs" appearance="fill">
                 <mat-label>Horas</mat-label>
                 <input [(ngModel)]="data.hours" type="number" matInput placeholder="Número de horas gastadas!">
             </mat-form-field>
