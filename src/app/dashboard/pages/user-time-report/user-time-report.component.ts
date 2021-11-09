@@ -9,6 +9,7 @@ import { NewRegisterDialogComponent } from '../../components/new-register-dialog
 import { RangeTime } from '../../interfaces/RangeTime';
 import { TimeData } from '../../interfaces/TimeData';
 import { UserTimeReportService } from '../../services/user-time-report.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-user-time-report',
@@ -159,15 +160,15 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit
     const { start, end } = rangeTime;
     if(start && end)
     {
-      console.log(rangeTime);
+      const endMoment = moment( end ).add(1, 'days');
+      rangeTime.end = endMoment.toDate();
 
       this.userTimeReportService.getAllTimeData( rangeTime ).subscribe(
-        responseTimeData => { 
-          console.log(responseTimeData.reports);
+        responseTimeData => {
           this.timeData = responseTimeData.reports; 
           this.dataSource.data = this.timeData;
         },
-        error => { console.log(error) }
+        error => this.sweetAlert.presentError('Obteniendo rango de datos!')
       );
     }
   }
