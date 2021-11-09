@@ -14,6 +14,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSelectModule} from '@angular/material/select';
+import {MatSortModule} from '@angular/material/sort';
 
 
 
@@ -28,7 +29,7 @@ import {MatSelectModule} from '@angular/material/select';
     MatIconModule,
     MatDividerModule,
     MatDatepickerModule, MatNativeDateModule, MatInputModule, MatFormFieldModule, MatTableModule,
-    MatPaginatorModule, MatDialogModule, MatSelectModule
+    MatPaginatorModule, MatDialogModule, MatSelectModule, MatSortModule
   ],
   exports: [
     MatButtonModule,
@@ -38,7 +39,7 @@ import {MatSelectModule} from '@angular/material/select';
     MatIconModule,
     MatDividerModule,
     MatDatepickerModule, MatNativeDateModule, MatInputModule, MatFormFieldModule, MatTableModule,
-    MatPaginatorModule, MatDialogModule, MatSelectModule
+    MatPaginatorModule, MatDialogModule, MatSelectModule, MatSortModule
   ]
 })
 export class MaterialModule { }
