@@ -38,7 +38,8 @@ export class UserTimeReportService
    */
   editTimeData(timeData: TimeData)
   {
-    return this.http.put(`${timeData.id}`, timeData);
+    const {id, ...data} = timeData;
+    return this.http.put(`${environment.API_URL}/reports/${id}`, data);
   }
 
   /**

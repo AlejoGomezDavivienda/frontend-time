@@ -94,16 +94,26 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit
         const checkData = this.verifyTimeData(result);
         if(checkData)
         {
-          this.userTimeReportService.createTimeData( result ).subscribe(
-            timeData => {
-              this.loadData();
-              this.sweetAlert.presentSuccess('Registro Creado Correctamente!');
-            },
-            error => { console.log(error) }
-          );
-          console.log(result);
-          // this.timeData.push(result);
-          // this.dataSource.data = this.timeData;
+          if(!timeData) // Si se desea agregar uno nuevo
+          {
+            this.userTimeReportService.createTimeData( result ).subscribe(
+              () => {
+                this.loadData();
+                this.sweetAlert.presentSuccess('Registro Creado Correctamente!');
+              },
+              () => { this.sweetAlert.presentError('No Fue Posible Crear El Registro!') }
+            );
+          }
+          else // Se desea editar un registro
+          {
+            this.userTimeReportService.editTimeData(timeData).subscribe(
+              () => {
+                this.loadData();
+                this.sweetAlert.presentSuccess('Registro Editado Correctamente!');
+              },
+              () => { this.sweetAlert.presentError('No Fue Posible Editar El Registro!') }
+            );
+          }
         }
         else
         {
