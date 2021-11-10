@@ -23,4 +23,10 @@ export class TokenService
  
      return token;
    }
+
+   setToken(token: string, name: string)
+   {
+      localStorage.setItem('x-token', token);
+      localStorage.setItem('user-name',name);
+   }
 }
