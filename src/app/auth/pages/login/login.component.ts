@@ -38,7 +38,15 @@ export class LoginComponent implements OnInit
       this.authService.getUserLogged( token ).subscribe(
         userData => {
           this.tokenService.setToken(token, userData.user.name);
-          this.router.navigate(['/dashboard']);
+          
+          if(userData.user.rol === 'ADMIN_ROLE') // Si es un administrador lo mando a la ruta /admin
+          {
+            this.router.navigate(['/admin']);
+          }
+          else if(userData.user.rol === 'USER_ROLE') // Si es un usuario corriente lo mando a la ruta /dashboard
+          {
+            this.router.navigate(['/dashboard']);
+          }          
         },
         error => console.log(error)
       );
@@ -52,7 +60,14 @@ export class LoginComponent implements OnInit
         // console.log(res);
         // Guardar en el localstorage
         this.tokenService.setToken(res.token, res.user.name);
-        this.router.navigate(['/dashboard']);
+        if(res.user.rol === 'ADMIN_ROLE') // Si es un administrador lo mando a la ruta /admin
+        {
+          this.router.navigate(['/admin']);
+        }
+        else if(res.user.rol === 'USER_ROLE') // Si es un usuario corriente lo mando a la ruta /dashboard
+        {
+          this.router.navigate(['/dashboard']);
+        }
       },
       error => {
         this.sweetAlert.presentError( 'Datos inválidos!' );

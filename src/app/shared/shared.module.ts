@@ -4,10 +4,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material/material.module';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { RouterModule } from '@angular/router';
+import { UserLayoutComponent } from './layouts/user-layout/user-layout.component';
 
 @NgModule({
   declarations: [
-    AdminLayoutComponent
+    AdminLayoutComponent,
+    UserLayoutComponent
   ],
   imports: [
     CommonModule,

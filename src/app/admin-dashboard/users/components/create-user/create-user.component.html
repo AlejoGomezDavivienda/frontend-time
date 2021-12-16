@@ -1,0 +1,27 @@
+<div class="container mt-2 text-center">
+    <h1 mat-dialog-title>Agregar Usuario</h1>
+    <div mat-dialog-content>
+        <p>Registrar un nuevo usuario en el sistema:</p>
+        <div class="row justify-content-center">
+            <!-- Nombre -->
+            <mat-form-field class="inputs" appearance="fill">
+                <mat-label>Nombre Completo</mat-label>
+                <input matInput placeholder="Ingrese el nombre completo del usuario" [(ngModel)]="data.name">
+            </mat-form-field>
+
+            <!-- Email -->
+            <mat-form-field class="inputs" appearance="fill">
+                <mat-label>Correo:</mat-label>
+                <input type="email" matInput placeholder="Ingrese el correo corporativo" [(ngModel)]="data.email">
+            </mat-form-field>
+
+            <p style="color: red;">La contraseña por defecto es: 'auditoria2021'</p>            
+        </div>
+    </div>
+    <div mat-dialog-actions class="justify-content-center">
+    <button mat-button (click)="onNoClick()">Cancelar</button>
+    <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Guardar</button> -->
+    <button mat-raised-button color="primary" [mat-dialog-close]="data" cdkFocusInitial>Guardar</button>
+
+    </div>
+</div>

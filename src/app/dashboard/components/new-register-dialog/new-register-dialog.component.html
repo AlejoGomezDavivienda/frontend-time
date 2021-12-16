@@ -32,7 +32,7 @@
             <!-- Número de horas -->
             <mat-form-field class="inputs" appearance="fill">
                 <mat-label>Horas</mat-label>
-                <input [(ngModel)]="data.hours" type="number" matInput placeholder="Número de horas gastadas!">
+                <input [(ngModel)]="data.hours" type="number" min="0" matInput placeholder="Número de horas gastadas!">
             </mat-form-field>
             
         </div>
