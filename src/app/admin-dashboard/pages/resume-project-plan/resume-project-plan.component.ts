@@ -69,7 +69,8 @@ export class ResumeProjectPlanComponent implements OnInit
 
           this.activityService.createActivity( activity ).subscribe(
             activity => {
-              console.log(activity)
+              this.generalActivities.push(activity.activity);
+              this.sweetAlert.presentSuccess('Actividad Agregada Correctamente!');
             },
             error => {
               console.log(error)
@@ -102,7 +103,8 @@ export class ResumeProjectPlanComponent implements OnInit
 
           this.activityService.createActivity( activity ).subscribe(
             activity => {
-              console.log(activity)
+              this.specificActivities.push(activity.activity);
+              this.sweetAlert.presentSuccess('Actividad Agregada Correctamente!');
             },
             error => {
               console.log(error)

@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Activity } from 'src/app/admin-dashboard/interfaces/Activity';
 import { TimeData } from '../../interfaces/TimeData';
 import { UserTimeReportService } from '../../services/user-time-report.service';
 
@@ -10,7 +11,7 @@ import { UserTimeReportService } from '../../services/user-time-report.service';
 })
 export class NewRegisterDialogComponent implements OnInit 
 {
-  public activities: string[] = [];
+  public activities: Activity[] = [];
 
   constructor(
     public dialogRef: MatDialogRef<NewRegisterDialogComponent>,
@@ -27,7 +28,7 @@ export class NewRegisterDialogComponent implements OnInit
   {
     this.userTimeReportService.getAllActivitiesFromUser().subscribe(
       activities => {
-        this.activities = activities;
+        this.activities = activities.activities;
       },
       error => console.log(error)
     );

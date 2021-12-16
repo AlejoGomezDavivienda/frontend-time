@@ -143,6 +143,7 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit
 
   verifyTimeData(timeData: TimeData): boolean
   {
+    console.log(timeData);
     if(timeData.date && timeData.activity && timeData.detail && timeData.hours)
     {
       if(!(timeData.hours <= 0 && timeData.hours >= 15))

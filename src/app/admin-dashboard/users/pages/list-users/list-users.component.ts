@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { CreateUserComponent } from '../../components/create-user/create-user.component';
 import { GeneralUser } from '../../interfaces/GeneralUser';
@@ -33,7 +34,8 @@ export class ListUsersComponent implements OnInit
   constructor(
     private userService: UserService,
     public dialog: MatDialog,
-    private sweetAlert: SweetAlertService
+    private sweetAlert: SweetAlertService,
+    private router: Router
   )
   { 
     this.dataSource = new MatTableDataSource(this.usersData);
@@ -109,6 +111,11 @@ export class ListUsersComponent implements OnInit
     }
 
     return false;
+  }
+
+  showUser(id: string)
+  {
+    this.router.navigate(['/admin/users/' + id]);
   }
 
 }

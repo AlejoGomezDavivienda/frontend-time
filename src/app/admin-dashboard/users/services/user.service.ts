@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { User } from 'src/app/core/interfaces/User';
 import { environment } from 'src/environments/environment';
 import { GeneralUser } from '../interfaces/GeneralUser';
+import { ResponseGetUserById } from '../interfaces/ResponseGetUserById';
 import { ResponseGetUsers } from '../interfaces/ResponseGetUsers';
 
 @Injectable({
@@ -23,6 +25,11 @@ export class UserService
   createUser(user: GeneralUser): Observable<ResponseGetUsers>
   {
     return this.http.post<ResponseGetUsers>(`${environment.API_URL}/users`, user);
+  }
+
+  getUserById(id: string): Observable<ResponseGetUserById>
+  {
+    return this.http.get<ResponseGetUserById>(`${environment.API_URL}/users/${id}`);
   }
 
 }

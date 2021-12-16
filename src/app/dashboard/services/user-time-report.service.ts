@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { RangeTime } from '../interfaces/RangeTime';
 import { ResponseTimeData } from '../interfaces/ResponseTimeData';
+import { ResponseUserActivities } from '../interfaces/ResponseUserActivities';
 import { TimeData } from '../interfaces/TimeData';
 
 @Injectable({
@@ -63,8 +64,8 @@ export class UserTimeReportService
   }
 
   // **************ESPECIALES******************ESPECIALES************ESPECIALES*************//
-  getAllActivitiesFromUser(): Observable<string[]>
+  getAllActivitiesFromUser(): Observable<ResponseUserActivities>
   {
-    return this.http.get<string[]>(`${environment.API_URL}/reports/activities`);
+    return this.http.post<ResponseUserActivities>(`${environment.API_URL}/activities/specific`, {});
   }
 }
