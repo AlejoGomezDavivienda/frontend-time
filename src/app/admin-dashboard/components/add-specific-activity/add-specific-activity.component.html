@@ -1,0 +1,39 @@
+<div class="container mt-2 text-center">
+    <h1 mat-dialog-title>Agregar Actividad General</h1>
+    <div mat-dialog-content>
+        <p>Registrar una actividad que todos los usuarios tendrán en el project plan:</p>
+        <div class="row justify-content-center">
+            <!-- Nombre -->
+            <mat-form-field class="inputs" appearance="fill">
+                <mat-label>Actividad</mat-label>
+                <input matInput placeholder="Ingrese el nombre de la actividad que desea registrar" [(ngModel)]="data.name">
+            </mat-form-field>
+
+            <!-- Número de horas -->
+            <mat-form-field class="inputs" appearance="fill">
+                <mat-label>Horas Estimadas</mat-label>
+                <input [(ngModel)]="data.estimated_hours" type="number" min="0" matInput placeholder="Número de horas estimadas para la finalización!">
+            </mat-form-field>
+
+            <!-- Fechas estimadas -->
+            <mat-form-field class="inputs" appearance="fill" class="filtro">
+                <mat-label>Seleccione fecha inicial y final</mat-label>
+                <mat-date-range-input [rangePicker]="picker">
+                  <input matStartDate [(ngModel)]="data.initial_date" placeholder="Start date">
+                  <input matEndDate [(ngModel)]="data.end_date" placeholder="End date">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+      
+                <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+                <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+            </mat-form-field>       
+        </div>
+    </div>
+    <div mat-dialog-actions class="justify-content-center">
+    <button mat-button (click)="onNoClick()">Cancelar</button>
+    <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Guardar</button> -->
+    <button mat-raised-button color="primary" [mat-dialog-close]="data" cdkFocusInitial>Guardar</button>
+
+    </div>
+</div>
