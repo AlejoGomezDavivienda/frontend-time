@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { TokenService } from 'src/app/core/services/token.service';
 import { environment } from 'src/environments/environment';
 import { LoginData } from '../interfaces/LoginData';
 import { LoginResponse } from '../interfaces/LoginResponse';
@@ -13,7 +14,8 @@ export class AuthService
 {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private tokenService: TokenService
   ) { }
 
   /**
@@ -25,8 +27,13 @@ export class AuthService
      return this.http.post<LoginResponse>(`${environment.API_URL}/auth/login`, data);
    }
 
-   getUserLogged(token: string): Observable<MeResponse>
+   getUserLogged(): Observable<MeResponse>
    {
      return this.http.get<MeResponse>(`${environment.API_URL}/auth/me`);
+   }
+
+   logout()
+   {
+    this.tokenService.clearStorage();
    }
 }

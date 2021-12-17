@@ -56,7 +56,7 @@ export class UserLayoutComponent implements OnInit, AfterViewInit
     const token = this.tokenService.getToken();
     if( token )
     {
-      this.authService.getUserLogged( token ).subscribe(
+      this.authService.getUserLogged(  ).subscribe(
         userData => console.log(':)'),
         error => this.router.navigate(['/auth/login'])
       );
@@ -65,5 +65,11 @@ export class UserLayoutComponent implements OnInit, AfterViewInit
     {
       this.router.navigate(['/auth/login']);
     }
+  }
+
+  logout()
+  {
+    this.authService.logout();
+    this.router.navigate(['/']);
   }
 }

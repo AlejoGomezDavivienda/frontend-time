@@ -29,4 +29,9 @@ export class TokenService
       localStorage.setItem('x-token', token);
       localStorage.setItem('user-name',name);
    }
+
+   clearStorage()
+   {
+     localStorage.clear();
+   }
 }

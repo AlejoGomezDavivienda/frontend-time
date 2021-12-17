@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit
     const token = this.tokenService.getToken();
     if( token )
     {
-      this.authService.getUserLogged( token ).subscribe(
+      this.authService.getUserLogged().subscribe(
         userData => {
           this.tokenService.setToken(token, userData.user.name);
           

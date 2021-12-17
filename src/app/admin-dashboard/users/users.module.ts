@@ -9,6 +9,7 @@ import { ShowUserComponent } from './pages/show-user/show-user.component';
 import { BarGraphComponent } from './components/bar-graph/bar-graph.component';
 import { DoughnutGraphComponent } from './components/doughnut-graph/doughnut-graph.component';
 import { PieGraphComponent } from './components/pie-graph/pie-graph.component';
+import { GanttGraphComponent } from './components/gantt-graph/gantt-graph.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { PieGraphComponent } from './components/pie-graph/pie-graph.component';
     ShowUserComponent,
     BarGraphComponent,
     DoughnutGraphComponent,
-    PieGraphComponent
+    PieGraphComponent,
+    GanttGraphComponent
   ],
   imports: [
     CommonModule,
