@@ -11,14 +11,35 @@
     </div>
 
     <div class="row mt-3">
-        <mat-selection-list class="w-100">
-            <mat-list-option *ngFor="let activity of activities"
-                              [selected]="activity.user?._id === user.id"
-                              [disabled]="activity.is_general"
-                              (click)="assignActivity(activity)">
-                {{activity.name}}
-            </mat-list-option>
-        </mat-selection-list>
+        <!-- Actividades -->
+        <div class="col-4 col-md-4">
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                    Asignar Actividades
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-selection-list class="w-100">
+                    <mat-list-option *ngFor="let activity of activities"
+                                      [selected]="activity.user?._id === user.id"
+                                      [disabled]="activity.is_general"
+                                      (click)="assignActivity(activity)">
+                        {{activity.name}}
+                    </mat-list-option>
+                </mat-selection-list>
+            </mat-expansion-panel>
+        </div>
+
+        <!-- Gráfico de barras -->
+        <div class="col-4 col-md-4">
+
+        </div>
+
+        <!-- Torta -->
+        <div class="col-4 col-md-4">
+
+        </div>
+
     </div>
   
 </div>

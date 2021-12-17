@@ -22,9 +22,9 @@ export class UserService
     return this.http.get<ResponseGetUsers>(`${environment.API_URL}/users`);
   }
 
-  createUser(user: GeneralUser): Observable<ResponseGetUsers>
+  createUser(user: GeneralUser)
   {
-    return this.http.post<ResponseGetUsers>(`${environment.API_URL}/users`, user);
+    return this.http.post(`${environment.API_URL}/users`, user);
   }
 
   getUserById(id: string): Observable<ResponseGetUserById>
