@@ -11,7 +11,7 @@ export class PieGraphComponent implements OnInit
 {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
-  // Pie
+  // Pie graph
   public pieChartOptions: ChartConfiguration['options'] = {
     responsive: true
   };
