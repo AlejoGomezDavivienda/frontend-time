@@ -6,13 +6,19 @@ import { ListUsersComponent } from './pages/list-users/list-users.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CreateUserComponent } from './components/create-user/create-user.component';
 import { ShowUserComponent } from './pages/show-user/show-user.component';
+import { BarGraphComponent } from './components/bar-graph/bar-graph.component';
+import { DoughnutGraphComponent } from './components/doughnut-graph/doughnut-graph.component';
+import { PieGraphComponent } from './components/pie-graph/pie-graph.component';
 
 
 @NgModule({
   declarations: [
     ListUsersComponent,
     CreateUserComponent,
-    ShowUserComponent
+    ShowUserComponent,
+    BarGraphComponent,
+    DoughnutGraphComponent,
+    PieGraphComponent
   ],
   imports: [
     CommonModule,

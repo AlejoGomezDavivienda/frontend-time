@@ -5,6 +5,7 @@ import { MaterialModule } from './material/material.module';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { RouterModule } from '@angular/router';
 import { UserLayoutComponent } from './layouts/user-layout/user-layout.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -16,12 +17,14 @@ import { UserLayoutComponent } from './layouts/user-layout/user-layout.component
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
+    NgChartsModule
   ],
   exports: [
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
+    NgChartsModule,
     AdminLayoutComponent
   ]
 })

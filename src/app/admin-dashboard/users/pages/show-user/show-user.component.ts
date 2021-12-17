@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Activity } from 'src/app/admin-dashboard/interfaces/Activity';
 import { ActivityService } from 'src/app/admin-dashboard/services/activity.service';
