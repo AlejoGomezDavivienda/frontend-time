@@ -1,0 +1,91 @@
+{
+  "configVersion": 1,
+  "timestamp": 1639700052016,
+  "index": "https://alejogomezdavivienda.github.io/frontend-time/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "https://alejogomezdavivienda.github.io/frontend-time/133.0793dda04ef3127d28ba.js",
+        "https://alejogomezdavivienda.github.io/frontend-time/441.f164ae07b73fe4e75d5b.js",
+        "https://alejogomezdavivienda.github.io/frontend-time/450.ec8b2ac977bcd5726642.js",
+        "https://alejogomezdavivienda.github.io/frontend-time/596.3524beb398bc736233a8.js",
+        "https://alejogomezdavivienda.github.io/frontend-time/835.462c8ef26bac1acf1dfd.js",
+        "https://alejogomezdavivienda.github.io/frontend-time/favicon.ico",
+        "https://alejogomezdavivienda.github.io/frontend-time/index.html",
+        "https://alejogomezdavivienda.github.io/frontend-time/main.e6c3c33843adc84704be.js",
+        "https://alejogomezdavivienda.github.io/frontend-time/manifest.webmanifest",
+        "https://alejogomezdavivienda.github.io/frontend-time/polyfills.57eb9edbd86aa9708db6.js",
+        "https://alejogomezdavivienda.github.io/frontend-time/runtime.e55be67bc3851e9666d4.js",
+        "https://alejogomezdavivienda.github.io/frontend-time/styles.aed625f13435cbb527ed.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "https://alejogomezdavivienda.github.io/frontend-time/assets/icons/icon-128x128.png",
+        "https://alejogomezdavivienda.github.io/frontend-time/assets/icons/icon-144x144.png",
+        "https://alejogomezdavivienda.github.io/frontend-time/assets/icons/icon-152x152.png",
+        "https://alejogomezdavivienda.github.io/frontend-time/assets/icons/icon-192x192.png",
+        "https://alejogomezdavivienda.github.io/frontend-time/assets/icons/icon-384x384.png",
+        "https://alejogomezdavivienda.github.io/frontend-time/assets/icons/icon-512x512.png",
+        "https://alejogomezdavivienda.github.io/frontend-time/assets/icons/icon-72x72.png",
+        "https://alejogomezdavivienda.github.io/frontend-time/assets/icons/icon-96x96.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "https://alejogomezdavivienda.github.io/frontend-time/133.0793dda04ef3127d28ba.js": "b374ffd4f7ec7aee6d4d2edae3605d668f4eea73",
+    "https://alejogomezdavivienda.github.io/frontend-time/441.f164ae07b73fe4e75d5b.js": "bed4076e7e26dd84a5b8b2c7e59d6ffb80799329",
+    "https://alejogomezdavivienda.github.io/frontend-time/450.ec8b2ac977bcd5726642.js": "e4a96d1a7af9f5fcfaa1e5e919d78379f43b4081",
+    "https://alejogomezdavivienda.github.io/frontend-time/596.3524beb398bc736233a8.js": "ec318c8289d0ed1bda2ed394cc68f8c589b53b99",
+    "https://alejogomezdavivienda.github.io/frontend-time/835.462c8ef26bac1acf1dfd.js": "705d5f427169548d8c4616a5aac7ec029c901cf4",
+    "https://alejogomezdavivienda.github.io/frontend-time/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
+    "https://alejogomezdavivienda.github.io/frontend-time/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
+    "https://alejogomezdavivienda.github.io/frontend-time/assets/icons/icon-152x152.png": "7479a9477815dfd9668d60f8b3b2fba709b91310",
+    "https://alejogomezdavivienda.github.io/frontend-time/assets/icons/icon-192x192.png": "1abd80d431a237a853ce38147d8c63752f10933b",
+    "https://alejogomezdavivienda.github.io/frontend-time/assets/icons/icon-384x384.png": "329749cd6393768d3131ed6304c136b1ca05f2fd",
+    "https://alejogomezdavivienda.github.io/frontend-time/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
+    "https://alejogomezdavivienda.github.io/frontend-time/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
+    "https://alejogomezdavivienda.github.io/frontend-time/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
+    "https://alejogomezdavivienda.github.io/frontend-time/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
+    "https://alejogomezdavivienda.github.io/frontend-time/index.html": "bbed617bd37f9b338e2350c8cf14c499bef1bc6c",
+    "https://alejogomezdavivienda.github.io/frontend-time/main.e6c3c33843adc84704be.js": "51fdddb58f4fd9eb5744b977b24920cbec7dccbb",
+    "https://alejogomezdavivienda.github.io/frontend-time/manifest.webmanifest": "2a7ad310f42a484017c337fbe4c828a8f7bbb536",
+    "https://alejogomezdavivienda.github.io/frontend-time/polyfills.57eb9edbd86aa9708db6.js": "4840d419cc07121e4cd6e0b59c01b12a7e0e160a",
+    "https://alejogomezdavivienda.github.io/frontend-time/runtime.e55be67bc3851e9666d4.js": "6b5e80ded2ca62b978425a0069396784e4a3cf04",
+    "https://alejogomezdavivienda.github.io/frontend-time/styles.aed625f13435cbb527ed.css": "3cc01d37577e36353d9519185a04250faf63c5fe"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
