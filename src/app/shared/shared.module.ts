@@ -6,6 +6,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { RouterModule } from '@angular/router';
 import { UserLayoutComponent } from './layouts/user-layout/user-layout.component';
 import { NgChartsModule } from 'ng2-charts';
+import { GanttChartAngularModule } from 'gantt-chart-angular';
 
 @NgModule({
   declarations: [
@@ -18,13 +19,15 @@ import { NgChartsModule } from 'ng2-charts';
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
-    NgChartsModule
+    NgChartsModule,
+    GanttChartAngularModule
   ],
   exports: [
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
     NgChartsModule,
+    GanttChartAngularModule,
     AdminLayoutComponent
   ]
 })
