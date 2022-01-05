@@ -3,8 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { AddGeneralActivityComponent } from '../../components/add-general-activity/add-general-activity.component';
 import { AddSpecificActivityComponent } from '../../components/add-specific-activity/add-specific-activity.component';
-import { Activity } from '../../interfaces/Activity';
+import { Activity, SortUser } from '../../interfaces/Activity';
 import { ActivityService } from '../../services/activity.service';
+import { UserService } from '../../users/services/user.service';
 
 @Component({
   selector: 'app-resume-project-plan',
@@ -27,6 +28,7 @@ export class ResumeProjectPlanComponent implements OnInit
 
   constructor(
     private activityService: ActivityService,
+    private userService: UserService,
     public dialog: MatDialog,
     private sweetAlert: SweetAlertService
   ) 
@@ -41,9 +43,9 @@ export class ResumeProjectPlanComponent implements OnInit
   {
     this.activityService.getActivities().subscribe(
       activities => {
-        console.log(activities)
         this.generalActivities = activities.activities.filter(a => a.is_general);
         this.specificActivities = activities.activities.filter(a => !a.is_general);
+        console.log("Especifiiiicasss: ", this.specificActivities);
       },
       error => {
         console.log(error)
@@ -83,6 +85,13 @@ export class ResumeProjectPlanComponent implements OnInit
         }
       }
     });
+  }
+
+  async getUserNameById(userId: string)
+  {
+    const user = await this.userService.getUserById(userId);
+    console.log("user: ", user);
+    return "Generic";
   }
 
   addSpecific()
@@ -127,6 +136,32 @@ export class ResumeProjectPlanComponent implements OnInit
     }
 
     return false;
+  }
+
+  getUserResume(activity: Activity, user: SortUser): string
+  {
+    // % trabajado por el usuario
+    let worked = 0;
+
+    let resume = '';
+    // Agregar el nombre del usuario primero.
+    resume += user.user.name.toUpperCase();
+    // calcular cuanto a trabajado el usuario en la actividad.
+    const indexUser = activity.users?.findIndex(u => u.user._id == user.user._id);
+    if(indexUser !== -1)
+    {
+      const workedHours = user.worked_hours || 0;
+      // Si las horas estimadas son el 100% -> cuanto % es las horas que a trabajado el usuario.
+      try {
+        worked = (100 * workedHours) / activity.estimated_hours;
+      } catch (error) {
+        console.log("Division 0/0");
+      }      
+    }
+
+    resume += ` Indicador: ${worked}%`;
+
+    return resume;
   }
 
 }

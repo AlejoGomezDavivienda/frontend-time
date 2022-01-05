@@ -63,6 +63,23 @@ export class ShowUserComponent implements OnInit
     );
   }
 
+  verifyUser(index: number)
+  {
+    if(this.activities[index])
+    {
+      const users = this.activities[index].users  || [];
+      const search = users.findIndex(user => user.user._id === this.user.id);
+      if(search !== -1)
+      {
+        return true;
+      }
+
+      // return (this.activities[index]?.users[index]?.user === this.user.id) || false;
+    }
+
+    return false;
+  }
+
   loadData()
   {
     this.activityService.getActivities(true).subscribe(

@@ -20,8 +20,8 @@
                     </mat-panel-title>
                 </mat-expansion-panel-header>
                 <mat-selection-list class="w-100">
-                    <mat-list-option *ngFor="let activity of activities"
-                                      [selected]="activity.user?._id === user.id"
+                    <mat-list-option *ngFor="let activity of activities; let index = index"
+                                      [selected]="verifyUser(index)"
                                       [disabled]="activity.is_general"
                                       (click)="assignActivity(activity)">
                         {{activity.name}}

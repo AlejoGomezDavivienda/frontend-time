@@ -7,12 +7,19 @@ export interface Activity
     end_date: Date;
     estimated_hours: number;
     is_general: boolean;
-    user?: SortUser;
+    users?: [SortUser];
 }
 
 
 export interface SortUser
 {
-    _id: string;
-    name: string;
+    user: {
+        _id: string;
+        name: string;
+    };
+    end_date?: Date;
+    worked_hours?: number;
+    is_active: boolean;
 }
+
+

@@ -62,7 +62,11 @@
                 {{activity.initial_date | date:"dd/MM/yyyy"}} - {{activity.end_date | date:"dd/MM/yyyy"}}
               </mat-panel-description>
             </mat-expansion-panel-header>
-            <p *ngIf="activity.user?.name" style="color: red;">{{activity.user?.name}}</p>
+            <!-- ****************** -->
+            <!-- ********Agregar el nombre de los usuarios que tienen asignada la actividad********** -->
+            <ng-container *ngFor="let user of activity.users">
+              <p style="color: red;">{{ getUserResume(activity, user) }}</p>
+            </ng-container>       
           </mat-expansion-panel>
         </mat-accordion>
   </div>
