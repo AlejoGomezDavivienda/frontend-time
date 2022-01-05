@@ -29,6 +29,7 @@ export class NewRegisterDialogComponent implements OnInit
     this.userTimeReportService.getAllActivitiesFromUser().subscribe(
       activities => {
         this.activities = activities.activities;
+        console.log("Actividades usuario: ", this.activities);
       },
       error => console.log(error)
     );

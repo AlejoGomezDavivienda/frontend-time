@@ -159,7 +159,7 @@ export class ResumeProjectPlanComponent implements OnInit
       }      
     }
 
-    resume += ` Indicador: ${worked}%`;
+    resume += ` --- Indicador: ${worked}%`;
 
     return resume;
   }

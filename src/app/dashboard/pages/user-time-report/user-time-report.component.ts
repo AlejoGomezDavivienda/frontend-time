@@ -93,6 +93,8 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit
     dialogRef.afterClosed().subscribe(result => {
       if(result)
       {
+        console.log("Time Data: ", result);
+
         const checkData = this.verifyTimeData(result);
         if(checkData)
         {
