@@ -63,7 +63,7 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit
     if( token )
     {
       this.authService.getUserLogged().subscribe(
-        userData => console.log(':)'),
+        userData => {},
         error => this.router.navigate(['/auth/login'])
       );
     }

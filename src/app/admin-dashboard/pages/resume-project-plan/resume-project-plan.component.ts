@@ -45,7 +45,6 @@ export class ResumeProjectPlanComponent implements OnInit
       activities => {
         this.generalActivities = activities.activities.filter(a => a.is_general);
         this.specificActivities = activities.activities.filter(a => !a.is_general);
-        console.log("Especifiiiicasss: ", this.specificActivities);
       },
       error => {
         console.log(error)
