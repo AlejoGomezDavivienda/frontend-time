@@ -10,8 +10,7 @@ import { MeResponse } from '../interfaces/MeResponse';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService 
-{
+export class AuthService {
 
   constructor(
     private http: HttpClient,
@@ -22,18 +21,15 @@ export class AuthService
    * Inicia sesión en el backend del sistema.
    * @param data Información requerida para hacer login (mail || username) && password
    */
-   login(data: LoginData): Observable<LoginResponse>
-   {
-     return this.http.post<LoginResponse>(`${environment.API_URL}/auth/login`, data);
-   }
+  login(data: LoginData): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(`${environment.API_URL}/auth/login`, data);
+  }
 
-   getUserLogged(): Observable<MeResponse>
-   {
-     return this.http.get<MeResponse>(`${environment.API_URL}/auth/me`);
-   }
+  getUserLogged(): Observable<MeResponse> {
+    return this.http.get<MeResponse>(`${environment.API_URL}/auth/me`);
+  }
 
-   logout()
-   {
+  logout() {
     this.tokenService.clearStorage();
-   }
+  }
 }
