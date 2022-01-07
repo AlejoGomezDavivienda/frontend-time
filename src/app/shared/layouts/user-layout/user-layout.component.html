@@ -1,26 +1,26 @@
 <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav #drawer class="sidenav" fixedInViewport color="primary"
-        [attr.role]="(isHandset$ | async) ? 'navigation' : 'dialog'"
-        [mode]="(isHandset$ | async) ? 'over' : 'side'"
-        [opened]="(isHandset$ | async) === true">
-  
-      <!-- <mat-toolbar color="primary">Dashboard</mat-toolbar> -->
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <div class="example-button-container mt-3 info-cont">
-            <img md-fab-image class="user-fab" [src]="userImg">
-            <div class="name-function">
-              <h3>{{ userName | uppercase }}</h3>
-              <h4>Usuario</h4>
-            </div>
+  <mat-sidenav #drawer class="sidenav" fixedInViewport color="primary"
+    [attr.role]="(isHandset$ | async) ? 'navigation' : 'dialog'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === true">
+
+    <!-- <mat-toolbar color="primary">Dashboard</mat-toolbar> -->
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+      aria-haspopup="true" aria-expanded="false">
+      <div class="example-button-container mt-3 info-cont">
+        <img md-fab-image class="user-fab" [src]="userImg">
+        <div class="name-function">
+          <h3>{{ userName | uppercase }}</h3>
+          <h4>Usuario</h4>
         </div>
-      </a>
-      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="#">Ver perfil</a>
-        <a class="dropdown-item" href="#">Cambiar contraseña</a>
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item sign-out-text" href="#">Cerrar sesión</a>
       </div>
-      <!-- <span>
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+      <a class="dropdown-item" href="#">Ver perfil</a>
+      <a class="dropdown-item" href="#">Cambiar contraseña</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item sign-out-text" href="#">Cerrar sesión</a>
+    </div>
+    <!-- <span>
         <a href="http://">
           <h4>Ver perfil</h4>
         </a>
@@ -31,16 +31,16 @@
           <h4 class="sign-out-text">Cerrar sesión</h4>
         </a>
       </span> -->
-      <mat-nav-list>
-        <a mat-list-item [routerLink]="['/dashboard']" (click)="drawer.toggle()">
-          <mat-icon mat-list-icon>dashboard</mat-icon>
-          Panel Principal
-        </a>
-        <mat-divider></mat-divider>
-        <div mat-subheader>Opciones</div>
-  
-        <mat-selection-list [multiple]="false">
-          <!-- <mat-list-option (click)="goToProducts(); drawer.toggle()">
+    <mat-nav-list>
+      <a mat-list-item [routerLink]="['/dashboard']" (click)="drawer.toggle()">
+        <mat-icon mat-list-icon>dashboard</mat-icon>
+        Panel Principal
+      </a>
+      <mat-divider></mat-divider>
+      <div mat-subheader>Opciones</div>
+
+      <mat-selection-list [multiple]="false">
+        <!-- <mat-list-option (click)="goToProducts(); drawer.toggle()">
             <mat-icon mat-list-icon>local_bar</mat-icon>
             Productos
           </mat-list-option>
@@ -54,35 +54,41 @@
             <mat-icon mat-list-icon>settings</mat-icon>
             Configuración
           </mat-list-option> -->
-        </mat-selection-list>
-  
-  
-  
-  
-        <mat-divider></mat-divider>
-        <div mat-subheader>General</div>
-  
-      </mat-nav-list>
-    </mat-sidenav>
-    <mat-sidenav-content>
-      <mat-toolbar color="warn" class="large-toolbar">
-        <button
-          class="btn-nav"
-          type="button"
-          aria-label="Toggle sidenav"
-          mat-icon-button
-          (click)="drawer.toggle()">
+      </mat-selection-list>
+
+
+
+
+      <mat-divider></mat-divider>
+      <div mat-subheader>General</div>
+
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+
+
+    <mat-toolbar class="large-toolbar">
+
+      <mat-toolbar-row>
+        <img [src]=logoDayToDay width="18%" alt="Logo" srcset="">
+      </mat-toolbar-row>
+
+      <mat-toolbar-row>
+        <button class="btn-nav" type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
-        <span class="titulo">TIME REPORT - Auditoría TI y Ciberseguridad</span>
+
+        <span class="titulo">Auditoria TI y Ciberseguridad</span>
         <span class="example-spacer"></span>
         <button mat-icon-button class="example-icon favorite-icon mr-4" (click)="logout()">
           <mat-icon>eject</mat-icon>
           Salir
         </button>
-  
-        <!-- Usuario logueado opciones -->
-          <!-- <div class="example-button-container mt-3 info-cont-white">
+
+      </mat-toolbar-row>
+
+      <!-- Usuario logueado opciones -->
+      <!-- <div class="example-button-container mt-3 info-cont-white">
             <a href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <img md-fab-image class="user-fab" [src]="userImg">
             </a>
@@ -97,10 +103,10 @@
               <h4 class="user-rol">Manager</h4>
             </div>
           </div> -->
-      </mat-toolbar>
-      
-      <!-- Main Content -->
-      <router-outlet></router-outlet>
-  
-    </mat-sidenav-content>
+    </mat-toolbar>
+
+    <!-- Main Content -->
+    <router-outlet></router-outlet>
+
+  </mat-sidenav-content>
 </mat-sidenav-container>

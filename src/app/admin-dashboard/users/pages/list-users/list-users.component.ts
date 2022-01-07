@@ -14,8 +14,7 @@ import { UserService } from '../../services/user.service';
   templateUrl: './list-users.component.html',
   styleUrls: ['./list-users.component.scss']
 })
-export class ListUsersComponent implements OnInit 
-{
+export class ListUsersComponent implements OnInit {
   private data: GeneralUser = {
     email: '',
     name: '',
@@ -36,19 +35,17 @@ export class ListUsersComponent implements OnInit
     public dialog: MatDialog,
     private sweetAlert: SweetAlertService,
     private router: Router
-  )
-  { 
+  ) 
+  {
     this.dataSource = new MatTableDataSource(this.usersData);
   }
 
-  ngOnInit(): void 
-  {
+  ngOnInit(): void {
     this.userName = localStorage.getItem('user-name') || '';
     this.loadData();
   }
 
-  loadData()
-  {
+  loadData() {
     this.userService.getAllUsers().subscribe(
       users => {
         this.usersData = users.users;
@@ -59,7 +56,7 @@ export class ListUsersComponent implements OnInit
         console.log(error);
       }
     );
-  } 
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -70,23 +67,20 @@ export class ListUsersComponent implements OnInit
     }
   }
 
-  addUser()
-  {
+  addUser() {
     const dialogRef = this.dialog.open(CreateUserComponent, {
       width: '85%',
       data: this.data
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result)
-      {
+      if (result) {
         const checkData = this.verifyUserData(result);
-        if(checkData)
-        {
+        if (checkData) {
           const user = result as GeneralUser;
           user.name = user.name.toUpperCase();
 
-          this.userService.createUser( user ).subscribe(
+          this.userService.createUser(user).subscribe(
             user => {
               console.log(user);
             },
@@ -95,26 +89,22 @@ export class ListUsersComponent implements OnInit
             }
           );
         }
-        else
-        {
+        else {
           this.sweetAlert.presentError('Información Inválida!');
         }
       }
     });
   }
 
-  verifyUserData(userData: GeneralUser): boolean
-  {
-    if(userData.email && userData.name)
-    {
+  verifyUserData(userData: GeneralUser): boolean {
+    if (userData.email && userData.name) {
       return true;
     }
 
     return false;
   }
 
-  showUser(id: string)
-  {
+  showUser(id: string) {
     this.router.navigate(['/admin/users/' + id]);
   }
 

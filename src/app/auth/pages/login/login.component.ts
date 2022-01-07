@@ -18,6 +18,8 @@ export class LoginComponent implements OnInit
     remember: false
   };
 
+  logoDayToDay = 'https://firebasestorage.googleapis.com/v0/b/auditbot-c41e4.appspot.com/o/daytoday_logohorizontal.png?alt=media&token=bef0a6f0-1134-4f49-bb44-a6bbcdb9776b';
+
   constructor(
     private authService: AuthService,
     private router: Router,
