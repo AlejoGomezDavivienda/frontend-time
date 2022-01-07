@@ -5,6 +5,7 @@ import { LoginData } from '../../interfaces/LoginData';
 import { AuthService } from '../../services/auth.service';
 import { TokenService } from 'src/app/core/services/token.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-google',
@@ -13,11 +14,9 @@ import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 })
 export class GoogleComponent implements OnInit {
 
-  public loginData: LoginData = {
-    email: '',
-    password: '',
-    remember: false
-  };
+
+  logoDayToDay = environment.LOGO_DAY_TO_DAY;
+  logoCentral = environment.ICON_DAY_TO_DAY;
 
   constructor(
     private authService: AuthService,
@@ -29,37 +28,54 @@ export class GoogleComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.socialAuthService.authState.subscribe((user) => {
-      console.log(user);
-    });
+    this.verifyAuth();
   }
 
-  loginWithGoogle(): void {
-    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID)
-      .then((res) => console.log(res))
-      .catch((error) => console.error(error));
+  verifyAuth() {
+    const token = this.tokenService.getToken();
+    if (token) {
+      this.authService.getUserLogged().subscribe(
+        userData => {
+          this.tokenService.setToken(token, userData.user.name);
 
+          if (userData.user.rol === 'ADMIN_ROLE') // Si es un administrador lo mando a la ruta /admin
+          {
+            this.router.navigate(['/admin']);
+          }
+          else if (userData.user.rol === 'USER_ROLE') // Si es un usuario corriente lo mando a la ruta /dashboard
+          {
+            this.router.navigate(['/dashboard']);
+          }
+        },
+        error => console.log(error)
+      );
+    }
   }
 
-  login(): void {
-    this.authService.login(this.loginData).subscribe(
-      res => {
-        // console.log(res);
+  async loginWithGoogle(): Promise<void> {
+    const data = await this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+
+    this.authService.loginWithGoogle(data).subscribe(
+      (res) => {
+
         // Guardar en el localstorage
         this.tokenService.setToken(res.token, res.user.name);
-        if (res.user.rol === 'ADMIN_ROLE') // Si es un administrador lo mando a la ruta /admin
-        {
+
+        // Si es un administrador lo mando a la ruta /admin
+        if (res.user.rol === 'ADMIN_ROLE') {
           this.router.navigate(['/admin']);
         }
-        else if (res.user.rol === 'USER_ROLE') // Si es un usuario corriente lo mando a la ruta /dashboard
-        {
+
+        // Si es un usuario corriente lo mando a la ruta /dashboard
+        else if (res.user.rol === 'USER_ROLE') {
           this.router.navigate(['/dashboard']);
         }
       },
-      error => {
+      (error) => {
         this.sweetAlert.presentError('Datos inválidos!');
       }
     );
+
   }
 
 }

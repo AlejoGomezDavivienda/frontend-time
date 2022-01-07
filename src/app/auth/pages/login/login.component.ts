@@ -4,6 +4,7 @@ import { TokenService } from 'src/app/core/services/token.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { LoginData } from '../../interfaces/LoginData';
 import { AuthService } from '../../services/auth.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit
     remember: false
   };
 
-  logoDayToDay = 'https://firebasestorage.googleapis.com/v0/b/auditbot-c41e4.appspot.com/o/daytoday_logohorizontal.png?alt=media&token=bef0a6f0-1134-4f49-bb44-a6bbcdb9776b';
+  logoDayToDay = environment.LOGO_DAY_TO_DAY;
 
   constructor(
     private authService: AuthService,

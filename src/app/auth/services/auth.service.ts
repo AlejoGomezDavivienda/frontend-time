@@ -27,10 +27,7 @@ export class AuthService {
 
   loginWithGoogle(data: any): Observable<LoginResponse> {
 
-    console.log(data);
-
-    const datas = JSON.parse(data);
-    return this.http.post<LoginResponse>(`${environment.API_URL}/auth/google`, datas);
+    return this.http.post<LoginResponse>(`${environment.API_URL}/auth/google`, data);
   }
 
   getUserLogged(): Observable<MeResponse> {

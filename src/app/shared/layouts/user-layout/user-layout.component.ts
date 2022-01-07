@@ -2,10 +2,12 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
+import { SocialAuthService } from 'angularx-social-login';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { TokenService } from 'src/app/core/services/token.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-user-layout',
@@ -18,7 +20,7 @@ export class UserLayoutComponent implements OnInit, AfterViewInit
   userImg = 'https://firebasestorage.googleapis.com/v0/b/subasta-inversa-d6e7a.appspot.com/o/User-80_icon-icons.com_57249.png?alt=media&token=283572e2-e8d3-4149-9227-8ae3b795652e';
   userName = '';
 
-  logoDayToDay = 'https://firebasestorage.googleapis.com/v0/b/auditbot-c41e4.appspot.com/o/daytoday_logohorizontal.png?alt=media&token=bef0a6f0-1134-4f49-bb44-a6bbcdb9776b';
+  logoDayToDay = environment.LOGO_DAY_TO_DAY;
 
   screenWidth: number = 1000;
   @ViewChild('drawer') drawer!: MatSidenav;
@@ -33,7 +35,8 @@ export class UserLayoutComponent implements OnInit, AfterViewInit
     private breakpointObserver: BreakpointObserver,
     private router: Router,
     private tokenService: TokenService,
-    private authService: AuthService
+    private authService: AuthService,
+    private socialAuthService: SocialAuthService
   ) { }
 
   ngAfterViewInit(): void 
@@ -72,6 +75,7 @@ export class UserLayoutComponent implements OnInit, AfterViewInit
   logout()
   {
     this.authService.logout();
+    this.socialAuthService.signOut();
     this.router.navigate(['/']);
   }
 }

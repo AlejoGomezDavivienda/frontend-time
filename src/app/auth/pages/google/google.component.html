@@ -1,10 +1,38 @@
-<div class="card" style="width: 18rem;">
-    <img class="card-img-top" src="..." alt="Card image cap">
-    <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-            content.</p>
+<!-- Image and text -->
+<nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+        <img [src]="logoDayToDay" width="18%" class="d-inline-block align-top" alt="">
+    </a>
+</nav>
 
-        <button (click)="loginWithGoogle()">Acceder</button>
+<div class="container mt-5">
+
+    <div class="row">
+
+        <div class="col-6 mt-5">
+            <h1 class="text-danger"> Day to Day (Time Report)</h1>
+            <p class="h4 mt-5">
+                La Vicepresidencia de Auditoría se transforma para seguir siendo confiables, sencillos y amigables
+            </p>
+
+
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-outline-dark" role="button" style="text-transform:none"
+                        (click)="loginWithGoogle()">
+                        <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in"
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+                        Inicia sesión con Google
+                </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <img [src]="logoCentral" width="70%" class="d-inline-block align-top" alt="">
+        </div>
+
     </div>
+
+
 </div>
