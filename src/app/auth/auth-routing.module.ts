@@ -1,16 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { GoogleComponent } from './pages/google/google.component';
 import { LoginComponent } from './pages/login/login.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login'
+    redirectTo: 'google'
   },
   // Login
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'google',
+    component: GoogleComponent
   }
 ];
 
