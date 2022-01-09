@@ -71,6 +71,7 @@ export class ResumeProjectPlanComponent implements OnInit, AfterViewInit {
 
     this.activityService.getActivities().subscribe(
       (activities) => {
+
         this.generalActivities = activities.activities.filter(a => a.is_general);
         this.specificActivities = activities.activities.filter(a => !a.is_general);
 
@@ -168,17 +169,22 @@ export class ResumeProjectPlanComponent implements OnInit, AfterViewInit {
     let worked = 0;
 
     let resume = '';
+    let fechaFin: any;
     // Agregar el nombre del usuario primero.
-    resume += user.user.name.toUpperCase();
+    resume += user.user.name;
     // calcular cuanto a trabajado el usuario en la actividad.
     const indexUser = activity.users?.findIndex(u => u.user._id == user.user._id);
     if (indexUser !== -1) {
       const workedHours = user.worked_hours || 0;
       // Si las horas estimadas son el 100% -> cuanto % es las horas que a trabajado el usuario.
       try {
-        worked = (100 * workedHours) / activity.estimated_hours;
+        worked = (workedHours / activity.estimated_hours) * 100;
       } catch (error) {
         console.error("Division 0/0");
+      }
+
+      if (!user.is_active) {
+        fechaFin = user.end_date?.toString();
       }
     }
 

@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   // Login
   {
-    path: 'login',
+    path: 'hidden_login',
     component: LoginComponent
   },
   {

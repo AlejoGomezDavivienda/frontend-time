@@ -1,5 +1,4 @@
-export interface Activity
-{
+export interface Activity {
     id?: string;
     name: string;
     open_state: boolean;
@@ -11,14 +10,25 @@ export interface Activity
 }
 
 
-export interface SortUser
-{
+export interface SortUser {
     user: {
         _id: string;
         name: string;
     };
+
+    logs: [
+        {
+            log: {
+                date: Date,
+                description: string
+            }
+
+        }
+    ]
+
     end_date?: Date;
     worked_hours?: number;
+    estimated_hours?: number;
     is_active: boolean;
 }
 

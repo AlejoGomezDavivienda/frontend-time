@@ -12,8 +12,8 @@ import { UserService } from '../../services/user.service';
   templateUrl: './show-user.component.html',
   styleUrls: ['./show-user.component.scss']
 })
-export class ShowUserComponent implements OnInit 
-{
+export class ShowUserComponent implements OnInit {
+
   public user: User = {
     id: '',
     created_at: new Date(),
@@ -31,48 +31,39 @@ export class ShowUserComponent implements OnInit
     private activatedRoute: ActivatedRoute,
     private sweetAlert: SweetAlertService,
     private router: Router
-  ) 
-  { }
+  ) { }
 
-  ngOnInit(): void 
-  {
+  ngOnInit(): void {
     this.loadData();
 
     const id = this.activatedRoute.snapshot.paramMap.get('id');
-    if(id)
-    {
-      this.getUserById( id )
+    if (id) {
+      this.getUserById(id)
     }
-    else
-    {
-      this.sweetAlert.presentError('Error iniciando el licor seleccionado (NO ID)');
+    else {
+      this.sweetAlert.presentError('Error');
       this.router.navigate(['/admin/users']);
     }
   }
 
-  getUserById(id: string)
-  {
-    this.userService.getUserById(id).subscribe(
-      user => {
-        this.user = user.user;
-        console.log(user);
-      },
-      error => {
-        console.log(error);
-      }
-    );
+  getUserById(id: string) {
+    this.userService.getUserById(id)
+      .subscribe(
+        (user) => this.user = user.user,
+        (error) => console.error(error)
+      );
   }
 
-  verifyUser(index: number)
-  {
-    if(this.activities[index])
-    {
-      const users = this.activities[index].users  || [];
+  verifyUser(index: number) {
+
+    if (this.activities[index]) {
+
+      const users = this.activities[index].users || [];
+
       const search = users.findIndex(user => user.user._id === this.user.id);
-      if(search !== -1)
-      {
+
+      if (search !== -1)
         return true;
-      }
 
       // return (this.activities[index]?.users[index]?.user === this.user.id) || false;
     }
@@ -80,33 +71,26 @@ export class ShowUserComponent implements OnInit
     return false;
   }
 
-  loadData()
-  {
+  loadData() {
     this.activityService.getActivities(true).subscribe(
-      activities => {
-        this.activities = activities.activities;
-        console.log(activities);
-      },
-      error => {
-        console.log(error);
-      }
+      activities => this.activities = activities.activities,
+      error => console.error(error)
     );
   }
 
-  assignActivity(activity: Activity)
-  {
+  assignActivity(activity: Activity) {
+
     const assign: AssignActivity = {
       activity_id: activity.id || '',
-      user_id: this.user.id
+      user_id: this.user.id,
+      user_state_activity: true,
+      user_estimated_hours_activity: 23,
+      user_log_description_activity: 'Probanding algo GTM -5',
     }
 
     this.activityService.assignActivity(assign).subscribe(
-      activity => {
-        console.log(activity);
-      },
-      error => {
-        console.log(error)
-      }
+      (activity) => console.log(activity),
+      (error) => console.error(error)
     );
   }
 
