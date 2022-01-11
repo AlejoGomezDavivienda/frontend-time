@@ -83,8 +83,10 @@ export class ShowUserComponent implements OnInit {
     const assign: AssignActivity = {
       activity_id: activity.id || '',
       user_id: this.user.id,
+      user_name: 'Auditor de prueba',
       user_state_activity: true,
-      user_estimated_hours_activity: 23,
+      user_estimated_hours_activity: 1,
+      user_worked_hours_activity: 0,
       user_log_description_activity: 'Probanding algo GTM -5',
     }
 

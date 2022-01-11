@@ -38,14 +38,18 @@ export class GoogleComponent implements OnInit {
         userData => {
           this.tokenService.setToken(token, userData.user.name);
 
-          if (userData.user.rol === 'ADMIN_ROLE') // Si es un administrador lo mando a la ruta /admin
-          {
+          // Si es un administrador lo mando a la ruta /admin
+          if (userData.user.rol === 'ADMIN_ROLE')
             this.router.navigate(['/admin']);
-          }
-          else if (userData.user.rol === 'USER_ROLE') // Si es un usuario corriente lo mando a la ruta /dashboard
-          {
+
+          // Si es un usuario corriente lo mando a la ruta /dashboard
+          else if (userData.user.rol === 'USER_ROLE')
             this.router.navigate(['/dashboard']);
-          }
+
+          // Llegado el caso el auditor no tuviera rol alguno
+          else
+            this.sweetAlert.presentError('Debe tener un rol asignado');
+
         },
         error => console.log(error)
       );
@@ -58,22 +62,26 @@ export class GoogleComponent implements OnInit {
     this.authService.loginWithGoogle(data).subscribe(
       (res) => {
 
+        console.log(res)
+
         // Guardar en el localstorage
         this.tokenService.setToken(res.token, res.user.name);
 
         // Si es un administrador lo mando a la ruta /admin
-        if (res.user.rol === 'ADMIN_ROLE') {
+        if (res.user.rol === 'ADMIN_ROLE')
           this.router.navigate(['/admin']);
-        }
 
         // Si es un usuario corriente lo mando a la ruta /dashboard
-        else if (res.user.rol === 'USER_ROLE') {
+        else if (res.user.rol === 'USER_ROLE')
           this.router.navigate(['/dashboard']);
-        }
+
+        // Llegado el caso el auditor no tuviera rol alguno
+        else
+          this.sweetAlert.presentError('Debe tener un rol asignado');
+
       },
-      (error) => {
-        this.sweetAlert.presentError('Datos inválidos!');
-      }
+      
+      (error) => this.sweetAlert.presentError(error.error.error)
     );
 
   }

@@ -12,7 +12,7 @@ import { AddSpecificActivityComponent } from './components/add-specific-activity
   declarations: [
     ResumeProjectPlanComponent,
     AddGeneralActivityComponent,
-    AddSpecificActivityComponent
+    AddSpecificActivityComponent,
   ],
   imports: [
     CommonModule,

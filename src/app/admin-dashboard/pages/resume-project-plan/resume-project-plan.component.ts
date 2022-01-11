@@ -1,7 +1,7 @@
 import { Component, AfterViewInit, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator} from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { AddGeneralActivityComponent } from '../../components/add-general-activity/add-general-activity.component';
 import { AddSpecificActivityComponent } from '../../components/add-specific-activity/add-specific-activity.component';
@@ -9,8 +9,10 @@ import { Activity, SortUser } from '../../interfaces/Activity';
 import { ActivityService } from '../../services/activity.service';
 import { UserService } from '../../users/services/user.service';
 
-import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
-import {FlatTreeControl} from '@angular/cdk/tree';
+import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { FlatTreeControl } from '@angular/cdk/tree';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-resume-project-plan',
@@ -39,7 +41,7 @@ export class ResumeProjectPlanComponent implements OnInit, AfterViewInit {
 
 
   displayedColumns: string[] = ['name', 'inicio-date', 'fin-date'];
-  displayedColumnsSpecific: string[] = ['name', 'inicio-date', 'fin-date'];
+  displayedColumnsSpecific: string[] = ['name', 'inicio-date', 'fin-date', 'actions'];
 
   generalActivitiesSource: MatTableDataSource<Activity>;
   specificActivitiesSource: MatTableDataSource<Activity>;
@@ -52,7 +54,8 @@ export class ResumeProjectPlanComponent implements OnInit, AfterViewInit {
     private activityService: ActivityService,
     private userService: UserService,
     public dialog: MatDialog,
-    private sweetAlert: SweetAlertService
+    private sweetAlert: SweetAlertService,
+    private router: Router
   ) {
     this.generalActivitiesSource = new MatTableDataSource();
     this.specificActivitiesSource = new MatTableDataSource();
@@ -84,15 +87,13 @@ export class ResumeProjectPlanComponent implements OnInit, AfterViewInit {
         // this.pageSize = 5;
         // this.pageSizeOptions = [3, Math.round(this.generalActivities.length / 2), this.generalActivities.length];
       },
-      (error) => {
-        console.log(error)
-      }
+      (error) => console.error(error)
     );
   }
 
   addGeneral() {
     const dialogRef = this.dialog.open(AddGeneralActivityComponent, {
-      width: '85%',
+      width: '75%',
       data: this.data
     });
 
@@ -128,7 +129,7 @@ export class ResumeProjectPlanComponent implements OnInit, AfterViewInit {
 
   addSpecific() {
     const dialogRef = this.dialog.open(AddSpecificActivityComponent, {
-      width: '85%',
+      width: '75%',
       data: this.data
     });
 
@@ -157,10 +158,9 @@ export class ResumeProjectPlanComponent implements OnInit, AfterViewInit {
   }
 
   verifyActivityData(activityData: Activity): boolean {
-    if (activityData.name && activityData.initial_date && activityData.end_date && activityData.estimated_hours) {
+    if (activityData.name && activityData.initial_date && activityData.end_date && activityData.estimated_hours)
       return true;
-    }
-
+      
     return false;
   }
 
@@ -191,6 +191,16 @@ export class ResumeProjectPlanComponent implements OnInit, AfterViewInit {
     resume += ` --- Indicador: ${worked.toFixed(2)}%`;
 
     return resume;
+  }
+
+  /**
+   * Ir al detalle de la actividad en cuestión
+   * @param idActivity 
+   */
+  showActivity(idActivity: string) {
+    console.log(idActivity);
+
+    this.router.navigate(['/admin/activities/' + idActivity]);
   }
 
 }

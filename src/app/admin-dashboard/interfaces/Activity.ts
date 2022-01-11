@@ -7,6 +7,7 @@ export interface Activity {
     estimated_hours: number;
     is_general: boolean;
     users?: [SortUser];
+    state?: boolean
 }
 
 
@@ -28,7 +29,7 @@ export interface SortUser {
 
     end_date?: Date;
     worked_hours?: number;
-    estimated_hours?: number;
+    estimated_hours: number;
     is_active: boolean;
 }
 

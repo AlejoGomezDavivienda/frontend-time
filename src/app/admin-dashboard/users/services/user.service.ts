@@ -10,25 +10,21 @@ import { ResponseGetUsers } from '../interfaces/ResponseGetUsers';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService 
-{
+export class UserService {
 
   constructor(
     private http: HttpClient
   ) { }
 
-  getAllUsers(): Observable<ResponseGetUsers>
-  {
+  getAllUsers(): Observable<ResponseGetUsers> {
     return this.http.get<ResponseGetUsers>(`${environment.API_URL}/users`);
   }
 
-  createUser(user: GeneralUser)
-  {
+  createUser(user: GeneralUser) {
     return this.http.post(`${environment.API_URL}/users`, user);
   }
 
-  getUserById(id: string): Observable<ResponseGetUserById>
-  {
+  getUserById(id: string): Observable<ResponseGetUserById> {
     return this.http.get<ResponseGetUserById>(`${environment.API_URL}/users/${id}`);
   }
 

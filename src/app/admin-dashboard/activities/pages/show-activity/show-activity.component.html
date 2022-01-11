@@ -1,0 +1,123 @@
+<div class="container mt-3 mb-3">
+
+    <div class="row ml-1 md-6 justify-content-center text-center">
+        <h1>{{ activity.name }}</h1>
+    </div>
+    <mat-divider></mat-divider>
+
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+
+            <div class="col-xl-12 col-lg-9 col-md-10 col-12 ">
+                <div class="card">
+                    <form class="form-card" onsubmit="event.preventDefault()">
+                        <div class="row justify-content-between text-left">
+
+                            <div class="form-group col-sm-12 flex-column d-flex">
+                                <label class="form-control-label px-3">Nombre de la actividad</label>
+                                <input type="text" id="fname" name="fname" [value]="activity.name">
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between text-left">
+                            <div class="form-group col-sm-6 flex-column d-flex">
+                                <label class="form-control-label px-3">Fecha de inicio</label>
+                                <input type="date" id="" name="initial_date"
+                                    [value]="activity.initial_date | date:'yyyy-MM-dd'">
+                            </div>
+                            <div class="form-group col-sm-6 flex-column d-flex">
+                                <label class="form-control-label px-3">Fecha de finalización estimada</label>
+                                <input type="date" id="" name="end_date"
+                                    [value]="activity.end_date | date:'yyyy-MM-dd'">
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between text-left">
+                            <div class="form-group col-6 flex-column d-flex"> <label
+                                    class="form-control-label px-3">Horas estimadas de trabajo</label>
+
+                                <input type="number" id="job" name="job" [value]="activity.estimated_hours">
+                            </div>
+
+                            <div class="form-group col-6 flex-column d-flex"> <label
+                                    class="form-control-label px-3">Estado en Open Pages</label>
+                                <select class="form-select" [value]="activity.open_state">
+                                    <option value="true">Activa</option>
+                                    <option value="false">Finalizada</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="row" style="width: 100%;">
+
+                            <table mat-table [dataSource]="dataSource" matSort>
+
+                                <!-- Column -->
+                                <ng-container matColumnDef="name">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+                                    <td mat-cell *matCellDef="let row"> {{row.user.name}} </td>
+                                </ng-container>
+
+                                <!-- Column -->
+                                <ng-container matColumnDef="email">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+                                    <td mat-cell *matCellDef="let row"> {{row.user.email}} </td>
+                                </ng-container>
+
+                                <!-- Column -->
+                                <ng-container matColumnDef="estimated-hours">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Horas asignadas </th>
+                                    <td mat-cell *matCellDef="let row"> {{row.estimated_hours}} horas </td>
+                                </ng-container>
+
+                                <!-- Column -->
+                                <ng-container matColumnDef="worked-hours">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Horas trabajadas </th>
+                                    <td mat-cell *matCellDef="let row"> {{row.worked_hours}} horas </td>
+                                </ng-container>
+
+                                <!-- Column -->
+                                <ng-container matColumnDef="is-active">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+                                    <td mat-cell *matCellDef="let row"> {{row.is_active ? 'Activo' : 'Cerrado'}} </td>
+                                </ng-container>
+
+                                <!-- Acciones -->
+                                <ng-container matColumnDef="actions">
+
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
+
+                                    <td mat-cell *matCellDef="let row" class="d-flex flex-row bd-highlight">
+
+                                        <button mat-mini-fab color="primary" class="bd-highlight fab-icono"
+                                            (click)="showUser(row)">
+                                            <mat-icon>edit</mat-icon>
+                                        </button>
+
+                                    </td>
+
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                            </table>
+
+                            <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator> -->
+                        </div>
+
+                        <div class="justify-content-end">
+                            <div class="form-group col-sm-6"> <button type="submit" class="btn-block btn-primary">
+                                Editar actividad</button> </div>
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
