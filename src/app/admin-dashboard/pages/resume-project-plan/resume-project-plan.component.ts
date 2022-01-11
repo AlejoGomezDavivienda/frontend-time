@@ -25,7 +25,7 @@ export class ResumeProjectPlanComponent implements OnInit, AfterViewInit {
   public specificActivities: Activity[] = [];
 
   private data: Activity = {
-    name: 'Hola',
+    name: '',
     initial_date: new Date(),
     end_date: new Date(),
     estimated_hours: 0,
@@ -139,6 +139,7 @@ export class ResumeProjectPlanComponent implements OnInit, AfterViewInit {
         if (checkData) {
           const activity = result as Activity;
           activity.is_general = false;
+          activity.open_state = true;
 
           this.activityService.createActivity(activity).subscribe(
             activity => {

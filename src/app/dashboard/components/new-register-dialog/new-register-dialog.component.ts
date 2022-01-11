@@ -9,8 +9,7 @@ import { UserTimeReportService } from '../../services/user-time-report.service';
   templateUrl: './new-register-dialog.component.html',
   styleUrls: ['./new-register-dialog.component.scss']
 })
-export class NewRegisterDialogComponent implements OnInit 
-{
+export class NewRegisterDialogComponent implements OnInit {
   public activities: Activity[] = [];
 
   constructor(
@@ -19,19 +18,14 @@ export class NewRegisterDialogComponent implements OnInit
     private userTimeReportService: UserTimeReportService
   ) { }
 
-  ngOnInit(): void 
-  {
+  ngOnInit(): void {
     this.loadData();
   }
 
-  loadData()
-  {
+  loadData() {
     this.userTimeReportService.getAllActivitiesFromUser().subscribe(
-      activities => {
-        this.activities = activities.activities;
-        console.log("Actividades usuario: ", this.activities);
-      },
-      error => console.log(error)
+      (activities) => this.activities = activities.activities,
+      (error) => console.log(error)
     );
   }
 
