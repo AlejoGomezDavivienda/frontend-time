@@ -23,6 +23,8 @@ export class ShowUserComponent implements OnInit {
     updated_at: new Date()
   };
 
+  idUser: string;
+
   public activities: Activity[] = [];
 
   constructor(
@@ -31,7 +33,9 @@ export class ShowUserComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private sweetAlert: SweetAlertService,
     private router: Router
-  ) { }
+  ) {
+    this.idUser = '';
+   }
 
   ngOnInit(): void {
     this.loadData();
@@ -39,6 +43,7 @@ export class ShowUserComponent implements OnInit {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     if (id) {
       this.getUserById(id)
+      this.idUser = id;
     }
     else {
       this.sweetAlert.presentError('Error');

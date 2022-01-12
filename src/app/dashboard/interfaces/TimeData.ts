@@ -1,9 +1,14 @@
-export interface TimeData 
-{
+export interface TimeData {
   id?: string;
   date: Date;
-  activity: string;
+  activity: ReportActivity;
   detail: string;
   hours: number;
   current_hours: number;
+  edit: Boolean;
+}
+
+export interface ReportActivity {
+  _id: string,
+  name: string
 }

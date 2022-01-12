@@ -23,10 +23,11 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
 
   private data: TimeData = {
     date: new Date(),
-    activity: '',
+    activity: { _id: '', name: '' },
     detail: '',
     hours: 0,
-    current_hours: 0
+    current_hours: 0,
+    edit: false
   };
 
   public range = new FormGroup({
@@ -80,14 +81,19 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
     }
   }
 
-  openDialog(timeData?: TimeData): void {
+  openDialog(timeData?: TimeData, editar?: Boolean): void {
     if (timeData) {
       this.data = timeData;
       this.data.current_hours = timeData.hours;
     }
 
+    if (editar)
+      this.data.edit = true;
+    else 
+      this.data.edit = false;
+
     const dialogRef = this.dialog.open(NewRegisterDialogComponent, {
-      width: '85%',
+      width: '70%',
       data: this.data
     });
 
@@ -111,7 +117,7 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
           // Se desea editar un registro
           else {
             console.log(timeData);
-            
+
             this.userTimeReportService.editTimeData(timeData).subscribe(
               () => {
                 this.sweetAlert.presentSuccess('Registro Editado Correctamente!');
@@ -130,7 +136,7 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
 
   async deleteReport(timeData: TimeData) {
     const { isConfirmed } = await this.sweetAlert.presentDelete('El registro de la base de datos!');
-    
+
     if (isConfirmed) {
       const { id } = timeData;
       if (id) {

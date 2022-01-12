@@ -16,7 +16,7 @@
             <mat-expansion-panel>
                 <mat-expansion-panel-header>
                     <mat-panel-title>
-                    Asignar Actividades
+                    Asignar actividades especificas
                     </mat-panel-title>
                 </mat-expansion-panel-header>
                 <mat-selection-list class="w-100">
@@ -31,13 +31,13 @@
         </div>
 
         <!-- Gráfico de barras -->
-        <div class="col-4 col-md-4">
+        <!-- <div class="col-4 col-md-4">
             <app-bar-graph></app-bar-graph>
-        </div>
+        </div> -->
 
         <!-- Torta -->
         <div class="col-4 col-md-4">
-            <app-pie-graph></app-pie-graph>
+            <app-pie-graph [idUser]="idUser"></app-pie-graph>
             <!-- <app-gantt-graph></app-gantt-graph> -->
         </div>
 
