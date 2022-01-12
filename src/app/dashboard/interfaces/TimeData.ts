@@ -5,4 +5,5 @@ export interface TimeData
   activity: string;
   detail: string;
   hours: number;
+  current_hours: number;
 }

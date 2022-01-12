@@ -16,15 +16,15 @@ import * as moment from 'moment';
   templateUrl: './user-time-report.component.html',
   styleUrls: ['./user-time-report.component.scss']
 })
-export class UserTimeReportComponent implements OnInit, AfterViewInit
-{
+export class UserTimeReportComponent implements OnInit, AfterViewInit {
   public userName: string = '';
 
   private data: TimeData = {
     date: new Date(),
     activity: '',
     detail: '',
-    hours: 0
+    hours: 0,
+    current_hours: 0
   };
 
   public range = new FormGroup({
@@ -44,14 +44,12 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit
     private userTimeReportService: UserTimeReportService,
     public dialog: MatDialog,
     private sweetAlert: SweetAlertService
-  ) 
-  { 
+  ) {
     // Assign the data to the data source for the table to render
     this.dataSource = new MatTableDataSource(this.timeData);
   }
 
-  ngOnInit(): void 
-  {
+  ngOnInit(): void {
     this.userName = localStorage.getItem('user-name') || '';
     this.loadData();
   }
@@ -61,11 +59,10 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit
     this.dataSource.sort = this.sort;
   }
 
-  loadData()
-  {
+  loadData() {
     this.userTimeReportService.getAllTimeData().subscribe(
-      responseTimeData => { 
-        this.timeData = responseTimeData.reports; 
+      responseTimeData => {
+        this.timeData = responseTimeData.reports;
         this.dataSource.data = this.timeData;
       },
       error => { console.log(error) }
@@ -81,9 +78,11 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit
     }
   }
 
-  openDialog(timeData?: TimeData): void 
-  {
-    if(timeData) this.data = timeData;
+  openDialog(timeData?: TimeData): void {
+    if (timeData) {
+      this.data = timeData;
+      this.data.current_hours = timeData.hours;
+    }
 
     const dialogRef = this.dialog.open(NewRegisterDialogComponent, {
       width: '85%',
@@ -91,25 +90,26 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result)
-      {
+      if (result) {
         console.log("Time Data: ", result);
 
         const checkData = this.verifyTimeData(result);
-        if(checkData)
-        {
-          if(!timeData) // Si se desea agregar uno nuevo
-          {
-            this.userTimeReportService.createTimeData( result ).subscribe(
-              () => {                
+        if (checkData) {
+          // Si se desea agregar uno nuevo
+          if (!timeData) {
+            this.userTimeReportService.createTimeData(result).subscribe(
+              () => {
                 this.sweetAlert.presentSuccess('Registro Creado Correctamente!');
                 this.loadData();
               },
               () => { this.sweetAlert.presentError('No Fue Posible Crear El Registro!') }
             );
           }
-          else // Se desea editar un registro
-          {
+
+          // Se desea editar un registro
+          else {
+            console.log(timeData);
+            
             this.userTimeReportService.editTimeData(timeData).subscribe(
               () => {
                 this.sweetAlert.presentSuccess('Registro Editado Correctamente!');
@@ -117,25 +117,21 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit
               },
               () => { this.sweetAlert.presentError('No Fue Posible Editar El Registro!') }
             );
-          }          
+          }
         }
-        else
-        {
+        else {
           this.sweetAlert.presentError('Información Inválida!');
         }
       }
     });
   }
 
-  async deleteReport(timeData: TimeData)
-  {
+  async deleteReport(timeData: TimeData) {
     const { isConfirmed } = await this.sweetAlert.presentDelete('El registro de la base de datos!');
-    if(isConfirmed)
-    {
+    if (isConfirmed) {
       const { id } = timeData;
-      if( id )
-      {
-        this.userTimeReportService.deleteTimeData( id ).subscribe(
+      if (id) {
+        this.userTimeReportService.deleteTimeData(id).subscribe(
           () => this.sweetAlert.presentSuccess('Registro eliminado correctamente!'),
           () => this.sweetAlert.presentError('No fue posible eliminar el registro!')
         );
@@ -143,13 +139,10 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit
     }
   }
 
-  verifyTimeData(timeData: TimeData): boolean
-  {
+  verifyTimeData(timeData: TimeData): boolean {
     console.log(timeData);
-    if(timeData.date && timeData.activity && timeData.detail && timeData.hours)
-    {
-      if(!(timeData.hours <= 0 && timeData.hours >= 15))
-      {
+    if (timeData.date && timeData.activity && timeData.detail && timeData.hours) {
+      if (!(timeData.hours <= 0 && timeData.hours >= 15)) {
         return true;
       }
     }
@@ -157,18 +150,16 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit
     return false;
   }
 
-  filterReport()
-  {
+  filterReport() {
     const rangeTime: RangeTime = this.range.value;
     const { start, end } = rangeTime;
-    if(start && end)
-    {
-      const endMoment = moment( end ).add(1, 'days');
+    if (start && end) {
+      const endMoment = moment(end).add(1, 'days');
       rangeTime.end = endMoment.toDate();
 
-      this.userTimeReportService.getAllTimeData( rangeTime ).subscribe(
+      this.userTimeReportService.getAllTimeData(rangeTime).subscribe(
         responseTimeData => {
-          this.timeData = responseTimeData.reports; 
+          this.timeData = responseTimeData.reports;
           this.dataSource.data = this.timeData;
         },
         error => this.sweetAlert.presentError('Obteniendo rango de datos!')
