@@ -19,9 +19,7 @@ export class NewRegisterDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: TimeData,
 
     private userTimeReportService: UserTimeReportService
-  ) {
-
-  }
+  ) { }
 
   ngOnInit(): void {
     this.loadData();
@@ -33,7 +31,6 @@ export class NewRegisterDialogComponent implements OnInit {
       (activities) => {
         if (this.data.edit) {
           this.activities = activities.activities.filter((a) => a.name == this.data.activity.name);
-          console.log(this.activities);
         }
         else
           this.activities = activities.activities;

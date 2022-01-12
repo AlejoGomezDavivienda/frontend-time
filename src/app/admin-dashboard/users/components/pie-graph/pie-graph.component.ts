@@ -24,10 +24,10 @@ export class PieGraphComponent implements OnInit {
 
   public pieChartData: ChartData<'pie', number[], string | string[]> = {
 
-    labels: this.labelsChart || [''],
+    labels: this.labelsChart,
     datasets: [
       {
-        data: this.dataChart || [0]
+        data: this.dataChart
       }
     ]
   };
@@ -41,24 +41,6 @@ export class PieGraphComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUsersReports(this.idUser);
-    setTimeout(() => this.refreshData, 1200);
-  }
-
-  refreshData() {
-
-    setTimeout(() => {
-
-      this.pieChartData = {
-
-        labels: this.labelsChart || [''],
-          datasets: [
-            {
-              data: this.dataChart || [0]
-            }
-          ]
-      };
-
-    }, 1200);
   }
 
   getUsersReports(id: string) {

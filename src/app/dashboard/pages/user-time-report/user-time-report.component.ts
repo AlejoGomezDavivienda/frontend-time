@@ -87,6 +87,8 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
       this.data.current_hours = timeData.hours;
     }
 
+    console.log(editar);
+
     if (editar)
       this.data.edit = true;
     else 

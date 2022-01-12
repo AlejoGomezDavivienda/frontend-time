@@ -22,18 +22,18 @@ export class UserTimeReportService {
   getAllTimeData(rangeTime?: RangeTime, userId?: string): Observable<ResponseTimeData> {
     let httpOptions = {};
 
-    if (rangeTime) {
+    if (rangeTime && (userId !== undefined || userId !== '') ) {
       httpOptions = {
         params: new HttpParams()
-          .set('user_id', userId || '')
           .set('start', rangeTime.start.toDateString())
           .set('end', rangeTime.end.toDateString())
       };
     }
 
     console.log(userId);
-    if (userId)
-      httpOptions = { params: new HttpParams().set('user_id', userId.toString() || '') };
+
+    if (userId !== undefined || userId !== '')
+      httpOptions = { params: new HttpParams().set('user_id', userId || '') };
 
     return this.http.get<ResponseTimeData>(`${environment.API_URL}/reports`, httpOptions);
   }
