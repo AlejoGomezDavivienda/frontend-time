@@ -25,8 +25,9 @@ export class ShowActivityComponent implements OnInit {
     initial_date: new Date(),
     end_date: new Date(),
     estimated_hours: 1,
+    worked_hours: 0,
     is_general: false,
-    state: true,
+    state: true
   };
 
   public users: any[] = [];
@@ -34,7 +35,7 @@ export class ShowActivityComponent implements OnInit {
 
   public dataSource: MatTableDataSource<SortUser>;
   public usersData: SortUser[] = [];
-  public displayedColumns: string[] = ['name', 'email', 'estimated-hours', 'worked-hours', 'is-active', 'actions'];
+  public displayedColumns: string[] = ['name', 'email', 'estimated-hours', 'worked-hours', 'porcentaje-avance', 'is-active', 'actions'];
 
   constructor(
     private userService: UserService,
@@ -136,6 +137,10 @@ export class ShowActivityComponent implements OnInit {
       return true;
 
     return false;
+  }
+
+  formatearPorcentajes(horasTrabajadas: number, horasEstimadas: number): string {
+    return ((horasTrabajadas / horasEstimadas) * 100).toFixed(2);
   }
 
 

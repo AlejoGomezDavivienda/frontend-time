@@ -10,8 +10,7 @@ import { TimeData } from '../interfaces/TimeData';
 @Injectable({
   providedIn: 'root'
 })
-export class UserTimeReportService 
-{
+export class UserTimeReportService {
 
   constructor(
     private http: HttpClient
@@ -20,15 +19,13 @@ export class UserTimeReportService
   /**
    * Obtiene el time report del usuario.
    */
-  getAllTimeData(rangeTime?: RangeTime): Observable<ResponseTimeData>
-  {
+  getAllTimeData(rangeTime?: RangeTime): Observable<ResponseTimeData> {
     let httpOptions = {};
 
-    if(rangeTime)
-    {
+    if (rangeTime) {
       httpOptions = {
         params: new HttpParams().set('start', rangeTime.start.toDateString())
-                                .set('end', rangeTime.end.toDateString())
+          .set('end', rangeTime.end.toDateString())
       };
     }
 
@@ -39,8 +36,7 @@ export class UserTimeReportService
    * crear un nuevo registro en el time report del usuario.
    * @param timeData 
    */
-  createTimeData(timeData: TimeData)
-  {
+  createTimeData(timeData: TimeData) {
     return this.http.post(`${environment.API_URL}/reports`, timeData);
   }
 
@@ -48,9 +44,8 @@ export class UserTimeReportService
    * Edita un registro del time report.
    * @param timeData 
    */
-  editTimeData(timeData: TimeData)
-  {
-    const {id, ...data} = timeData;
+  editTimeData(timeData: TimeData) {
+    const { id, ...data } = timeData;
     return this.http.put(`${environment.API_URL}/reports/${id}`, data);
   }
 
@@ -58,14 +53,12 @@ export class UserTimeReportService
    * Elimina un registro del time report.
    * @param id Identificador de la información a borrar
    */
-  deleteTimeData(id: string)
-  {
+  deleteTimeData(id: string) {
     return this.http.delete(`${environment.API_URL}/reports/${id}`);
   }
 
   // **************ESPECIALES******************ESPECIALES************ESPECIALES*************//
-  getAllActivitiesFromUser(): Observable<ResponseUserActivities>
-  {
+  getAllActivitiesFromUser(): Observable<ResponseUserActivities> {
     return this.http.post<ResponseUserActivities>(`${environment.API_URL}/activities/specific`, {});
   }
 }

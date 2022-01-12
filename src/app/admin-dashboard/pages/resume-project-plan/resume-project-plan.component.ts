@@ -29,7 +29,8 @@ export class ResumeProjectPlanComponent implements OnInit, AfterViewInit {
     initial_date: new Date(),
     end_date: new Date(),
     estimated_hours: 0,
-    open_state: false,
+    worked_hours: 0,
+    open_state: true,
     is_general: true
   };
 
@@ -41,7 +42,8 @@ export class ResumeProjectPlanComponent implements OnInit, AfterViewInit {
 
 
   displayedColumns: string[] = ['name', 'inicio-date', 'fin-date'];
-  displayedColumnsSpecific: string[] = ['name', 'inicio-date', 'fin-date', 'actions'];
+  displayedColumnsSpecific: string[] =
+    ['name', 'inicio-date', 'fin-date', 'porcentaje-avance', 'actions'];
 
   generalActivitiesSource: MatTableDataSource<Activity>;
   specificActivitiesSource: MatTableDataSource<Activity>;
@@ -67,8 +69,6 @@ export class ResumeProjectPlanComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
   }
-
-
 
   loadData() {
 
@@ -161,7 +161,7 @@ export class ResumeProjectPlanComponent implements OnInit, AfterViewInit {
   verifyActivityData(activityData: Activity): boolean {
     if (activityData.name && activityData.initial_date && activityData.end_date && activityData.estimated_hours)
       return true;
-      
+
     return false;
   }
 
@@ -192,6 +192,10 @@ export class ResumeProjectPlanComponent implements OnInit, AfterViewInit {
     resume += ` --- Indicador: ${worked.toFixed(2)}%`;
 
     return resume;
+  }
+
+  formatearPorcentajes(horasTrabajadas: number, horasEstimadas: number): string {
+    return ((horasTrabajadas / horasEstimadas) * 100).toFixed(2);
   }
 
   /**

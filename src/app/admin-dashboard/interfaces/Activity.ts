@@ -5,6 +5,7 @@ export interface Activity {
     initial_date: Date;
     end_date: Date;
     estimated_hours: number;
+    worked_hours: number;
     is_general: boolean;
     users?: [SortUser];
     state?: boolean
