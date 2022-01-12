@@ -3,11 +3,20 @@ export interface GeneralUser
     email: string;
     name: string;
     state?: boolean;
-    
-    // TODO: País de cada usuario
     country?: string;
+    rol?: string;
 }
 
-// TODO: Hacer login con cuenta de gmail
+export enum Countries {
+    CO = 'CO',
+    HN = 'HN',
+    CR = 'CR',
+    SV = 'SV',
+    PA = 'PA',
+    MA = 'MA'
+};
 
-// TODO: Agregar calendario por países
+export enum Roles {
+    ADMIN_ROLE = 'ADMIN_ROLE',
+    USER_ROLE = 'USER_ROLE'
+};

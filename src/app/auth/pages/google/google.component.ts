@@ -18,6 +18,8 @@ export class GoogleComponent implements OnInit {
   logoDayToDay = environment.LOGO_DAY_TO_DAY;
   logoCentral = environment.ICON_DAY_TO_DAY;
 
+  showIcon = true;
+
   constructor(
     private authService: AuthService,
     private socialAuthService: SocialAuthService,
@@ -29,6 +31,11 @@ export class GoogleComponent implements OnInit {
   ngOnInit(): void {
 
     this.verifyAuth();
+  }
+
+  isMobile(): boolean {
+    
+    return window.screen.width < 900 ? false : true;
   }
 
   verifyAuth() {
@@ -80,7 +87,7 @@ export class GoogleComponent implements OnInit {
           this.sweetAlert.presentError('Debe tener un rol asignado');
 
       },
-      
+
       (error) => this.sweetAlert.presentError(error.error.error)
     );
 

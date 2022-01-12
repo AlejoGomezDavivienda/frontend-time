@@ -6,7 +6,7 @@
             <!-- Fecha -->
             <mat-form-field class="inputs" appearance="fill">
                 <mat-label>Seleccionar Fecha</mat-label>
-                <input matInput [matDatepicker]="picker" [(ngModel)]="data.date">
+                <input matInput [matDatepicker]="picker" [(ngModel)]="data.date" [max]="today">
                 <mat-datepicker-toggle matSuffix [for]="picker">
                 <mat-icon matDatepickerToggleIcon>calendar_today</mat-icon>
                 </mat-datepicker-toggle>

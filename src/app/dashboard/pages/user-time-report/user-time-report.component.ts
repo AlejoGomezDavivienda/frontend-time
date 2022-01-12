@@ -19,6 +19,8 @@ import * as moment from 'moment';
 export class UserTimeReportComponent implements OnInit, AfterViewInit {
   public userName: string = '';
 
+  public today = new Date();
+
   private data: TimeData = {
     date: new Date(),
     activity: '',

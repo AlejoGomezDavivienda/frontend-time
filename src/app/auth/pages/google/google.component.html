@@ -1,7 +1,9 @@
 <!-- Image and text -->
 <nav class="navbar navbar-light bg-light">
-    <a class="navbar-brand" href="#">
-        <img [src]="logoDayToDay" width="70%" class="d-inline-block align-top" alt="">
+    <a class="navbar-brand" href="/">
+        <img [src]="logoDayToDay"
+        [ngClass]="isMobile() ? 'd-inline-block align-top logoNormal' : 'd-inline-block align-top logoMobile'"
+        class="d-inline-block align-top" alt="">
     </a>
 </nav>
 
@@ -9,7 +11,7 @@
 
     <div class="row">
 
-        <div class="col-6 mt-5">
+        <div [ngClass]=" isMobile() ? 'col-6' : 'col-12'">
             <h1 class="text-danger fw-bold"> Day to Day (Time Report)</h1>
             <p class="h4 mt-5">
                 La <span class="text-danger fw-bold">transformación</span> es parte de nuestra cultura en la vicepresidencia de Auditoría
@@ -17,8 +19,11 @@
 
 
             <div class="row">
-                <div class="col">
-                    <button class="btn btn-outline-dark" role="button" style="text-transform:none"
+                <div class="col-12">
+                    <button 
+                    [ngClass]="isMobile() ? 'btn btn-outline-dark normal' : 'btn btn-outline-dark isMobile'" 
+                    role="button" 
+
                         (click)="loginWithGoogle()">
                         <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in"
                             src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
@@ -28,8 +33,9 @@
             </div>
         </div>
 
-        <div class="col-6">
-            <img [src]="logoCentral" width="70%" class="d-inline-block align-top" alt="">
+        <!-- <div class="col-6" *ngIf="isMobile()"> -->
+        <div [ngClass]=" isMobile() ? 'col-6' : 'col-12'">
+            <img [src]="logoCentral" width="100%" class="d-inline-block align-top" alt="">
         </div>
 
     </div>

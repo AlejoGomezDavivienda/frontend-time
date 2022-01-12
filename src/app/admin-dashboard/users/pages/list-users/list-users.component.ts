@@ -35,8 +35,7 @@ export class ListUsersComponent implements OnInit {
     public dialog: MatDialog,
     private sweetAlert: SweetAlertService,
     private router: Router
-  ) 
-  {
+  ) {
     this.dataSource = new MatTableDataSource(this.usersData);
   }
 
@@ -69,37 +68,44 @@ export class ListUsersComponent implements OnInit {
 
   addUser() {
     const dialogRef = this.dialog.open(CreateUserComponent, {
-      width: '85%',
+      width: '70%',
       data: this.data
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+
         const checkData = this.verifyUserData(result);
+
         if (checkData) {
           const user = result as GeneralUser;
-          user.name = user.name.toUpperCase();
+
+          // Capitalize the user's name
+          // eg: Juan Esteban Gomez Forero
+          // eg: María A. Quintero Rojas
+          user.name = user.name.trim().toLowerCase()
+            .replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));
+
+          user.email = user.email.trim().toLowerCase();
 
           this.userService.createUser(user).subscribe(
-            user => {
-              console.log(user);
-            },
-            error => {
-              console.log(error)
-            }
+            () => this.sweetAlert.presentSuccess('Usuario creado con éxito'),
+            (error) => this.sweetAlert.presentError(error.error.error)
           );
         }
         else {
-          this.sweetAlert.presentError('Información Inválida!');
+          this.sweetAlert.presentError('Información Inválida o faltante');
         }
       }
     });
   }
 
   verifyUserData(userData: GeneralUser): boolean {
-    if (userData.email && userData.name) {
-      return true;
-    }
+
+
+    if (userData.email && userData.name && userData.country && userData.rol)
+      if (userData.email.toLowerCase().includes('@davivienda'))
+        return true;
 
     return false;
   }

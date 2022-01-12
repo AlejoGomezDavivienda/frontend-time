@@ -12,7 +12,7 @@
       <div class="mt-3">
         <mat-form-field appearance="fill" class="filtro">
           <mat-label>Filtar Por Rango</mat-label>
-          <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+          <mat-date-range-input [formGroup]="range" [rangePicker]="picker" [max]="today">
             <input matStartDate formControlName="start" placeholder="Start date">
             <input matEndDate formControlName="end" placeholder="End date" (dateChange)="filterReport()">
           </mat-date-range-input>
@@ -38,7 +38,7 @@
   <div class="row">
     <mat-form-field appearance="standard">
       <mat-label>Buscar...</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Buscar un registro en la tabla" #input>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Buscar un registro en la tabla" #input >
     </mat-form-field>
 
     <div class="mat-elevation-z8" style="width: 100%;">

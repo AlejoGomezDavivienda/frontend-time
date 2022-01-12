@@ -10,13 +10,17 @@ import { UserTimeReportService } from '../../services/user-time-report.service';
   styleUrls: ['./new-register-dialog.component.scss']
 })
 export class NewRegisterDialogComponent implements OnInit {
+  
   public activities: Activity[] = [];
+  public today = new Date();
 
   constructor(
     public dialogRef: MatDialogRef<NewRegisterDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: TimeData,
     private userTimeReportService: UserTimeReportService
-  ) { }
+  ) { 
+
+  }
 
   ngOnInit(): void {
     this.loadData();

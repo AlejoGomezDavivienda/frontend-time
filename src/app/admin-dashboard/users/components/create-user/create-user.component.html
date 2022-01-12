@@ -1,35 +1,65 @@
 <div class="container mt-2 text-center">
     <h1 mat-dialog-title>Agregar Usuario</h1>
     <div mat-dialog-content>
-        <p>Registrar un nuevo auditor:</p>
+
         <div class="row justify-content-center">
-            <!-- Nombre -->
-            <mat-form-field class="inputs" appearance="fill">
-                <mat-label>Nombre Completo</mat-label>
-                <input type="text" matInput placeholder="Ingrese el nombre completo del auditor"
-                    [(ngModel)]="data.name">
-            </mat-form-field>
+            <div class="row">
+                <div class="col">
+                    <!-- Nombre -->
+                    <mat-form-field class="inputs" appearance="fill">
+                        <mat-label>Nombre Completo</mat-label>
+                        <input type="text" matInput placeholder="Ingrese el nombre completo del usuario"
+                            [(ngModel)]="data.name" required>
+                    </mat-form-field>
 
-            <!-- Email -->
-            <mat-form-field class="inputs" appearance="fill">
-                <mat-label>Correo:</mat-label>
-                <input type="email" matInput placeholder="Ingrese el correo corporativo" [(ngModel)]="data.email">
-            </mat-form-field>
+                </div>
+            </div>
 
-            <!-- Country -->
-            <mat-form-field class="inputs" appearance="fill">
-                <mat-label>País</mat-label>
-                <select matNativeControl required [(ngModel)]="data.country">
-                    <option value="CO">Colombia</option>
-                    <option value="HN">Honduras</option>
-                    <option value="CR">Costa Rica</option>
-                    <option value="SV">El Salvador</option>
-                    <option value="PA">Panamá</option>
-                    <option value="MA">Miami (USA)</option>
-                </select>
-            </mat-form-field>
+            <div class="row">
+                <div class="col">
+                    <!-- Email -->
+                    <mat-form-field class="inputs" appearance="fill">
+                        <mat-label>Correo:</mat-label>
+                        <input type="email" matInput placeholder="Ingrese el correo corporativo"
+                            [(ngModel)]="data.email" required>
+                    </mat-form-field>
+                </div>
+            </div>
 
-            <p style="color: red;">La contraseña por defecto es: 'auditoria2021'</p>
+
+            <div class="row">
+
+                <div class="col-6">
+
+                    <!-- Country -->
+                    <mat-form-field class="inputs" appearance="fill">
+                        <mat-label>País</mat-label>
+                        <select matNativeControl required [(ngModel)]="data.country">
+                            <option value="CO">Colombia</option>
+                            <option value="HN">Honduras</option>
+                            <option value="CR">Costa Rica</option>
+                            <option value="SV">El Salvador</option>
+                            <option value="PA">Panamá</option>
+                            <option value="MA">Miami (USA)</option>
+                        </select>
+                    </mat-form-field>
+
+                </div>
+
+                <div class="col-6">
+
+                    <!-- Profile -->
+                    <mat-form-field class="inputs" appearance="fill">
+                        <mat-label>Perfil del usuario</mat-label>
+                        <select matNativeControl required [(ngModel)]="data.rol">
+                            <option value="ADMIN_ROLE">Administrador</option>
+                            <option value="USER_ROLE">Auditor</option>
+                        </select>
+                    </mat-form-field>
+
+                </div>
+            </div>
+
         </div>
     </div>
     <div mat-dialog-actions class="justify-content-center">
