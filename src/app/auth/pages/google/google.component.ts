@@ -69,8 +69,6 @@ export class GoogleComponent implements OnInit {
     this.authService.loginWithGoogle(data).subscribe(
       (res) => {
 
-        console.log(res)
-
         // Guardar en el localstorage
         this.tokenService.setToken(res.token, res.user.name);
 

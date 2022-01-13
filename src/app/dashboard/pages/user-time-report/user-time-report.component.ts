@@ -18,6 +18,7 @@ import * as moment from 'moment';
 })
 export class UserTimeReportComponent implements OnInit, AfterViewInit {
   public userName: string = '';
+  public userId: string = '';
 
   public today = new Date();
 
@@ -54,6 +55,7 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.userName = localStorage.getItem('user-name') || '';
+    this.userId = localStorage.getItem('x-token') || '';
     this.loadData();
   }
 
@@ -87,11 +89,9 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
       this.data.current_hours = timeData.hours;
     }
 
-    console.log(editar);
-
     if (editar)
       this.data.edit = true;
-    else 
+    else
       this.data.edit = false;
 
     const dialogRef = this.dialog.open(NewRegisterDialogComponent, {
@@ -101,7 +101,6 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log("Time Data: ", result);
 
         const checkData = this.verifyTimeData(result);
         if (checkData) {
@@ -111,6 +110,14 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
               () => {
                 this.sweetAlert.presentSuccess('Registro Creado Correctamente!');
                 this.loadData();
+                this.data = {
+                  date: new Date(),
+                  activity: { _id: '', name: '' },
+                  detail: '',
+                  hours: 0,
+                  current_hours: 0,
+                  edit: false
+                };
               },
               () => { this.sweetAlert.presentError('No Fue Posible Crear El Registro!') }
             );
@@ -118,7 +125,6 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
 
           // Se desea editar un registro
           else {
-            console.log(timeData);
 
             this.userTimeReportService.editTimeData(timeData).subscribe(
               () => {
@@ -143,7 +149,10 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
       const { id } = timeData;
       if (id) {
         this.userTimeReportService.deleteTimeData(id).subscribe(
-          () => this.sweetAlert.presentSuccess('Registro eliminado correctamente!'),
+          () => {
+            this.sweetAlert.presentSuccess('Registro eliminado correctamente!');
+            this.loadData();
+          },
           () => this.sweetAlert.presentError('No fue posible eliminar el registro!')
         );
       }
@@ -164,17 +173,19 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
   filterReport() {
     const rangeTime: RangeTime = this.range.value;
     const { start, end } = rangeTime;
+
     if (start && end) {
       const endMoment = moment(end).add(1, 'days');
       rangeTime.end = endMoment.toDate();
 
-      this.userTimeReportService.getAllTimeData(rangeTime).subscribe(
-        responseTimeData => {
+      this.userTimeReportService.getAllTimeData(rangeTime, '').subscribe(
+        (responseTimeData) => {
           this.timeData = responseTimeData.reports;
           this.dataSource.data = this.timeData;
         },
-        error => this.sweetAlert.presentError('Obteniendo rango de datos!')
+        (error) => this.sweetAlert.presentError('Obteniendo rango de datos!')
       );
     }
+
   }
 }

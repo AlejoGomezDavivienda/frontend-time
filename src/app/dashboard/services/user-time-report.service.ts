@@ -20,19 +20,21 @@ export class UserTimeReportService {
    * Obtiene el time report del usuario.
    */
   getAllTimeData(rangeTime?: RangeTime, userId?: string): Observable<ResponseTimeData> {
+
     let httpOptions = {};
 
-    if (rangeTime && (userId !== undefined || userId !== '') ) {
+
+    if (rangeTime) {
+
       httpOptions = {
         params: new HttpParams()
           .set('start', rangeTime.start.toDateString())
           .set('end', rangeTime.end.toDateString())
+          .set('user_id', userId || '')
       };
     }
 
-    console.log(userId);
-
-    if (userId !== undefined || userId !== '')
+    if (userId !== '' && userId !== undefined)
       httpOptions = { params: new HttpParams().set('user_id', userId || '') };
 
     return this.http.get<ResponseTimeData>(`${environment.API_URL}/reports`, httpOptions);
