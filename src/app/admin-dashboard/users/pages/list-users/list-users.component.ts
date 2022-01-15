@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -14,7 +14,7 @@ import { UserService } from '../../services/user.service';
   templateUrl: './list-users.component.html',
   styleUrls: ['./list-users.component.scss']
 })
-export class ListUsersComponent implements OnInit {
+export class ListUsersComponent implements OnInit, AfterViewInit {
   private data: GeneralUser = {
     email: '',
     name: '',
@@ -23,7 +23,7 @@ export class ListUsersComponent implements OnInit {
 
   public userName: string = '';
 
-  displayedColumns: string[] = ['email', 'name', 'state', 'actions'];
+  displayedColumns: string[] = ['email', 'name', 'country', 'state', 'actions'];
   dataSource: MatTableDataSource<GeneralUser>;
   private usersData: GeneralUser[] = [];
 
@@ -44,6 +44,11 @@ export class ListUsersComponent implements OnInit {
     this.loadData();
   }
 
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
   loadData() {
     this.userService.getAllUsers().subscribe(
       users => {
@@ -61,9 +66,8 @@ export class ListUsersComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
-    if (this.dataSource.paginator) {
+    if (this.dataSource.paginator)
       this.dataSource.paginator.firstPage();
-    }
   }
 
   addUser() {
@@ -89,7 +93,10 @@ export class ListUsersComponent implements OnInit {
           user.email = user.email.trim().toLowerCase();
 
           this.userService.createUser(user).subscribe(
-            () => this.sweetAlert.presentSuccess('Usuario creado con éxito'),
+            () => {
+              this.sweetAlert.presentSuccess('Usuario creado con éxito');
+              this.loadData();
+            },
             (error) => this.sweetAlert.presentError(error.error.error)
           );
         }

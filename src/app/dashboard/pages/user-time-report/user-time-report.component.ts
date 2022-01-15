@@ -142,6 +142,7 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
     });
   }
 
+
   async deleteReport(timeData: TimeData) {
     const { isConfirmed } = await this.sweetAlert.presentDelete('El registro de la base de datos!');
 
