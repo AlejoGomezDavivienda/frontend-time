@@ -1,4 +1,4 @@
-<div class="container mt-3 mb-3">
+<div class="container mt-3 mb-3" style="width: 90%;">
 
 
   <div class="row">
@@ -26,21 +26,44 @@
       <table mat-table [dataSource]="dataSource" matSort>
 
         <!-- Column -->
+        <ng-container matColumnDef="image-avatar">
+          <th mat-header-cell *matHeaderCellDef fxFlex="40px" class="mat-column-userimage"></th>
+          <td mat-cell *matCellDef="let row" fxFlex="40px" class="mat-column-userimage">
+            <img md-fab-image class="user-fab" [src]="row.img == '' ? userImg : row.img " width="20px">
+          </td>
+        </ng-container>
+
+        <!-- Column -->
         <ng-container matColumnDef="email">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Correo </th>
-          <td mat-cell *matCellDef="let row"> {{row.email}} </td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="mat-column-Actions"> Correo </th>
+          <td mat-cell *matCellDef="let row" class="mat-column-Actions"> {{row.email}} </td>
         </ng-container>
 
         <!-- Column -->
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
-          <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+          <td mat-cell *matCellDef="let row"> {{row.name | slice:0:20}} </td>
         </ng-container>
 
         <!-- Column -->
         <ng-container matColumnDef="country">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> País </th>
-          <td mat-cell *matCellDef="let row"> {{row.country}} </td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="mat-column-userimage"> País </th>
+          <td mat-cell *matCellDef="let row" class="mat-column-userimage">
+            <img md-fab-image class="user-fab" #tooltip="matTooltip" matTooltipPosition="right"
+              matTooltipHideDelay="1000" [matTooltip]="
+              row.country == 'PA' ? 'Panamá' 
+              : row.country == 'HN' ? 'Honduras'
+              : row.country == 'SV' ? 'El Salvador'
+              : row.country == 'CR' ? 'Costa Rica'
+              : 'Colombia' "
+              [src]="
+            row.country == 'PA' ? 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Flag_of_Panama.svg/200px-Flag_of_Panama.svg.png' 
+            : row.country == 'SV' ? 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Flag_of_El_Salvador.svg/2560px-Flag_of_El_Salvador.svg.png' 
+            : row.country == 'HN' ? 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Flag_of_Honduras.svg/800px-Flag_of_Honduras.svg.png'
+            : row.country == 'CR' ? 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Flag_of_Costa_Rica_%28state%29.svg/200px-Flag_of_Costa_Rica_%28state%29.svg.png'
+            : 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Colombia.svg/200px-Flag_of_Colombia.svg.png' ">
+
+          </td>
         </ng-container>
 
         <!--Column -->
@@ -54,10 +77,10 @@
 
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
 
-          <td mat-cell *matCellDef="let row" class="d-flex flex-row bd-highlight">
+          <td mat-cell *matCellDef="let row">
 
             <button mat-mini-fab color="primary" class="bd-highlight fab-icono" (click)="showUser(row.id)">
-              <mat-icon>remove_red_eye</mat-icon>
+              <mat-icon>equalizer</mat-icon>
             </button>
             <!--   
               <button mat-mini-fab class="bd-highlight fab-icono">

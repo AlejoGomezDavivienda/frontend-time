@@ -1,4 +1,8 @@
-<div class="chart">
+<button (click) = "mostrar = true" class="btn btn-primary">
+    Mostrar Gráfica de horas por actividad
+</button>
+
+<div class="chart" *ngIf="mostrar" >
     <canvas baseChart
             [data]="pieChartData"
             [labels]="labelsChart"

@@ -6,6 +6,8 @@ export interface TimeData {
   hours: number;
   current_hours: number;
   edit: Boolean;
+
+  titleDialog?: string
 }
 
 export interface ReportActivity {

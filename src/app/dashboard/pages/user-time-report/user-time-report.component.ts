@@ -89,12 +89,17 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
       this.data.current_hours = timeData.hours;
     }
 
-    if (editar)
+    if (editar) {
       this.data.edit = true;
-    else
+      this.data.titleDialog = 'Editar Registro';
+    }
+    else {
       this.data.edit = false;
+      this.data.titleDialog = 'Agregar Registro'
+    }
 
     const dialogRef = this.dialog.open(NewRegisterDialogComponent, {
+
       width: '70%',
       data: this.data
     });
@@ -130,6 +135,15 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
               () => {
                 this.sweetAlert.presentSuccess('Registro Editado Correctamente!');
                 this.loadData();
+
+                this.data = {
+                  date: new Date(),
+                  activity: { _id: '', name: '' },
+                  detail: '',
+                  hours: 0,
+                  current_hours: 0,
+                  edit: false
+                };
               },
               () => { this.sweetAlert.presentError('No Fue Posible Editar El Registro!') }
             );
@@ -189,4 +203,5 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
     }
 
   }
+
 }

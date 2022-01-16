@@ -13,13 +13,18 @@ export class NewRegisterDialogComponent implements OnInit {
 
   public activities: Activity[] = [];
   public today = new Date();
+  public titulo: string;
+
 
   constructor(
     public dialogRef: MatDialogRef<NewRegisterDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: TimeData,
 
     private userTimeReportService: UserTimeReportService
-  ) { }
+  ) 
+  {
+     this.titulo = this.data.titleDialog || 'Agregar Registro';
+  }
 
   ngOnInit(): void {
     this.loadData();
@@ -41,6 +46,8 @@ export class NewRegisterDialogComponent implements OnInit {
 
   onNoClick(): void {
     this.dialogRef.close();
+
+    
   }
 
 }

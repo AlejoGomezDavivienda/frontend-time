@@ -2,6 +2,12 @@ table {
   width: 100%;
 }
 
+.header-align-right{
+  display: flex;
+  padding: 21px 0;
+  justify-content: flex-end;
+}
+
 .mat-form-field {
   font-size: 14px;
   width: 100%;
@@ -42,12 +48,7 @@ td, th {
     max-width: 80%;
   }
 
-  // .contenedor{
-  //   padding: 3%;
-  //   padding-left: 8%;
-  //   padding-right: 8%;
-  //   overflow:hidden !important;
-  // }
+
 
 .bold-text
 {
@@ -70,4 +71,36 @@ td, th {
 .w-100
 {
   width: 100%;
+}
+
+.mat-column-userimage {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 15% !important;
+  width: 15% !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  word-break: break-word;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+.mat-column-Actions {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 8% !important;
+  width: 8% !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  word-break: break-word;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
 }

@@ -14,11 +14,11 @@ import { environment } from 'src/environments/environment';
   templateUrl: './admin-layout.component.html',
   styleUrls: ['./admin-layout.component.scss']
 })
-export class AdminLayoutComponent implements OnInit, AfterViewInit
-{
+export class AdminLayoutComponent implements OnInit, AfterViewInit {
   panelOpenState = false;
   userImg = 'https://firebasestorage.googleapis.com/v0/b/subasta-inversa-d6e7a.appspot.com/o/User-80_icon-icons.com_57249.png?alt=media&token=283572e2-e8d3-4149-9227-8ae3b795652e';
   userName = '';
+  userRol = 'Administrador';
 
   logoDayToDay = environment.LOGO_DAY_TO_DAY;
 
@@ -45,45 +45,46 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit
     private socialAuthService: SocialAuthService
   ) { }
 
-  ngAfterViewInit(): void 
-  {
+  // ngAfterViewInit(): void {
+  //   setTimeout(() => {
+  //     this.screenWidth = window.innerWidth || 1000;
+  //     if (this.screenWidth < 1000) {
+  //       this.drawer.close();
+  //     }
+  //   }, 400);
+  // }
+
+  ngAfterViewInit(): void {
     setTimeout(() => {
-      this.screenWidth = window.innerWidth || 1000;
-      if(this.screenWidth < 1000)
-      {
-        this.drawer.close()
-        // this.drawer.nativeElement.click();
-      }
-    }, 400);
+      this.drawer.open();
+    }, 200);
   }
 
-  ngOnInit(): void 
-  {
+  ngOnInit(): void {
     this.verifyAuth();
   }
 
-  verifyAuth()
-  {
+  verifyAuth() {
     const token = this.tokenService.getToken();
-    if( token )
-    {
+    if (token) {
       this.authService.getUserLogged().subscribe(
-        userData => {},
-        error => this.router.navigate(['/auth/login'])
+        (userData) => {
+          this.userName = userData.user.name;
+
+          if (userData.user.img !== '')
+            this.userImg = userData.user.img;
+
+        },
+        (error) => this.router.navigate(['/auth/google'])
       );
     }
-    else
-    {
-      this.router.navigate(['/auth/login']);
+    else {
+      this.router.navigate(['/auth/google']);
     }
   }
 
-  goToUsers()
-  {
-    this.router.navigate(['/admin/users']);
-  }
 
-  logout(){
+  logout() {
     this.authService.logout();
     this.socialAuthService.signOut();
     this.router.navigate(['/']);

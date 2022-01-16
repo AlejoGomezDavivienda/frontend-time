@@ -1,20 +1,28 @@
 <!-- Image and text -->
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport color="primary"
-    [attr.role]="(isHandset$ | async) ? 'navigation' : 'dialog'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="(isHandset$ | async) === true">
+  <mat-sidenav 
+  #drawer 
+  class="sidenav" 
+  fixedInViewport 
+  color="primary"
+  [attr.role]="(isHandset$ | async) ? 'navigation' : 'dialog'" 
+  [mode]="(isHandset$ | async) ? 'over' : 'side'" 
+  [opened]="true">
+    <!-- [attr.role]="(isHandset$ | async) ? 'navigation' : 'dialog'" [mode]="(isHandset$ | async) ? 'over' : 'side'" -->
+    <!-- [opened]="(isHandset$ | async) === true" -->
 
     <!-- <mat-toolbar color="primary">Dashboard</mat-toolbar> -->
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-      aria-haspopup="true" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdown" role="button"
+      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <div class="example-button-container mt-3 info-cont">
         <img md-fab-image class="user-fab" [src]="userImg">
         <div class="name-function">
-          <h3>{{ userName | uppercase }}</h3>
-          <h4>Usuario</h4>
+          <h3>{{ userName }}</h3>
+          <h4>{{ userRol | uppercase }}</h4>
         </div>
       </div>
     </a>
+
     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
       <a class="dropdown-item" href="#">Ver perfil</a>
       <a class="dropdown-item" href="#">Cambiar contraseña</a>
@@ -33,35 +41,22 @@
         </a>
       </span> -->
     <mat-nav-list>
-      <a mat-list-item [routerLink]="['/dashboard']" (click)="drawer.toggle()">
-        <mat-icon mat-list-icon>dashboard</mat-icon>
-        Panel Principal
+      <a mat-list-item [routerLink]="['/dashboard']">
+        <mat-icon mat-list-icon>space_dashboard</mat-icon>
+        Actividades
       </a>
-      <mat-divider></mat-divider>
-      <div mat-subheader>Opciones</div>
+      <!-- <mat-divider></mat-divider> -->
+      <!-- <div mat-subheader>Opciones</div> -->
 
       <mat-selection-list [multiple]="false">
-        <!-- <mat-list-option (click)="goToProducts(); drawer.toggle()">
-            <mat-icon mat-list-icon>local_bar</mat-icon>
-            Productos
-          </mat-list-option>
-  
-          <mat-list-option (click)="goToProviders(); drawer.toggle()">
-            <mat-icon mat-list-icon>person_pin_circle</mat-icon>
-            Proveedores
-          </mat-list-option>
-  
-          <mat-list-option (click)="goToSettings(); drawer.toggle()">
-            <mat-icon mat-list-icon>settings</mat-icon>
-            Configuración
-          </mat-list-option> -->
+
       </mat-selection-list>
 
 
 
 
       <mat-divider></mat-divider>
-      <div mat-subheader>General</div>
+      <!-- <div mat-subheader>General</div> -->
 
     </mat-nav-list>
   </mat-sidenav>
@@ -78,31 +73,14 @@
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
 
-        <span class="titulo">Auditoria TI y Ciberseguridad</span>
+        <span class="titulo">Vicepresidencia de Auditoria</span>
         <span class="example-spacer"></span>
-        <button mat-icon-button class="example-icon favorite-icon mr-4" (click)="logout()">
-          <mat-icon>eject</mat-icon>
-          Salir
+        <button mat-icon-button class="favorite-icon mr-4" (click)="logout()">
+          <mat-icon>logout</mat-icon>
         </button>
 
       </mat-toolbar-row>
 
-      <!-- Usuario logueado opciones -->
-      <!-- <div class="example-button-container mt-3 info-cont-white">
-            <a href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <img md-fab-image class="user-fab" [src]="userImg">
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="/dashboard/profile">Ver perfil</a>
-              <a class="dropdown-item" href="#">Cambiar contraseña</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item sign-out-text" href="#">Cerrar sesión</a>
-            </div>
-            <div class="name-function-white">
-              <h3>{{ userName | uppercase }}</h3>
-              <h4 class="user-rol">Manager</h4>
-            </div>
-          </div> -->
     </mat-toolbar>
 
     <!-- Main Content -->

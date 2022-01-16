@@ -14,11 +14,11 @@ import { environment } from 'src/environments/environment';
   templateUrl: './user-layout.component.html',
   styleUrls: ['./user-layout.component.scss']
 })
-export class UserLayoutComponent implements OnInit, AfterViewInit 
-{
+export class UserLayoutComponent implements OnInit {
   panelOpenState = false;
   userImg = 'https://firebasestorage.googleapis.com/v0/b/subasta-inversa-d6e7a.appspot.com/o/User-80_icon-icons.com_57249.png?alt=media&token=283572e2-e8d3-4149-9227-8ae3b795652e';
   userName = '';
+  userRol = 'Auditor';
 
   logoDayToDay = environment.LOGO_DAY_TO_DAY;
 
@@ -26,10 +26,7 @@ export class UserLayoutComponent implements OnInit, AfterViewInit
   @ViewChild('drawer') drawer!: MatSidenav;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches),
-      shareReplay()
-    );
+    .pipe(map(result => result.matches), shareReplay());
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -39,41 +36,46 @@ export class UserLayoutComponent implements OnInit, AfterViewInit
     private socialAuthService: SocialAuthService
   ) { }
 
-  ngAfterViewInit(): void 
-  {
+  // ngAfterViewInit(): void {
+  //   setTimeout(() => {
+  //     this.screenWidth = window.innerWidth || 1000;
+  //     if (this.screenWidth < 1000) {
+  //       this.drawer.close();
+  //       // this.drawer.nativeElement.click();
+  //     }
+  //   }, 400);
+  // }
+
+  ngAfterViewInit(): void {
     setTimeout(() => {
-      this.screenWidth = window.innerWidth || 1000;
-      if(this.screenWidth < 1000)
-      {
-        this.drawer.close()
-        // this.drawer.nativeElement.click();
-      }
-    }, 400);
+      this.drawer.open();
+    }, 200);
   }
 
-  ngOnInit(): void 
-  {
+  ngOnInit(): void {
     this.verifyAuth();
   }
 
-  verifyAuth()
-  {
+  verifyAuth() {
     const token = this.tokenService.getToken();
-    if( token )
-    {
-      this.authService.getUserLogged(  ).subscribe(
-        userData => {},
-        error => this.router.navigate(['/auth/login'])
+    if (token) {
+      this.authService.getUserLogged().subscribe(
+        (userData) => {
+          this.userName = userData.user.name;
+
+          if (userData.user.img !== '')
+            this.userImg = userData.user.img;
+
+        },
+        (error) => this.router.navigate(['/auth/google'])
       );
     }
-    else
-    {
-      this.router.navigate(['/auth/login']);
+    else {
+      this.router.navigate(['/auth/google']);
     }
   }
 
-  logout()
-  {
+  logout() {
     this.authService.logout();
     this.socialAuthService.signOut();
     this.router.navigate(['/']);

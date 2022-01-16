@@ -17,13 +17,14 @@ import { UserService } from '../../services/user.service';
 export class ListUsersComponent implements OnInit, AfterViewInit {
   private data: GeneralUser = {
     email: '',
-    name: '',
-    // state: true
+    name: ''
   };
+
+  userImg = 'https://firebasestorage.googleapis.com/v0/b/subasta-inversa-d6e7a.appspot.com/o/User-80_icon-icons.com_57249.png?alt=media&token=283572e2-e8d3-4149-9227-8ae3b795652e';
 
   public userName: string = '';
 
-  displayedColumns: string[] = ['email', 'name', 'country', 'state', 'actions'];
+  displayedColumns: string[] = ['image-avatar', 'email', 'name', 'country', 'state', 'actions'];
   dataSource: MatTableDataSource<GeneralUser>;
   private usersData: GeneralUser[] = [];
 
@@ -120,5 +121,6 @@ export class ListUsersComponent implements OnInit, AfterViewInit {
   showUser(id: string) {
     this.router.navigate(['/admin/users/' + id]);
   }
+
 
 }

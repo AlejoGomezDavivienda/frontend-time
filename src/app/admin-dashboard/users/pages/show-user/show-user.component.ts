@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Activity } from 'src/app/admin-dashboard/interfaces/Activity';
 import { ActivityService } from 'src/app/admin-dashboard/services/activity.service';
@@ -12,7 +12,7 @@ import { UserService } from '../../services/user.service';
   templateUrl: './show-user.component.html',
   styleUrls: ['./show-user.component.scss']
 })
-export class ShowUserComponent implements OnInit {
+export class ShowUserComponent implements OnInit{
 
   public user: User = {
     id: '',
@@ -20,7 +20,8 @@ export class ShowUserComponent implements OnInit {
     email: '',
     name: '',
     rol: '',
-    updated_at: new Date()
+    updated_at: new Date(),
+    img: ''
   };
 
   idUser: string;

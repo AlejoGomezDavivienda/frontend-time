@@ -10,6 +10,8 @@ import { BarGraphComponent } from './components/bar-graph/bar-graph.component';
 import { DoughnutGraphComponent } from './components/doughnut-graph/doughnut-graph.component';
 import { PieGraphComponent } from './components/pie-graph/pie-graph.component';
 import { GanttGraphComponent } from './components/gantt-graph/gantt-graph.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
+
 
 
 @NgModule({
@@ -20,12 +22,13 @@ import { GanttGraphComponent } from './components/gantt-graph/gantt-graph.compon
     BarGraphComponent,
     DoughnutGraphComponent,
     PieGraphComponent,
-    GanttGraphComponent
+    GanttGraphComponent,
   ],
   imports: [
     CommonModule,
     UsersRoutingModule,
-    SharedModule
+    SharedModule,
+    MatTooltipModule
   ]
 })
 export class UsersModule { }
