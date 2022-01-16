@@ -36,13 +36,16 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
     end: new FormControl('', Validators.required),
   });
 
-  displayedColumns: string[] = ['date', 'activity', 'detail', 'hours', 'actions'];
+  displayedColumns: string[] = ['select', 'date', 'activity', 'detail', 'hours', 'actions'];
   dataSource: MatTableDataSource<TimeData>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   private timeData: TimeData[] = [];
+  private deleteReportsMassive: TimeData[] = [];
+  registros: boolean = false;
+
 
   constructor(
     private userTimeReportService: UserTimeReportService,
@@ -158,6 +161,7 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
 
 
   async deleteReport(timeData: TimeData) {
+
     const { isConfirmed } = await this.sweetAlert.presentDelete('El registro de la base de datos!');
 
     if (isConfirmed) {
@@ -202,6 +206,24 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
       );
     }
 
+  }
+
+  selectReport(report: TimeData) {
+
+    if (!this.deleteReportsMassive.includes(report))
+      this.deleteReportsMassive.push(report);
+    else {
+      let indexReport = this.deleteReportsMassive.indexOf(report);
+      if (indexReport !== -1)
+        this.deleteReportsMassive.splice(indexReport, 1);
+    }
+
+    if (this.deleteReportsMassive.length > 0)
+      this.registros = true;
+    else
+      this.registros = false;
+
+    console.log(this.deleteReportsMassive);
   }
 
 }

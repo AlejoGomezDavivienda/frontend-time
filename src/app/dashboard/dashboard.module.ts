@@ -7,6 +7,8 @@ import { MaterialModule } from '../shared/material/material.module';
 import { SharedModule } from '../shared/shared.module';
 import { NewRegisterDialogComponent } from './components/new-register-dialog/new-register-dialog.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 
 
 @NgModule({
@@ -19,7 +21,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     DashboardRoutingModule,
     // MaterialModule,
     SharedModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatCheckboxModule
   ]
 })
 export class DashboardModule { }

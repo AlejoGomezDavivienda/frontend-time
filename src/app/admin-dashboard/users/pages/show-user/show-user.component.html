@@ -1,11 +1,14 @@
 <div class="container mt-3 mb-3" style="width: 90%">
 
     <div class="row ml-1 md-6 justify-content-center">
-      <h1>{{ user.name }}</h1>
+        <h1>
+            <img md-fab-image class="user-fab" [src]="user.img == '' ? userImg : user.img ">
+            {{ user.name }}
+        </h1>
     </div>
-  
+
     <mat-divider></mat-divider>
-  
+
     <div class="row ml-1 mt-3 md-6 justify-content-center">
         <h3>Detalle del time report:</h3>
     </div>
@@ -16,14 +19,13 @@
             <mat-expansion-panel>
                 <mat-expansion-panel-header>
                     <mat-panel-title>
-                    Asignar actividades especificas
+                        Asignar actividades especificas
                     </mat-panel-title>
                 </mat-expansion-panel-header>
                 <mat-selection-list class="w-100">
                     <mat-list-option *ngFor="let activity of activities; let index = index"
-                                      [selected]="verifyUser(index)"
-                                      [disabled]="activity.is_general"
-                                      (click)="assignActivity(activity)">
+                        [selected]="verifyUser(index)" [disabled]="activity.is_general"
+                        (click)="assignActivity(activity)">
                         {{activity.name}}
                     </mat-list-option>
                 </mat-selection-list>
@@ -42,5 +44,5 @@
         </div>
 
     </div>
-  
+
 </div>
