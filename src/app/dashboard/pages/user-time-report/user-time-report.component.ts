@@ -28,7 +28,8 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
     detail: '',
     hours: 0,
     current_hours: 0,
-    edit: false
+    edit: false,
+    checked: false
   };
 
   public range = new FormGroup({
@@ -64,6 +65,7 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+
     this.dataSource.sort = this.sort;
   }
 
@@ -125,6 +127,7 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
                   hours: 0,
                   current_hours: 0,
                   edit: false
+
                 };
               },
               () => { this.sweetAlert.presentError('No Fue Posible Crear El Registro!') }
@@ -178,6 +181,28 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
     }
   }
 
+  async deleteSelectedReports() {
+    const { isConfirmed } = await this.sweetAlert.presentDelete('Los registros seleccionados');
+
+    if (isConfirmed) {
+      this.userTimeReportService.deleteReportsTimeData(this.deleteReportsMassive)
+        .subscribe(
+          (res) => {
+            this.sweetAlert.presentSuccess('Registros eliminados correctamente!');
+            console.log(res);
+            this.registros = false;
+            this.deleteReportsMassive = [];
+            this.loadData();
+          },
+          (error) => {
+            this.sweetAlert.presentError('No fue posible eliminar los registros!')
+            console.log(error);
+          }
+        );
+    }
+
+  }
+
   verifyTimeData(timeData: TimeData): boolean {
     console.log(timeData);
     if (timeData.date && timeData.activity && timeData.detail && timeData.hours) {
@@ -210,20 +235,22 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
 
   selectReport(report: TimeData) {
 
-    if (!this.deleteReportsMassive.includes(report))
+
+    if (!this.deleteReportsMassive.includes(report)) {
       this.deleteReportsMassive.push(report);
+    }
     else {
       let indexReport = this.deleteReportsMassive.indexOf(report);
-      if (indexReport !== -1)
+      if (indexReport !== -1) {
         this.deleteReportsMassive.splice(indexReport, 1);
+      }
     }
 
-    if (this.deleteReportsMassive.length > 0)
+    if (this.deleteReportsMassive.length > 1)
       this.registros = true;
     else
       this.registros = false;
 
-    console.log(this.deleteReportsMassive);
   }
 
 }

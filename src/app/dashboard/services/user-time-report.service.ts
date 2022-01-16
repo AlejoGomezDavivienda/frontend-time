@@ -65,6 +65,16 @@ export class UserTimeReportService {
     return this.http.delete(`${environment.API_URL}/reports/${id}`);
   }
 
+  /**
+   * "Elimina" registros masivos de reportes cambiando su 
+   * estado de true a false
+   * @param {TimeData[]} reports de la información a borrar
+   */
+  deleteReportsTimeData(reports: TimeData []) {
+    const data = JSON.stringify({ data: reports });
+    return this.http.patch(`${environment.API_URL}/reports/massive`, data);
+  }
+
   // **************ESPECIALES******************ESPECIALES************ESPECIALES*************//
   getAllActivitiesFromUser(): Observable<ResponseUserActivities> {
     return this.http.post<ResponseUserActivities>(`${environment.API_URL}/activities/specific`, {});

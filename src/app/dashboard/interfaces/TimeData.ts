@@ -8,6 +8,7 @@ export interface TimeData {
   edit: Boolean;
 
   titleDialog?: string
+  checked?: boolean;
 }
 
 export interface ReportActivity {
