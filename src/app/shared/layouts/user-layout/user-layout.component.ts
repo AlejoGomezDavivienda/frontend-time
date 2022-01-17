@@ -49,7 +49,7 @@ export class UserLayoutComponent implements OnInit {
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.drawer.open();
-    }, 200);
+    }, 1000);
   }
 
   ngOnInit(): void {
