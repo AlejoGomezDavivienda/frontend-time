@@ -36,6 +36,10 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
   public horasTrabajadasHoy = 0;
   public timeDataActual: TimeData[] = [];
 
+  public horasTrabajadasOtroDia = 0;
+  public fechaHorasOtroDiaStart = '';
+  public fechaHorasOtroDiaEnd = '';
+
   public range = new FormGroup({
     start: new FormControl('', Validators.required),
     end: new FormControl('', Validators.required),
@@ -181,7 +185,6 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
 
   }
 
-
   async deleteReport(timeData: TimeData) {
 
     const { isConfirmed } = await this.sweetAlert.presentDelete('El registro de la base de datos!');
@@ -256,6 +259,11 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
     if (start && end) {
       const endMoment = moment(end).add(1, 'days');
       rangeTime.end = endMoment.toDate();
+
+      // TODO: Horas de otros días
+      // this.fechaHorasOtroDiaStart = moment(start).format('YYYY-MM-DD');
+      // this.fechaHorasOtroDiaEnd = moment(end).format('YYYY-MM-DD');
+
 
       this.userTimeReportService.getAllTimeData(rangeTime, '').subscribe(
         (responseTimeData) => {
