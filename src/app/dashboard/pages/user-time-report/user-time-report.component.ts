@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
@@ -32,6 +33,9 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
     checked: false
   };
 
+  public horasTrabajadasHoy = 0;
+  public timeDataActual: TimeData[] = [];
+
   public range = new FormGroup({
     start: new FormControl('', Validators.required),
     end: new FormControl('', Validators.required),
@@ -51,7 +55,8 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
   constructor(
     private userTimeReportService: UserTimeReportService,
     public dialog: MatDialog,
-    private sweetAlert: SweetAlertService
+    private sweetAlert: SweetAlertService,
+    private _snackBar: MatSnackBar
   ) {
     // Assign the data to the data source for the table to render
     this.dataSource = new MatTableDataSource(this.timeData);
@@ -70,11 +75,26 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
   }
 
   loadData() {
+
+    this.horasTrabajadasHoy = 0;
+
     this.userTimeReportService.getAllTimeData().subscribe(
       responseTimeData => {
         this.timeData = responseTimeData.reports;
         this.dataSource.data = this.timeData;
+
+        let cDate = moment(new Date()).format('YYYY-MM-DD');
+        for (let i = 0; i < this.timeData.length; i++) {
+          if (cDate == moment(this.timeData[i].date).format('YYYY-MM-DD')) {
+            this.timeDataActual.push(this.timeData[i])
+            this.horasTrabajadasHoy += this.timeData[i].hours;
+
+            if (this.horasTrabajadasHoy > 24)
+              this.openSnackBar('Te has excedido de tus horas diarias de trabajo, revisa tus actividades de hoy para ajustar los tiempos');
+          }
+        }
       },
+
       error => { console.log(error) }
     );
   }
@@ -93,7 +113,6 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
       this.data = timeData;
       this.data.current_hours = timeData.hours;
     }
-
     if (editar) {
       this.data.edit = true;
       this.data.titleDialog = 'Editar Registro';
@@ -104,7 +123,6 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
     }
 
     const dialogRef = this.dialog.open(NewRegisterDialogComponent, {
-
       width: '70%',
       data: this.data
     });
@@ -127,10 +145,9 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
                   hours: 0,
                   current_hours: 0,
                   edit: false
-
                 };
               },
-              () => { this.sweetAlert.presentError('No Fue Posible Crear El Registro!') }
+              () => { this.sweetAlert.presentError('No fue posible crear el registro! Revisa los datos ingresados') }
             );
           }
 
@@ -160,6 +177,8 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
         }
       }
     });
+
+
   }
 
 
@@ -174,6 +193,7 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
           () => {
             this.sweetAlert.presentSuccess('Registro eliminado correctamente!');
             this.loadData();
+            // this.openSnackBar();
           },
           () => this.sweetAlert.presentError('No fue posible eliminar el registro!')
         );
@@ -193,6 +213,9 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
             this.registros = false;
             this.deleteReportsMassive = [];
             this.loadData();
+
+            // this.openSnackBar();
+
           },
           (error) => {
             this.sweetAlert.presentError('No fue posible eliminar los registros!')
@@ -204,12 +227,24 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
   }
 
   verifyTimeData(timeData: TimeData): boolean {
-    console.log(timeData);
-    if (timeData.date && timeData.activity && timeData.detail && timeData.hours) {
-      if (!(timeData.hours <= 0 && timeData.hours >= 15)) {
-        return true;
-      }
+
+    console.log((this.horasTrabajadasHoy - timeData.current_hours + timeData.hours));
+
+    if ((this.horasTrabajadasHoy - timeData.current_hours + timeData.hours) > 24) {
+      console.log((this.horasTrabajadasHoy - timeData.current_hours + timeData.hours));
+      this.openSnackBar(`Horas diarias excedidas, más de 24 horas diarias. 
+      Revisa la información ingresada de tus actividades de hoy y editalas si es necesario`);
+      return false;
     }
+
+    if (timeData.hours > 24) {
+      this.openSnackBar(`Solo puedes agregar 24 horas de trabajo por acividad por día`);
+      return false;
+    }
+
+    if (timeData.date && timeData.activity && timeData.detail && timeData.hours)
+      if (timeData.hours > 0 && timeData.hours <= 24)
+        return true;
 
     return false;
   }
@@ -251,6 +286,25 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
     else
       this.registros = false;
 
+  }
+
+  openSnackBar(aviso?: string) {
+
+    let message = 'Horas trabajadas el día de hoy';
+
+    if (this.horasTrabajadasHoy > 24)
+      message = `Te has excedido de las horas permitdas por día, revisa tus actividades ingresadas hoy`;
+    else if (this.horasTrabajadasHoy >= 8)
+      message = `Has completado tu registro de 8 horas diarias, 
+      de igual manera puedes seguir agregando actividades si es el caso`;
+
+    if (aviso != null && aviso != '' && aviso != undefined)
+      message = aviso || 'a';
+
+    this._snackBar.open(message, '', {
+      duration: 5000,
+      verticalPosition: 'top'
+    });
   }
 
 }

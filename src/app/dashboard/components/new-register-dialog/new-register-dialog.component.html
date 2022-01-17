@@ -2,38 +2,58 @@
     <h1 mat-dialog-title>{{titulo}}</h1>
     <div mat-dialog-content>
         <div class="row justify-content-center">
-            <!-- Fecha -->
-            <mat-form-field class="inputs" appearance="fill">
-                <mat-label>Seleccionar Fecha</mat-label>
-                <input matInput [matDatepicker]="picker" [(ngModel)]="data.date" [max]="today">
-                <mat-datepicker-toggle matSuffix [for]="picker">
-                    <mat-icon matDatepickerToggleIcon>calendar_today</mat-icon>
-                </mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
 
-            <!-- Actividad -->
-            <mat-form-field appearance="fill" class="inputs">
-                <mat-label>Seleccionar Actividad</mat-label>
-                <mat-select [(ngModel)]="data.activity">
-                    <mat-option *ngFor="let activity of activities" [value]="activity.id">
-                        {{ activity.name }}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
+            <div class="row">
 
-            <!-- Detalle -->
-            <mat-form-field class="inputs" appearance="fill">
-                <mat-label>Detalle</mat-label>
-                <textarea [(ngModel)]="data.detail" matInput
-                    placeholder="Ingrese la información especifica de la actividad..." rows="5"></textarea>
-            </mat-form-field>
+                <div class="col-4">
+                    <!-- Fecha -->
+                    <mat-form-field class="inputs" appearance="fill">
+                        <mat-label>Seleccionar Fecha</mat-label>
+                        <input matInput [matDatepicker]="picker" [(ngModel)]="data.date" [max]="today">
+                        <mat-datepicker-toggle matSuffix [for]="picker">
+                            <mat-icon matDatepickerToggleIcon>calendar_today</mat-icon>
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
 
-            <!-- Número de horas -->
-            <mat-form-field class="inputs" appearance="fill">
-                <mat-label>Horas</mat-label>
-                <input [(ngModel)]="data.hours" type="number" min="0" max="8" matInput placeholder="Número de horas empleadas!">
-            </mat-form-field>
+                </div>
+                <div class="col-4">
+
+                    <!-- Actividad -->
+                    <mat-form-field appearance="fill" class="inputs">
+                        <mat-label>Seleccionar Actividad</mat-label>
+                        <mat-select [(ngModel)]="data.activity">
+                            <mat-option *ngFor="let activity of activities" [value]="activity.id">
+                                {{ activity.name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                </div>
+                <div class="col-4">
+
+                    <!-- Número de horas -->
+                    <mat-form-field class="inputs" appearance="fill">
+                        <mat-label>Horas</mat-label>
+                        <input [(ngModel)]="data.hours" type="number" min="0" max="8" matInput
+                            placeholder="Número de horas empleadas!">
+                    </mat-form-field>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+
+                    <!-- Detalle -->
+                    <mat-form-field class="inputs" appearance="fill">
+                        <mat-label>Detalle</mat-label>
+                        <textarea [(ngModel)]="data.detail" matInput
+                            placeholder="Ingresa el detalle de la actividad..." rows="10"></textarea>
+                    </mat-form-field>
+
+                </div>
+            </div>
 
         </div>
     </div>

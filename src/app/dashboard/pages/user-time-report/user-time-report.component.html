@@ -1,7 +1,16 @@
 <div class="container mt-3 mb-3" style="width: 90%;">
 
   <div class="row ml-1 md-6 justify-content-center">
-    <h1>Regsitro de actividades</h1>
+    <div class="row" style="width: 100%;">
+      <div class="col-6">
+        <h1>Regsitro de actividades</h1>
+      </div>
+      <div class="col-6 justify-content-end">
+        <button mat-raised-button color="accent" (click)="openSnackBar()">
+          Horas trabajadas hoy: <span>{{horasTrabajadasHoy}}</span>
+        </button>
+      </div>
+    </div>
   </div>
 
   <mat-divider></mat-divider>
@@ -26,11 +35,11 @@
     </div>
 
     <div class="col-md-6 col-xs-6 text-right">
-      <button mat-raised-button color="primary" class="boton mt-3" (click)="openDialog(undefined, false)">
+      <button mat-raised-button color="primary" class="boton mt-3" *ngIf="horasTrabajadasHoy <=24" (click)="openDialog(undefined, false)">
         Agregar Registro
         <mat-icon>add</mat-icon>
       </button>
-      <button mat-raised-button color="warn" class="boton mt-3" *ngIf="registros" (click)="deleteSelectedReports()" >
+      <button mat-raised-button color="warn" class="boton mt-3" *ngIf="registros" (click)="deleteSelectedReports()">
         Eliminar registros seleccionados
         <mat-icon>delete</mat-icon>
       </button>

@@ -8,6 +8,8 @@ import { SharedModule } from '../shared/shared.module';
 import { NewRegisterDialogComponent } from './components/new-register-dialog/new-register-dialog.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 
 
@@ -22,7 +24,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     // MaterialModule,
     SharedModule,
     MatTooltipModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSnackBarModule
   ]
 })
 export class DashboardModule { }
