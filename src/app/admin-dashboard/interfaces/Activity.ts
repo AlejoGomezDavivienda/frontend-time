@@ -7,8 +7,9 @@ export interface Activity {
     estimated_hours: number;
     worked_hours: number;
     is_general: boolean;
+    country: string
     users?: [SortUser];
-    state?: boolean
+    state?: boolean,
 }
 
 

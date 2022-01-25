@@ -9,11 +9,32 @@
                 <input matInput placeholder="Ingrese el nombre de la actividad que desea registrar" [(ngModel)]="data.name">
             </mat-form-field>
 
-            <!-- Número de horas -->
+            <div class="row">
+                <div class="col-6">
+
+                                <!-- Número de horas -->
             <mat-form-field class="inputs" appearance="fill">
                 <mat-label>Horas Estimadas</mat-label>
                 <input [(ngModel)]="data.estimated_hours" type="number" min="0" matInput placeholder="Número de horas estimadas para la finalización!">
             </mat-form-field>
+
+                </div>
+                <div class="col-6">
+
+                    <mat-form-field class="inputs" appearance="fill">
+                        <mat-label>País</mat-label>
+                        <select matNativeControl required [(ngModel)]="data.country">
+                            <option value="CO">Colombia</option>
+                            <option value="HN">Honduras</option>
+                            <option value="CR">Costa Rica</option>
+                            <option value="SV">El Salvador</option>
+                            <option value="PA">Panamá</option>
+                        </select>
+                    </mat-form-field>
+
+                </div>
+            </div>
+
 
             <!-- Fechas estimadas -->
             <mat-form-field class="inputs" appearance="fill" class="filtro">

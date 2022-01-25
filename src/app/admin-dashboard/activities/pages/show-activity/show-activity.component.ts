@@ -27,7 +27,8 @@ export class ShowActivityComponent implements OnInit {
     estimated_hours: 1,
     worked_hours: 0,
     is_general: false,
-    state: true
+    state: true,
+    country: 'CO'
   };
 
   public users: any[] = [];

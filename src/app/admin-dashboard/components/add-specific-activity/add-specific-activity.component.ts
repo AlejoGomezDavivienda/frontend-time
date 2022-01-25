@@ -8,8 +8,8 @@ import { Activity } from '../../interfaces/Activity';
   templateUrl: './add-specific-activity.component.html',
   styleUrls: ['./add-specific-activity.component.scss']
 })
-export class AddSpecificActivityComponent implements OnInit 
-{
+export class AddSpecificActivityComponent implements OnInit {
+
   public range = new FormGroup({
     start: new FormControl('', Validators.required),
     end: new FormControl('', Validators.required),
@@ -18,8 +18,7 @@ export class AddSpecificActivityComponent implements OnInit
   constructor(
     public dialogRef: MatDialogRef<AddSpecificActivityComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Activity,
-  ) 
-  { }
+  ) { }
 
   ngOnInit(): void {
   }

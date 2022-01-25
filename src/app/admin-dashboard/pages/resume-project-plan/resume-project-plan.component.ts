@@ -29,7 +29,8 @@ export class ResumeProjectPlanComponent implements OnInit, AfterViewInit {
     estimated_hours: 0,
     worked_hours: 0,
     open_state: true,
-    is_general: true
+    is_general: true,
+    country: 'CO'
   };
 
   // Paginator
