@@ -21,9 +21,8 @@ export class NewRegisterDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: TimeData,
 
     private userTimeReportService: UserTimeReportService
-  ) 
-  {
-     this.titulo = this.data.titleDialog || 'Agregar Registro';
+  ) {
+    this.titulo = this.data.titleDialog || 'Agregar Registro';
   }
 
   ngOnInit(): void {
@@ -32,13 +31,15 @@ export class NewRegisterDialogComponent implements OnInit {
 
   loadData() {
 
+    let tempActivities = [];
     this.userTimeReportService.getAllActivitiesFromUser().subscribe(
+
       (activities) => {
-        if (this.data.edit) {
+        if (this.data.edit)
           this.activities = activities.activities.filter((a) => a.name == this.data.activity.name);
-        }
         else
-          this.activities = activities.activities;
+          this.activities = activities.activities.sort((a, b) => Number(a.is_general) - Number(b.is_general));
+
       },
       (error) => console.log(error)
     );
@@ -47,7 +48,7 @@ export class NewRegisterDialogComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close();
 
-    
+
   }
 
 }
