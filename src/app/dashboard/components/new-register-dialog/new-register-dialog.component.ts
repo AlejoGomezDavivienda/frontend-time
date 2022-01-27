@@ -31,7 +31,6 @@ export class NewRegisterDialogComponent implements OnInit {
 
   loadData() {
 
-    let tempActivities = [];
     this.userTimeReportService.getAllActivitiesFromUser().subscribe(
 
       (activities) => {
@@ -47,7 +46,6 @@ export class NewRegisterDialogComponent implements OnInit {
 
   onNoClick(): void {
     this.dialogRef.close();
-
 
   }
 

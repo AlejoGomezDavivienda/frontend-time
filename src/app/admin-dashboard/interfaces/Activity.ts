@@ -1,5 +1,6 @@
 export interface Activity {
     id?: string;
+    company?: 1
     name: string;
     open_state: boolean;
     initial_date: Date;

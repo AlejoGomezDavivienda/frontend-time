@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, MatSortable } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { NewRegisterDialogComponent } from '../../components/new-register-dialog/new-register-dialog.component';
@@ -75,6 +75,9 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
 
+    // this.dataSource.sort = this.sort;
+    // to put where you want the sort to be programmatically triggered, for example inside ngOnInit
+    this.sort.sort(({ id: 'date', start: 'desc' }) as MatSortable);
     this.dataSource.sort = this.sort;
   }
 
@@ -83,12 +86,15 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
     this.horasTrabajadasHoy = 0;
 
     this.userTimeReportService.getAllTimeData().subscribe(
-      responseTimeData => {
+      (responseTimeData) => {
         this.timeData = responseTimeData.reports;
+
         this.dataSource.data = this.timeData;
 
         let cDate = moment(new Date()).format('YYYY-MM-DD');
+
         for (let i = 0; i < this.timeData.length; i++) {
+
           if (cDate == moment(this.timeData[i].date).format('YYYY-MM-DD')) {
             this.timeDataActual.push(this.timeData[i])
             this.horasTrabajadasHoy += this.timeData[i].hours;
@@ -97,6 +103,7 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
               this.openSnackBar('Te has excedido de tus horas diarias de trabajo, revisa tus actividades de hoy para ajustar los tiempos');
           }
         }
+
       },
 
       error => { console.log(error) }
@@ -133,6 +140,7 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+
 
         const checkData = this.verifyTimeData(result);
         if (checkData) {
@@ -259,6 +267,7 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
     if (start && end) {
       const endMoment = moment(end).add(1, 'days');
       rangeTime.end = endMoment.toDate();
+      console.log(rangeTime.end);
 
       // TODO: Horas de otros días
       // this.fechaHorasOtroDiaStart = moment(start).format('YYYY-MM-DD');
