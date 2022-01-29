@@ -12,7 +12,7 @@ import { UserService } from '../../services/user.service';
   templateUrl: './show-user.component.html',
   styleUrls: ['./show-user.component.scss']
 })
-export class ShowUserComponent implements OnInit{
+export class ShowUserComponent implements OnInit {
 
   public user: User = {
     id: '',
@@ -21,7 +21,8 @@ export class ShowUserComponent implements OnInit{
     name: '',
     rol: '',
     updated_at: new Date(),
-    img: ''
+    img: '',
+    country: 'CO'
   };
 
   idUser: string;
@@ -38,7 +39,7 @@ export class ShowUserComponent implements OnInit{
     private router: Router
   ) {
     this.idUser = '';
-   }
+  }
 
   ngOnInit(): void {
     this.loadData();
@@ -68,7 +69,7 @@ export class ShowUserComponent implements OnInit{
 
       const users = this.activities[index].users || [];
 
-      const search = users.findIndex(user => user.user._id === this.user.id);
+      const search = users.findIndex((user) => user.user._id === this.user.id && user.is_active === true);
 
       if (search !== -1)
         return true;
@@ -81,8 +82,13 @@ export class ShowUserComponent implements OnInit{
 
   loadData() {
     this.activityService.getActivities(true).subscribe(
-      activities => this.activities = activities.activities,
-      error => console.error(error)
+      (activities) => {
+        if (this.user.country == 'PA' || this.user.country == 'HN')
+          this.activities = activities.activities.filter(a => a.country == this.user.country);
+        else
+          this.activities = activities.activities;
+      },
+      (error) => console.error(error)
     );
   }
 

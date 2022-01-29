@@ -5,6 +5,7 @@ export interface User
     email: string;
     rol: string;
     img: string;
+    country: string;
     created_at: Date;
     updated_at: Date;
 }
