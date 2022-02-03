@@ -14,6 +14,10 @@ export class NewRegisterDialogComponent implements OnInit {
   public activities: Activity[] = [];
   public today = new Date();
   public titulo: string;
+  
+  public minDate = new Date();
+  public currentMonth = this.minDate.getMonth();
+  public currentYear = this.minDate.getFullYear();
 
 
   constructor(
@@ -23,6 +27,7 @@ export class NewRegisterDialogComponent implements OnInit {
     private userTimeReportService: UserTimeReportService
   ) {
     this.titulo = this.data.titleDialog || 'Agregar Registro';
+    this.minDate.setFullYear(this.currentYear, this.currentMonth, 1); 
   }
 
   ngOnInit(): void {

@@ -26,7 +26,8 @@
                     <!-- Fecha -->
                     <mat-form-field class="inputs" appearance="fill">
                         <mat-label>Seleccionar Fecha</mat-label>
-                        <input matInput [matDatepicker]="picker" [(ngModel)]="data.date" [max]="today">
+                        <!-- FIXME: Agregar fecha mínima, posteriormente -->
+                        <input matInput [matDatepicker]="picker" [(ngModel)]="data.date"  [max]="today">
                         <mat-datepicker-toggle matSuffix [for]="picker">
                             <mat-icon matDatepickerToggleIcon>calendar_today</mat-icon>
                         </mat-datepicker-toggle>
@@ -39,8 +40,8 @@
                     <!-- Número de horas -->
                     <mat-form-field class="inputs" appearance="fill">
                         <mat-label>Horas empleadas en la actividad</mat-label>
-                        <input [(ngModel)]="data.hours" type="number" min="0" max="8" matInput
-                            placeholder="Número de horas empleadas!">
+                        <input [(ngModel)]="data.hours" type="number" min="0" max="24" matInput
+                            placeholder="Número de horas empleadas">
                     </mat-form-field>
 
                 </div>
@@ -62,9 +63,8 @@
         </div>
     </div>
     <div mat-dialog-actions class="justify-content-center">
-        <button mat-button (click)="onNoClick()">Cancelar</button>
-        <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Guardar</button> -->
-        <button mat-raised-button color="primary" [mat-dialog-close]="data" cdkFocusInitial>Guardar</button>
+        <button mat-raised-button color="warn" cdkFocusInitial (click)="onNoClick()" class="btn btn-danger" >Cancelar</button>
+        <button mat-raised-button color="primary" [mat-dialog-close]="data" cdkFocusInitial class="btn btn-primary">Guardar</button>
 
     </div>
 </div>
