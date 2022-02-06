@@ -47,6 +47,8 @@ export class ListUsersComponent implements OnInit, AfterViewInit {
 
 
   public userName: string = '';
+  public userCountry = localStorage.getItem('country');
+  public userRole = localStorage.getItem('role');
 
   displayedColumns: string[] = ['image-avatar', 'email', 'name', 'country', 'state', 'actions'];
   dataSource: MatTableDataSource<GeneralUser>;
@@ -76,11 +78,21 @@ export class ListUsersComponent implements OnInit, AfterViewInit {
 
   loadData() {
     this.userService.getAllUsers().subscribe(
-      users => {
-        this.usersData = users.users;
+      (users) => {
+
+        // Si es el vicepresidente
+        if (this.userRole === 'VP_ROLE')
+          this.usersData = users.users;
+        // Si es gerente de CAM desde Colombia
+        else if (this.userRole === 'CAM_ROLE')
+          this.usersData = users.users.filter((u) => u.country !== 'CO');
+        // Si es admin normal por país
+        else
+          this.usersData = users.users.filter((u) => u.country == this.userCountry);
+
         this.dataSource.data = this.usersData;
       },
-      error => {
+      (error) => {
         console.log("Error obteniendo usuarios del backend");
         console.log(error);
       }

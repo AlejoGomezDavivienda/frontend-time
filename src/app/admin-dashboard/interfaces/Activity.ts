@@ -1,3 +1,5 @@
+import { Country } from "src/app/core/interfaces/User";
+
 export interface Activity {
     id?: string;
     company?: 1
@@ -8,7 +10,7 @@ export interface Activity {
     estimated_hours: number;
     worked_hours: number;
     is_general: boolean;
-    country: string
+    country: Country
     users?: [SortUser];
     state?: boolean,
 }

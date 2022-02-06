@@ -20,9 +20,11 @@ export class TokenService {
     return token;
   }
 
-  setToken(token: string, name: string) {
+  setToken(token: string, name: string, country: string, role: string) {
     localStorage.setItem('x-token', token);
     localStorage.setItem('user-name', name);
+    localStorage.setItem('country', country);
+    localStorage.setItem('role', role);
   }
 
   clearStorage() {

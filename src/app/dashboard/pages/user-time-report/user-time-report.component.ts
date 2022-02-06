@@ -146,6 +146,7 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
         if (checkData) {
           // Si se desea agregar uno nuevo
           if (!timeData) {
+           
             this.userTimeReportService.createTimeData(result).subscribe(
               () => {
                 this.sweetAlert.presentSuccess('Registro Creado Correctamente!');

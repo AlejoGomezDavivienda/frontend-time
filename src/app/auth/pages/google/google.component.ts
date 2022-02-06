@@ -34,7 +34,7 @@ export class GoogleComponent implements OnInit {
   }
 
   isMobile(): boolean {
-    
+
     return window.screen.width < 900 ? false : true;
   }
 
@@ -43,14 +43,16 @@ export class GoogleComponent implements OnInit {
     if (token) {
       this.authService.getUserLogged().subscribe(
         userData => {
-          this.tokenService.setToken(token, userData.user.name);
 
+          this.tokenService.setToken(token, userData.user.name, userData.user.area.country.code, userData.user.role.code);
+
+          // TODO: Agregar VP, SUPERVISOR, CAM roles
           // Si es un administrador lo mando a la ruta /admin
-          if (userData.user.rol === 'ADMIN_ROLE')
+          if (userData.user.role.code === 'LEADER_ROLE' || userData.user.role.code === 'VP_ROLE')
             this.router.navigate(['/admin']);
 
           // Si es un usuario corriente lo mando a la ruta /dashboard
-          else if (userData.user.rol === 'USER_ROLE')
+          else if (userData.user.role.code === 'AUDITOR_ROLE')
             this.router.navigate(['/dashboard']);
 
           // Llegado el caso el auditor no tuviera rol alguno
@@ -70,14 +72,14 @@ export class GoogleComponent implements OnInit {
       (res) => {
 
         // Guardar en el localstorage
-        this.tokenService.setToken(res.token, res.user.name);
+        this.tokenService.setToken(res.token, res.user.name, res.user.area.country.code, res.user.role.code);
 
         // Si es un administrador lo mando a la ruta /admin
-        if (res.user.rol === 'ADMIN_ROLE')
+        if (res.user.role.code === 'LEADER_ROLE' || res.user.role.code === 'VP_ROLE')
           this.router.navigate(['/admin']);
 
         // Si es un usuario corriente lo mando a la ruta /dashboard
-        else if (res.user.rol === 'USER_ROLE')
+        else if (res.user.role.code === 'AUDITOR_ROLE')
           this.router.navigate(['/dashboard']);
 
         // Llegado el caso el auditor no tuviera rol alguno

@@ -45,7 +45,8 @@ export class UserTimeReportService {
    * @param timeData 
    */
   createTimeData(timeData: TimeData) {
-    return this.http.post(`${environment.API_URL}/reports`, timeData);
+    const { edit, titleDialog, checked, ...data } = timeData;
+    return this.http.post(`${environment.API_URL}/reports`, data);
   }
 
   /**
@@ -53,7 +54,7 @@ export class UserTimeReportService {
    * @param timeData 
    */
   editTimeData(timeData: TimeData) {
-    const { id, ...data } = timeData;
+    const { edit, titleDialog, checked, id, ...data } = timeData;
     return this.http.put(`${environment.API_URL}/reports/${id}`, data);
   }
 
@@ -70,12 +71,11 @@ export class UserTimeReportService {
    * estado de true a false
    * @param {TimeData[]} reports de la información a borrar
    */
-  deleteReportsTimeData(reports: TimeData []) {
+  deleteReportsTimeData(reports: TimeData[]) {
     const data = JSON.stringify({ data: reports });
     return this.http.patch(`${environment.API_URL}/reports/massive`, data);
   }
 
-  // **************ESPECIALES******************ESPECIALES************ESPECIALES*************//
   getAllActivitiesFromUser(): Observable<ResponseUserActivities> {
     return this.http.post<ResponseUserActivities>(`${environment.API_URL}/activities/specific`, {});
   }

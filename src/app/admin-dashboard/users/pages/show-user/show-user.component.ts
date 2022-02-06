@@ -16,13 +16,21 @@ export class ShowUserComponent implements OnInit {
 
   public user: User = {
     id: '',
-    created_at: new Date(),
     email: '',
     name: '',
-    rol: '',
-    updated_at: new Date(),
+    role: {
+      code: 'AUDITOR_ROLE',
+      name: 'AUDITOR'
+    },
     img: '',
-    country: 'CO'
+    area: {
+      code: 1,
+      name: 'Ciberseguirdad y TI',
+      country: {
+        code: 'CO',
+        name: 'Colombia'
+      }
+    }
   };
 
   idUser: string;
@@ -83,10 +91,7 @@ export class ShowUserComponent implements OnInit {
   loadData() {
     this.activityService.getActivities(true).subscribe(
       (activities) => {
-        if (this.user.country == 'PA' || this.user.country == 'HN')
-          this.activities = activities.activities.filter(a => a.country == this.user.country);
-        else
-          this.activities = activities.activities;
+        this.activities = activities.activities.filter(a => a.country == this.user.area.country);
       },
       (error) => console.error(error)
     );

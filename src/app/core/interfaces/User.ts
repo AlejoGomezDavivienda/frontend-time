@@ -3,9 +3,25 @@ export interface User
     id: string;
     name: string;
     email: string;
-    rol: string;
+    role: Role;
     img: string;
-    country: string;
-    created_at: Date;
-    updated_at: Date;
+    area: Area;
+    // Para los que son supervisados
+    supervised_by?: User
+}
+
+export interface Role {
+    code: string,
+    name: string
+}
+
+export interface Area {
+    code: number,
+    name: string
+    country: Country
+}
+
+export interface Country {
+    code: string,
+    name: string
 }

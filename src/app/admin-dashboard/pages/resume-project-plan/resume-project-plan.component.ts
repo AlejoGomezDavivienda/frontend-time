@@ -19,6 +19,29 @@ import { Router } from '@angular/router';
 })
 export class ResumeProjectPlanComponent implements OnInit, AfterViewInit {
 
+  countries = [
+    {
+      name: 'Panamá',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Flag_of_Panama.svg/200px-Flag_of_Panama.svg.png'
+    },
+    {
+      name: 'El Salvador',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Flag_of_El_Salvador.svg/2560px-Flag_of_El_Salvador.svg.png'
+    },
+    {
+      name: 'Honduras',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Flag_of_Honduras.svg/800px-Flag_of_Honduras.svg.png'
+    },
+    {
+      name: 'Costa Rica',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Flag_of_Costa_Rica_%28state%29.svg/200px-Flag_of_Costa_Rica_%28state%29.svg.png'
+    },
+    {
+      name: 'Colombia',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Colombia.svg/200px-Flag_of_Colombia.svg.png'
+    }
+  ]
+
   public generalActivities: Activity[] = [];
   public specificActivities: Activity[] = [];
 
@@ -30,7 +53,7 @@ export class ResumeProjectPlanComponent implements OnInit, AfterViewInit {
     worked_hours: 0,
     open_state: true,
     is_general: true,
-    country: 'CO'
+    country: {code : 'CO', name: 'Colombia'}
   };
 
   // Paginator
@@ -41,7 +64,7 @@ export class ResumeProjectPlanComponent implements OnInit, AfterViewInit {
 
   displayedColumnsGeneral: string[] = ['name', 'inicio-date', 'fin-date'];
   displayedColumnsSpecific: string[] =
-    ['name', 'inicio-date', 'fin-date', 'porcentaje-avance', 'actions'];
+    ['name', 'inicio-date', 'fin-date', 'pais', 'porcentaje-avance', 'actions'];
 
   generalActivitiesSource: MatTableDataSource<Activity>;
   specificActivitiesSource: MatTableDataSource<Activity>;
@@ -167,7 +190,6 @@ export class ResumeProjectPlanComponent implements OnInit, AfterViewInit {
     if (this.specificActivitiesSource.paginator)
       this.specificActivitiesSource.paginator.firstPage();
   }
-
 
   verifyActivityData(activityData: Activity): boolean {
     if (activityData.name && activityData.initial_date && activityData.end_date && activityData.estimated_hours)

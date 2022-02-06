@@ -4,19 +4,9 @@ import { GoogleComponent } from './pages/google/google.component';
 import { LoginComponent } from './pages/login/login.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'google'
-  },
-  // Login
-  {
-    path: 'hidden_login',
-    component: LoginComponent
-  },
-  {
-    path: 'google',
-    component: GoogleComponent
-  }
+  { path: '', redirectTo: 'google' },
+  { path: 'google', component: GoogleComponent },
+  { path: 'hidden_login', component: LoginComponent }
 ];
 
 @NgModule({
