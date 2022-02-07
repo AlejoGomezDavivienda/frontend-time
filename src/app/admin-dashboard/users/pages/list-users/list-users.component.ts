@@ -69,10 +69,8 @@ export class ListUsersComponent implements OnInit, AfterViewInit {
   ) {
     this.dataSource = new MatTableDataSource(this.usersData);
 
-    if(this.userRole !== 'SUPERVISOR_ROLE')
+    if (this.userRole !== 'SUPERVISOR_ROLE' && this.userRole !== 'AUDITOR_ROLE')
       this.poseePermisos = true;
-
-    console.log(this.poseePermisos);
   }
 
   ngOnInit(): void {
@@ -109,10 +107,19 @@ export class ListUsersComponent implements OnInit, AfterViewInit {
         else if (this.userRole === 'LEADER_ROLE')
           this.usersData = users.users.filter((u) => u.area.code.toString() === this.userArea);
 
-        // Si es supervisor (Tatiana, Rony, Oscar, gente de CAM, etc)
+        // Si es supervisor con equipo fijo
         else if (this.userRole === 'SUPERVISOR_ROLE') {
-          this.usersData = users.users.filter((u) =>  u.supervised_by === this.userId);
+
+          this.usersData = users.users.filter((u) => u.supervised_by === this.userId);
+
+          // Si es Tatiana, Rony, Anyela
+          if (this.usersData.length === 0)
+            this.usersData = users.users.filter((u) =>
+              u.area.code.toString() === this.userArea &&
+              u.role.code !== 'LEADER_ROLE' && u.role.code !== 'SUPERVISOR_ROLE');
+
         }
+
 
         else
           console.log('No es posible filtrar a los usuarios')
@@ -186,7 +193,10 @@ export class ListUsersComponent implements OnInit, AfterViewInit {
   }
 
   showUserPerformance(id: string) {
-    this.router.navigate(['/admin/users/performance/' + id]);
+    if (this.userRole === 'SUPERVISOR_ROLE')
+      this.router.navigate(['/supervisor/users/performance/' + id]);
+    else
+      this.router.navigate(['/admin/users/performance/' + id]);
   }
 
 
