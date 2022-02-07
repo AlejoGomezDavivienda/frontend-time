@@ -44,15 +44,22 @@ export class GoogleComponent implements OnInit {
       this.authService.getUserLogged().subscribe(
         userData => {
 
-          this.tokenService.setToken(token, userData.user.name, userData.user.area.country.code, userData.user.role.code);
+          this.tokenService.setToken(
+            token,
+            userData.user.name,
+            userData.user.area.country.code,
+            userData.user.role.code,
+            userData.user.area.code,
+            userData.user.id
+          );
 
           // TODO: Agregar VP, SUPERVISOR, CAM roles
           // Si es un administrador lo mando a la ruta /admin
-          if (userData.user.role.code === 'LEADER_ROLE' || userData.user.role.code === 'VP_ROLE')
+          if (userData.user.role.code === 'VP_ROLE' || userData.user.role.code === 'DIRECTOR_ROLE' || userData.user.role.code === 'LEADER_ROLE')
             this.router.navigate(['/admin']);
 
-          // Si es un usuario corriente lo mando a la ruta /dashboard
-          else if (userData.user.role.code === 'AUDITOR_ROLE')
+          // Si es un usuario lo mando a la ruta /dashboard
+          else if (userData.user.role.code === 'SUPERVISOR_ROLE' || userData.user.role.code === 'AUDITOR_ROLE')
             this.router.navigate(['/dashboard']);
 
           // Llegado el caso el auditor no tuviera rol alguno
@@ -72,14 +79,22 @@ export class GoogleComponent implements OnInit {
       (res) => {
 
         // Guardar en el localstorage
-        this.tokenService.setToken(res.token, res.user.name, res.user.area.country.code, res.user.role.code);
+        this.tokenService.setToken(
+          res.token,
+          res.user.name,
+          res.user.area.country.code,
+          res.user.role.code,
+          res.user.area.code,
+          res.user.id
+        );
+
 
         // Si es un administrador lo mando a la ruta /admin
-        if (res.user.role.code === 'LEADER_ROLE' || res.user.role.code === 'VP_ROLE')
+        if (res.user.role.code === 'VP_ROLE' || res.user.role.code === 'DIRECTOR_ROLE' || res.user.role.code === 'LEADER_ROLE')
           this.router.navigate(['/admin']);
 
-        // Si es un usuario corriente lo mando a la ruta /dashboard
-        else if (res.user.role.code === 'AUDITOR_ROLE')
+        // Si es un usuario lo mando a la ruta /dashboard
+        else if (res.user.role.code === 'SUPERVISOR_ROLE' || res.user.role.code === 'AUDITOR_ROLE')
           this.router.navigate(['/dashboard']);
 
         // Llegado el caso el auditor no tuviera rol alguno

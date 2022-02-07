@@ -91,7 +91,7 @@ export class ShowUserComponent implements OnInit {
   loadData() {
     this.activityService.getActivities(true).subscribe(
       (activities) => {
-        this.activities = activities.activities.filter(a => a.country == this.user.area.country);
+        this.activities = activities.activities.filter(a => a.country == this.user.area.country.code);
       },
       (error) => console.error(error)
     );

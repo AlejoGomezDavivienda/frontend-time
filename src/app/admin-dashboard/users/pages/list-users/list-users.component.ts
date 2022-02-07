@@ -49,6 +49,8 @@ export class ListUsersComponent implements OnInit, AfterViewInit {
   public userName: string = '';
   public userCountry = localStorage.getItem('country');
   public userRole = localStorage.getItem('role');
+  public userArea = localStorage.getItem('area');
+  public userId = localStorage.getItem('idUser');
 
   displayedColumns: string[] = ['image-avatar', 'email', 'name', 'country', 'state', 'actions'];
   dataSource: MatTableDataSource<GeneralUser>;
@@ -83,12 +85,29 @@ export class ListUsersComponent implements OnInit, AfterViewInit {
         // Si es el vicepresidente
         if (this.userRole === 'VP_ROLE')
           this.usersData = users.users;
-        // Si es gerente de CAM desde Colombia
-        else if (this.userRole === 'CAM_ROLE')
-          this.usersData = users.users.filter((u) => u.country !== 'CO');
-        // Si es admin normal por país
+
+        // Si es gerente de CAM desde Colombia (Ricardo)
+        else if (this.userRole === 'DIRECTOR_ROLE' && this.userCountry === 'CAM')
+          this.usersData = users.users.filter((u) => u.area.country.code !== 'CO');
+
+        // Si es director de Conductas especiales (Leonardo)
+        else if (this.userRole === 'DIRECTOR_ROLE' && this.userArea === '9') //TODO: 
+          this.usersData = users.users.filter((u) => u.area.code === 9);
+
+        // Si es director de Colombia (Yaquelyn)
+        else if (this.userRole === 'DIRECTOR_ROLE')
+          this.usersData = users.users.filter((u) => u.area.country.code === 'CO' && u.area.code !== 9);
+
+        // Si es jefe (Jorge, Luz H, etc, etc)
+        else if (this.userRole === 'LEADER_ROLE')
+          this.usersData = users.users.filter((u) => u.area.code.toString() === this.userArea);
+
+        // Si es supervisor (Tatiana, Rony, Oscar, gente de CAM, etc)
+        else if (this.userRole === 'SUPERVISOR_ROLE')
+          this.usersData = users.users.filter((u) => u.supervised_by || '' === this.userId);
+
         else
-          this.usersData = users.users.filter((u) => u.country == this.userCountry);
+          console.log('No es posible filtrar a los usuarios')
 
         this.dataSource.data = this.usersData;
       },

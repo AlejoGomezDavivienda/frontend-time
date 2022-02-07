@@ -45,6 +45,11 @@ export class ResumeProjectPlanComponent implements OnInit, AfterViewInit {
   public generalActivities: Activity[] = [];
   public specificActivities: Activity[] = [];
 
+  public userCountry = localStorage.getItem('country');
+  public userRole = localStorage.getItem('role');
+  public userArea = localStorage.getItem('area');
+  public userId = localStorage.getItem('idUser');
+
   private data: Activity = {
     name: '',
     initial_date: new Date(),
@@ -53,7 +58,7 @@ export class ResumeProjectPlanComponent implements OnInit, AfterViewInit {
     worked_hours: 0,
     open_state: true,
     is_general: true,
-    country: {code : 'CO', name: 'Colombia'}
+    country: 'CO'
   };
 
   // Paginator
@@ -94,18 +99,36 @@ export class ResumeProjectPlanComponent implements OnInit, AfterViewInit {
     this.generalActivitiesSource.paginator = this.paginator.toArray()[1];
     this.generalActivitiesSource.sort = this.sort.toArray()[1];
   }
-  
+
   loadData() {
 
     this.activityService.getActivities().subscribe(
       (activities) => {
+
+        console.log(activities);
+
+
 
         // Inicializa la tabla de actividades generales
         this.generalActivities = activities.activities.filter(a => a.is_general);
         this.generalActivitiesSource.data = this.generalActivities;
 
         // Inicializa la tabla de actividades especificas
-        this.specificActivities = activities.activities.filter(a => !a.is_general);
+        // Si es el vicepresidente
+        if (this.userRole === 'VP_ROLE')
+          this.specificActivities = activities.activities.filter((a) => !a.is_general);
+
+        // Si es gerente de CAM desde Colombia (Ricardo)
+        else if (this.userRole === 'DIRECTOR_ROLE' && this.userCountry === 'CAM') {
+          this.specificActivities = activities.activities.filter((a) => !a.is_general && a.country !== 'CO');
+          console.log('llegó aquí');  
+        }
+
+        // Si es gerente de CAM desde Colombia (Ricardo)
+        else if (this.userRole === 'DIRECTOR_ROLE' && this.userCountry === 'CO')
+          this.specificActivities = activities.activities.filter((a) => !a.is_general && a.country === 'CO');
+
+
         this.specificActivitiesSource.data = this.specificActivities;
 
       },
@@ -185,8 +208,8 @@ export class ResumeProjectPlanComponent implements OnInit, AfterViewInit {
     this.specificActivitiesSource.filter = filterValue.trim().toLowerCase();
 
     if (this.generalActivitiesSource.paginator)
-    this.generalActivitiesSource.paginator.firstPage();
-    
+      this.generalActivitiesSource.paginator.firstPage();
+
     if (this.specificActivitiesSource.paginator)
       this.specificActivitiesSource.paginator.firstPage();
   }
