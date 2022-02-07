@@ -50,6 +50,8 @@ export class ResumeProjectPlanComponent implements OnInit, AfterViewInit {
   public userArea = localStorage.getItem('area');
   public userId = localStorage.getItem('idUser');
 
+  public poseePermisos: boolean = false;
+
   private data: Activity = {
     name: '',
     initial_date: new Date(),
@@ -84,6 +86,10 @@ export class ResumeProjectPlanComponent implements OnInit, AfterViewInit {
     private sweetAlert: SweetAlertService,
     private router: Router
   ) {
+
+    if(this.userRole == 'VP_ROLE' || this.userRole == 'DIRECTOR_ROLE')
+      this.poseePermisos = true;
+
     this.generalActivitiesSource = new MatTableDataSource(this.generalActivities);
     this.specificActivitiesSource = new MatTableDataSource(this.specificActivities);
   }
@@ -105,9 +111,7 @@ export class ResumeProjectPlanComponent implements OnInit, AfterViewInit {
     this.activityService.getActivities().subscribe(
       (activities) => {
 
-        console.log(activities);
-
-
+        console.log(activities.activities);
 
         // Inicializa la tabla de actividades generales
         this.generalActivities = activities.activities.filter(a => a.is_general);
@@ -124,9 +128,13 @@ export class ResumeProjectPlanComponent implements OnInit, AfterViewInit {
           console.log('llegó aquí');  
         }
 
-        // Si es gerente de CAM desde Colombia (Ricardo)
+        // Si es director de Colombia (Yaquelyn)
         else if (this.userRole === 'DIRECTOR_ROLE' && this.userCountry === 'CO')
           this.specificActivities = activities.activities.filter((a) => !a.is_general && a.country === 'CO');
+
+        // Si es jefe Normal
+        else if (this.userRole === 'LEADER_ROLE')
+          this.specificActivities = activities.activities.filter((a) => !a.is_general && a.country === this.userCountry);
 
 
         this.specificActivitiesSource.data = this.specificActivities;

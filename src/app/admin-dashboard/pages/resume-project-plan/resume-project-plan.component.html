@@ -18,8 +18,8 @@
       <h2>Actividades Específicas:</h2>
     </div>
 
-    <div class="col-6 d-flex flex-row-reverse">
-      <button mat-raised-button color="primary" class="boton mt-3" (click)="addSpecific()">
+    <div class="col-6 d-flex flex-row-reverse" *ngIf="poseePermisos">
+      <button mat-raised-button color="primary" class="boton mt-3" (click)="addSpecific()" >
         Agregar actividad específica
         <mat-icon>add</mat-icon>
       </button>
@@ -111,7 +111,7 @@
       <h2>Actividades Generales:</h2>
     </div>
 
-    <div class="col-6 d-flex flex-row-reverse">
+    <div class="col-6 d-flex flex-row-reverse" *ngIf="poseePermisos">
       <button mat-raised-button color="primary" class="boton mt-3" (click)="addGeneral()">
         Agregar actividad general
         <mat-icon>add</mat-icon>

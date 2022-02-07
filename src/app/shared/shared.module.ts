@@ -7,11 +7,13 @@ import { RouterModule } from '@angular/router';
 import { UserLayoutComponent } from './layouts/user-layout/user-layout.component';
 import { NgChartsModule } from 'ng2-charts';
 import { GanttChartAngularModule } from 'gantt-chart-angular';
+import { SupervisorLayoutComponent } from './layouts/supervisor-layout/supervisor-layout.component';
 
 @NgModule({
   declarations: [
     AdminLayoutComponent,
-    UserLayoutComponent
+    UserLayoutComponent,
+    SupervisorLayoutComponent
   ],
   imports: [
     CommonModule,

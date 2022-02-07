@@ -4,6 +4,7 @@ import { ADMIN_LAYOUT } from './routes/admin-layout-routes';
 import { SUPERVISOR_LAYOUT } from './routes/supervisor.routing';
 import { USER_LAYOUT } from './routes/user-layout-routes';
 import { AdminLayoutComponent } from './shared/layouts/admin-layout/admin-layout.component';
+import { SupervisorLayoutComponent } from './shared/layouts/supervisor-layout/supervisor-layout.component';
 import { UserLayoutComponent } from './shared/layouts/user-layout/user-layout.component';
 
 const routes: Routes = [
@@ -26,10 +27,9 @@ const routes: Routes = [
     component: UserLayoutComponent,
     children: USER_LAYOUT
   },
-
   {
     path: 'supervisor',
-    component: UserLayoutComponent,
+    component: SupervisorLayoutComponent,
     children: SUPERVISOR_LAYOUT
   }  
 ];

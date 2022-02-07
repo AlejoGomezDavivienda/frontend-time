@@ -30,7 +30,8 @@ export class ShowUserComponent implements OnInit {
         code: 'CO',
         name: 'Colombia'
       }
-    }
+    },
+    supervised_by: ''
   };
 
   idUser: string;
@@ -59,14 +60,16 @@ export class ShowUserComponent implements OnInit {
     }
     else {
       this.sweetAlert.presentError('Error');
-      this.router.navigate(['/admin/users']);
+      this.router.navigate(['/']);
     }
   }
 
   getUserById(id: string) {
     this.userService.getUserById(id)
       .subscribe(
-        (user) => this.user = user.user,
+        (user) => {
+          this.user = user.user;
+        },
         (error) => console.error(error)
       );
   }
@@ -91,7 +94,7 @@ export class ShowUserComponent implements OnInit {
   loadData() {
     this.activityService.getActivities(true).subscribe(
       (activities) => {
-        this.activities = activities.activities.filter(a => a.country == this.user.area.country.code);
+        this.activities = activities.activities.filter(a => a.country === this.user.area.country.code);
       },
       (error) => console.error(error)
     );

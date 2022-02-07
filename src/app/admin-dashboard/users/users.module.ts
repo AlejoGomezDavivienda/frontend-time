@@ -11,6 +11,7 @@ import { DoughnutGraphComponent } from './components/doughnut-graph/doughnut-gra
 import { PieGraphComponent } from './components/pie-graph/pie-graph.component';
 import { GanttGraphComponent } from './components/gantt-graph/gantt-graph.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { ShowGraphsComponent } from './pages/show-graphs/show-graphs.component';
 
 
 
@@ -23,6 +24,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     DoughnutGraphComponent,
     PieGraphComponent,
     GanttGraphComponent,
+    ShowGraphsComponent,
   ],
   imports: [
     CommonModule,

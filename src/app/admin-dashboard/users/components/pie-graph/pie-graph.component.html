@@ -1,12 +1,14 @@
-<button (click) = "mostrar = true" class="btn btn-primary">
+<!-- <button (click) = "mostrar = true" class="btn btn-primary">
     Mostrar Gráfica de horas por actividad
-</button>
+</button> -->
 
-<div class="chart" *ngIf="mostrar" >
-    <canvas baseChart
-            [data]="pieChartData"
-            [labels]="labelsChart"
-            [type]="pieChartType"
+<div class="mt-3">
+
+    <h4>Horas empleadas por actividad</h4>
+    <div class="chart" *ngIf="mostrar">
+        <!-- <div class="chart"  > -->
+        <canvas baseChart [data]="pieChartData" [labels]="labelsChart" [type]="pieChartType"
             [options]="pieChartOptions">
-    </canvas>
+        </canvas>
+    </div>
 </div>

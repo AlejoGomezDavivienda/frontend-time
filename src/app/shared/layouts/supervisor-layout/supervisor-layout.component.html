@@ -1,0 +1,86 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav 
+    #drawer 
+    class="sidenav" 
+    fixedInViewport 
+    color="primary"
+    [attr.role]="(isHandset$ | async) ? 'navigation' : 'dialog'" 
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" 
+    [opened]="true" >
+      <!-- [attr.role]="(isHandset$ | async) ? 'navigation' : 'dialog'" [mode]="(isHandset$ | async) ? 'over' : 'side'" -->
+      <!-- [opened]="(isHandset$ | async) === true" -->
+  
+      <!-- <mat-toolbar color="primary">Dashboard</mat-toolbar> -->
+      <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdown" role="button" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        <div class="example-button-container mt-3 info-cont">
+          <img md-fab-image class="user-fab" [src]="userImg">
+          <div class="name-function">
+            <h3>{{ userName }}</h3>
+            <h4>{{ userRol | uppercase }}</h4>
+          </div>
+        </div>
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" href="#">Ver perfil</a>
+        <a class="dropdown-item" href="#">Cambiar contraseña</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item sign-out-text" href="#">Cerrar sesión</a>
+      </div>
+      <!-- <span>
+          <a href="http://">
+            <h4>Ver perfil</h4>
+          </a>
+          <a href="http://">
+            <h4>Cambiar contraseña</h4>
+          </a>
+          <a href="http://">
+            <h4 class="sign-out-text">Cerrar sesión</h4>
+          </a>
+        </span> -->
+      <mat-nav-list>
+        <a mat-list-item [routerLink]="['/supervisor']">
+          <mat-icon mat-list-icon>dashboard</mat-icon>
+          Actividades
+        </a>
+  
+        <mat-divider></mat-divider>
+        
+        <a mat-list-item [routerLink]="['/supervisor/users']">
+          <mat-icon mat-list-icon>persons</mat-icon>
+          Equipo de trabajo
+        </a>
+  
+        <mat-divider></mat-divider>
+  
+      </mat-nav-list>
+  
+    </mat-sidenav>
+    <mat-sidenav-content>
+  
+      <mat-toolbar class="large-toolbar">
+  
+        <mat-toolbar-row>
+          <img [src]=logoDayToDay width="18%" alt="Logo" srcset="">
+        </mat-toolbar-row>
+  
+        <mat-toolbar-row>
+          <button class="btn-nav" type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+            <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+          </button>
+  
+          <span class="titulo">Vicepresidencia de Auditoria</span>
+          <span class="example-spacer"></span>
+          <button mat-icon-button class="favorite-icon mr-5" (click)="logout()">
+            <mat-icon>logout</mat-icon>
+          </button>
+  
+        </mat-toolbar-row>
+  
+      </mat-toolbar>
+  
+      <!-- Main Content -->
+      <router-outlet></router-outlet>
+  
+    </mat-sidenav-content>
+  </mat-sidenav-container>

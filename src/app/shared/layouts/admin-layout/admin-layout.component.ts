@@ -18,7 +18,7 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit {
   panelOpenState = false;
   userImg = 'https://firebasestorage.googleapis.com/v0/b/subasta-inversa-d6e7a.appspot.com/o/User-80_icon-icons.com_57249.png?alt=media&token=283572e2-e8d3-4149-9227-8ae3b795652e';
   userName = '';
-  userRol = 'Administrador';
+  userRol = localStorage.getItem('role_name');
 
   logoDayToDay = environment.LOGO_DAY_TO_DAY;
 
@@ -69,7 +69,10 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit {
     if (token) {
       this.authService.getUserLogged().subscribe(
         (userData) => {
-          this.userName = userData.user.name;
+          
+          let nombre = userData.user.name.split(' ');
+
+          this.userName = `${nombre[0]} ${nombre[1]}`;
 
           if (userData.user.img !== '')
             this.userImg = userData.user.img;

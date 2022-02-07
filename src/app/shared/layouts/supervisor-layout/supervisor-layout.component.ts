@@ -1,20 +1,21 @@
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatSidenav } from '@angular/material/sidenav';
-import { Router } from '@angular/router';
-import { SocialAuthService } from 'angularx-social-login';
-import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { AuthService } from 'src/app/auth/services/auth.service';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { MatSidenav } from '@angular/material/sidenav';
 import { TokenService } from 'src/app/core/services/token.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { SocialAuthService } from 'angularx-social-login';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-user-layout',
-  templateUrl: './user-layout.component.html',
-  styleUrls: ['./user-layout.component.scss']
+  selector: 'app-supervisor-layout',
+  templateUrl: './supervisor-layout.component.html',
+  styleUrls: ['./supervisor-layout.component.scss']
 })
-export class UserLayoutComponent implements OnInit {
+export class SupervisorLayoutComponent implements OnInit {
+
   panelOpenState = false;
   userImg = 'https://firebasestorage.googleapis.com/v0/b/subasta-inversa-d6e7a.appspot.com/o/User-80_icon-icons.com_57249.png?alt=media&token=283572e2-e8d3-4149-9227-8ae3b795652e';
   userName = '';
@@ -25,8 +26,17 @@ export class UserLayoutComponent implements OnInit {
   screenWidth: number = 1000;
   @ViewChild('drawer') drawer!: MatSidenav;
 
+  // sidenav: any;
+
+  // drawer: any;
+
+  // @ViewChild('sidenav') public sidenav!: MatSidenav;
+
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(map(result => result.matches), shareReplay());
+    .pipe(
+      map(result => result.matches),
+      shareReplay()
+    );
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -41,7 +51,6 @@ export class UserLayoutComponent implements OnInit {
   //     this.screenWidth = window.innerWidth || 1000;
   //     if (this.screenWidth < 1000) {
   //       this.drawer.close();
-  //       // this.drawer.nativeElement.click();
   //     }
   //   }, 400);
   // }
@@ -49,7 +58,7 @@ export class UserLayoutComponent implements OnInit {
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.drawer.open();
-    }, 1000);
+    }, 200);
   }
 
   ngOnInit(): void {
@@ -61,7 +70,7 @@ export class UserLayoutComponent implements OnInit {
     if (token) {
       this.authService.getUserLogged().subscribe(
         (userData) => {
-
+          
           let nombre = userData.user.name.split(' ');
 
           this.userName = `${nombre[0]} ${nombre[1]}`;
@@ -78,9 +87,11 @@ export class UserLayoutComponent implements OnInit {
     }
   }
 
+
   logout() {
     this.authService.logout();
     this.socialAuthService.signOut();
     this.router.navigate(['/']);
   }
+
 }

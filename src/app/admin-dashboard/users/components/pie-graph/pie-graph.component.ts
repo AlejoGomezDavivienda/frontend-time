@@ -44,6 +44,8 @@ export class PieGraphComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUsersReports(this.idUser);
+
+    setTimeout(() => this.mostrar = true, 2000);
   }
 
 

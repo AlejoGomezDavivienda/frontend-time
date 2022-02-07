@@ -52,6 +52,8 @@ export class ListUsersComponent implements OnInit, AfterViewInit {
   public userArea = localStorage.getItem('area');
   public userId = localStorage.getItem('idUser');
 
+  public poseePermisos: boolean = false;
+
   displayedColumns: string[] = ['image-avatar', 'email', 'name', 'country', 'state', 'actions'];
   dataSource: MatTableDataSource<GeneralUser>;
   private usersData: GeneralUser[] = [];
@@ -66,6 +68,11 @@ export class ListUsersComponent implements OnInit, AfterViewInit {
     private router: Router
   ) {
     this.dataSource = new MatTableDataSource(this.usersData);
+
+    if(this.userRole !== 'SUPERVISOR_ROLE')
+      this.poseePermisos = true;
+
+    console.log(this.poseePermisos);
   }
 
   ngOnInit(): void {
@@ -96,15 +103,16 @@ export class ListUsersComponent implements OnInit, AfterViewInit {
 
         // Si es director de Colombia (Yaquelyn)
         else if (this.userRole === 'DIRECTOR_ROLE')
-          this.usersData = users.users.filter((u) => u.area.country.code === 'CO' && u.area.code !== 9);
+          this.usersData = users.users.filter((u) => u.area.country.code === 'CO' && u.area.code !== 9 && u.role.code !== 'VP_ROLE');
 
         // Si es jefe (Jorge, Luz H, etc, etc)
         else if (this.userRole === 'LEADER_ROLE')
           this.usersData = users.users.filter((u) => u.area.code.toString() === this.userArea);
 
         // Si es supervisor (Tatiana, Rony, Oscar, gente de CAM, etc)
-        else if (this.userRole === 'SUPERVISOR_ROLE')
-          this.usersData = users.users.filter((u) => u.supervised_by || '' === this.userId);
+        else if (this.userRole === 'SUPERVISOR_ROLE') {
+          this.usersData = users.users.filter((u) =>  u.supervised_by === this.userId);
+        }
 
         else
           console.log('No es posible filtrar a los usuarios')
@@ -175,6 +183,10 @@ export class ListUsersComponent implements OnInit, AfterViewInit {
 
   showUser(id: string) {
     this.router.navigate(['/admin/users/' + id]);
+  }
+
+  showUserPerformance(id: string) {
+    this.router.navigate(['/admin/users/performance/' + id]);
   }
 
 
