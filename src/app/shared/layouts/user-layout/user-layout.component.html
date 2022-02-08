@@ -1,13 +1,8 @@
 <!-- Image and text -->
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav 
-  #drawer 
-  class="sidenav" 
-  fixedInViewport 
-  color="primary"
-  [attr.role]="(isHandset$ | async) ? 'navigation' : 'dialog'" 
-  [mode]="(isHandset$ | async) ? 'over' : 'side'" 
-  [opened]="true">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport color="primary"
+    [attr.role]="(isHandset$ | async) ? 'navigation' : 'dialog'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="true">
     <!-- [attr.role]="(isHandset$ | async) ? 'navigation' : 'dialog'" [mode]="(isHandset$ | async) ? 'over' : 'side'" -->
     <!-- [opened]="(isHandset$ | async) === true" -->
 
@@ -45,17 +40,25 @@
         <mat-icon mat-list-icon>space_dashboard</mat-icon>
         Actividades
       </a>
-      <!-- <mat-divider></mat-divider> -->
+      <mat-divider></mat-divider>
+
+      <a mat-list-item (click)="goToMyPageGraph()">
+        <mat-icon mat-list-icon>donut_large</mat-icon>
+        Mi reporte
+      </a>
+      <mat-divider></mat-divider>
+
+
       <!-- <div mat-subheader>Opciones</div> -->
 
-      <mat-selection-list [multiple]="false">
+      <!-- <mat-selection-list [multiple]="false"> -->
 
-      </mat-selection-list>
-
-
+      <!-- </mat-selection-list> -->
 
 
-      <mat-divider></mat-divider>
+
+
+      <!-- <mat-divider></mat-divider> -->
       <!-- <div mat-subheader>General</div> -->
 
     </mat-nav-list>

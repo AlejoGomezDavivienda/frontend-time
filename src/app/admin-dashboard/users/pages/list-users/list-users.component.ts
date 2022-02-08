@@ -54,7 +54,7 @@ export class ListUsersComponent implements OnInit, AfterViewInit {
 
   public poseePermisos: boolean = false;
 
-  displayedColumns: string[] = ['image-avatar', 'email', 'name', 'country', 'state', 'actions'];
+  displayedColumns: string[] = ['image-avatar', 'email', 'name', 'country', 'role',  'actions'];
   dataSource: MatTableDataSource<GeneralUser>;
   private usersData: GeneralUser[] = [];
 

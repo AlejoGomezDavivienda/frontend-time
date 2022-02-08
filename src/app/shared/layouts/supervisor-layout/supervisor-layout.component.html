@@ -46,6 +46,13 @@
   
         <mat-divider></mat-divider>
         
+        <a mat-list-item (click)="goToMyGraphPage()">
+          <mat-icon mat-list-icon>donut_large</mat-icon>
+          Mi reporte
+        </a>
+
+        <mat-divider></mat-divider>
+        
         <a mat-list-item [routerLink]="['/supervisor/users']">
           <mat-icon mat-list-icon>persons</mat-icon>
           Equipo de trabajo

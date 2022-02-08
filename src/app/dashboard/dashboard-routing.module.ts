@@ -7,6 +7,10 @@ const routes: Routes = [
     path: '',
     component: UserTimeReportComponent
   },
+  {
+    path: 'user',
+    loadChildren: () => import('./pages/user-performance/user.module').then( m => m.UsersModule )
+  },
 ];
 
 @NgModule({

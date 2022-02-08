@@ -17,20 +17,36 @@ export class PieGraphComponent implements OnInit {
 
   labelsChart: string[] = [];
   dataChart: number[] = [];
+  backgroundColors: string[] = [];
 
   mostrar: boolean = false;
 
   // Pie graph
   public pieChartOptions: ChartConfiguration['options'] = {
-    responsive: true
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'right'
+      },
+      title: {
+        display: true,
+        text: 'Horas trabajadas por actividad'
+      },
+      subtitle: {
+        display: true,
+        text: 'Custom Chart Subtitle'
+      }
+    }
   };
 
   public pieChartData: ChartData<'pie', number[], string | string[]> = {
 
     labels: this.labelsChart,
+
     datasets: [
       {
-        data: this.dataChart
+        data: this.dataChart,
+        backgroundColor: this.backgroundColors,
       }
     ]
   };
@@ -66,9 +82,25 @@ export class PieGraphComponent implements OnInit {
             }
           }
         });
+
+        this.generateBackgroundColors();
       },
       (error) => console.log(error)
     );
+  }
+
+
+  generateBackgroundColors() {
+
+    for (let i = 0; i < this.dataChart.length; i++) {
+      const colorR = Math.floor(Math.random() * 255);
+      const colorG = Math.floor(Math.random() * 255);
+      const colorB = Math.floor(Math.random() * 255);
+
+      const colorRGB = `RGB(${colorR},${colorG},${colorB})`;
+      this.backgroundColors.push(colorRGB);
+    }
+
   }
 
 

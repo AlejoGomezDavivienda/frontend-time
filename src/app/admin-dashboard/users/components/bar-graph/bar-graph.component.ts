@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
+import { ChartConfiguration, ChartData, ChartType, Legend } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { UserTimeReportService } from 'src/app/dashboard/services/user-time-report.service';
 
@@ -27,33 +27,44 @@ export class BarGraphComponent implements OnInit {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
   public barChartOptions: ChartConfiguration['options'] = {
     responsive: true,
+    backgroundColor: '#0080c0',
+    borderColor: '#005d8c',
+    plugins: {
+      title: {
+        display: true,
+        text: 'Horas trabajadas por fecha'
+      },
+      legend: {
+        title: {
+          text: 'HOLA'
+        }
+      }
+    },
     // We use these empty structures as placeholders for dynamic theming.
     scales: {
       x: {},
       y: {
-        min: 0
+        min: 0,
+        ticks: {
+          stepSize: 2,
+        }
       }
     }
   };
-  public barChartType: ChartType = 'bar';
+  public barChartType: ChartType = 'line';
 
-
-  // public barChartData: ChartData<'bar'> = {
-  //   labels: ['10 Dic', '11 Dic', '12 Dic', '13 Dic', '14 Dic', '15 Dic', '16 Dic', '17 Dic'],
-  //   datasets: [
-  //     {
-  //       data: [7, 8, 7.5, 7, 6, 5.5, 4, 6, 5, 4, 3],
-  //       label: 'Horas Trabajadas'
-  //     }
-  //   ]
-  // };
-
-  public barChartData: ChartData<'bar'> = {
+  public barChartData: ChartData<'line'> = {
     labels: this.labelsChart,
     datasets: [
       {
         data: this.dataChart,
-        label: 'Horas trabajadas por día'
+        label: 'Tendencia de trabajo diaria',
+        hoverBackgroundColor: '#005d8c',
+        pointBackgroundColor: '#e2982f',
+        pointHoverBorderColor: '#e2982f',
+        pointBorderWidth: 2,
+        pointRadius: 4,
+        tension: 0.3
       }
     ]
   };
