@@ -5,17 +5,23 @@ import { ResponseTimeData } from 'src/app/dashboard/interfaces/ResponseTimeData'
 import { TimeData } from 'src/app/dashboard/interfaces/TimeData';
 import { UserTimeReportService } from 'src/app/dashboard/services/user-time-report.service';
 
-import * as moment from 'moment';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RangeTime } from 'src/app/dashboard/interfaces/RangeTime';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
+import { Router } from '@angular/router';
+
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort, MatSortable } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-pie-graph',
   templateUrl: './pie-graph.component.html',
   styleUrls: ['./pie-graph.component.scss']
 })
-export class PieGraphComponent implements OnInit {
+export class PieGraphComponent implements OnInit, AfterViewInit  {
 
 
   public range = new FormGroup({
@@ -23,7 +29,15 @@ export class PieGraphComponent implements OnInit {
     end: new FormControl('', Validators.required),
   });
 
-
+  private data: TimeData = {
+    date: new Date(),
+    activity: { _id: '', name: '' },
+    detail: '',
+    hours: 0,
+    current_hours: 0,
+    edit: false,
+    checked: false
+  };
 
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
@@ -42,8 +56,20 @@ export class PieGraphComponent implements OnInit {
 
   mostrar: boolean = false;
   today = new Date();
+  estaSupervisando = false;
+
+
+  private timeData: TimeData[] = [];
+  // Tabla de detalle
+  displayedColumns: string[] = ['date', 'activity', 'hours', 'detail'];
+  dataSource: MatTableDataSource<TimeData>;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   // Pie graph
+  public pieChartType: ChartType = 'pie';
+
   public pieChartOptions: ChartConfiguration['options'] = {
     responsive: true,
     plugins: {
@@ -73,11 +99,10 @@ export class PieGraphComponent implements OnInit {
     ]
   };
 
-  public pieChartType: ChartType = 'pie';
-
 
 
   // Bar graph
+  public barChartType: ChartType = 'line';
 
   public barChartOptions: ChartConfiguration['options'] = {
     responsive: true,
@@ -106,8 +131,6 @@ export class PieGraphComponent implements OnInit {
     }
   };
 
-  public barChartType: ChartType = 'line';
-
   public barChartData: ChartData<'line'> = {
     labels: [''],
     datasets: [
@@ -125,15 +148,32 @@ export class PieGraphComponent implements OnInit {
   };
 
 
-  constructor(private reportService: UserTimeReportService, private sweetAlert: SweetAlertService) {
+  constructor(private reportService: UserTimeReportService,
+    private sweetAlert: SweetAlertService,
+    private router: Router) {
+
+    // Assign the data to the data source for the table to render
+    this.dataSource = new MatTableDataSource(this.timeData);
     this.idUser = '';
   }
 
   ngOnInit(): void {
     this.getUsersReports(this.idUser);
-    // this.mostrar = true
-
     setTimeout(() => this.mostrar = true, 1000);
+  }
+
+  ngAfterViewInit() {
+
+    this.dataSource.paginator = this.paginator;
+
+    // this.dataSource.sort = this.sort;
+    // to put where you want the sort to be programmatically triggered, for example inside ngOnInit
+    // this.sort.sort(({ id: 'date', start: 'desc' }) as MatSortable);
+    // this.dataSource.sort = this.sort;
+
+    // let href = this.router.url.toString();
+    // if (href.includes('/admin/') || href.includes('/supervisor/'))
+    //   this.estaSupervisando = true;
   }
 
   getUsersReports(id: string) {
@@ -146,6 +186,7 @@ export class PieGraphComponent implements OnInit {
           new Date(b.date).getTime() - new Date(a.date).getTime()
         );
 
+        this.fillDetailTable(reportes);
         // Generar el Pie Chart
         this.generatePieChart(reportes);
         // Generar el Bar Chart
@@ -153,6 +194,12 @@ export class PieGraphComponent implements OnInit {
 
       },
         (error) => console.log(error));
+  }
+
+
+  private fillDetailTable(responseTimeData: TimeData[]) {
+    this.timeData = responseTimeData;
+    this.dataSource.data = this.timeData;
   }
 
   private generatePieChart(reports: TimeData[]) {
@@ -241,6 +288,8 @@ export class PieGraphComponent implements OnInit {
 
           // console.log(this.labelsBarChart.length);
 
+          // Llenar tabla de detalle
+          this.fillDetailTable(reportes); 
           // Generar el Pie Chart
           this.generatePieChart(reportes);
           // Generar el Bar Chart
@@ -249,11 +298,12 @@ export class PieGraphComponent implements OnInit {
           this.mostrar = true;
 
         },
-          (error) => this.sweetAlert.presentError('Obteniendo rango de datos!'));
+          (error) => this.sweetAlert.presentError('Error obteniendo rango de datos!'));
     }
 
 
   }
+
 
 
   private generateBackgroundColors() {

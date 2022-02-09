@@ -10,7 +10,7 @@ import { BarGraphComponent } from './components/bar-graph/bar-graph.component';
 import { DoughnutGraphComponent } from './components/doughnut-graph/doughnut-graph.component';
 import { PieGraphComponent } from './components/pie-graph/pie-graph.component';
 import { GanttGraphComponent } from './components/gantt-graph/gantt-graph.component';
-import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { ShowGraphsComponent } from './pages/show-graphs/show-graphs.component';
 
 import { MAT_DATE_LOCALE } from '@angular/material/core';

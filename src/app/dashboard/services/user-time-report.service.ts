@@ -23,11 +23,7 @@ export class UserTimeReportService {
 
     let httpOptions = {};
 
-    console.log(rangeTime, userId);
-
     if (rangeTime) {
-
-      console.log('entra');
 
       httpOptions = {
         params: new HttpParams()
@@ -40,7 +36,6 @@ export class UserTimeReportService {
 
     else if (userId !== '' && userId !== undefined) {
 
-      console.log('aquí jue');
       httpOptions = { params: new HttpParams().set('user_id', userId || '') };
     }
 
