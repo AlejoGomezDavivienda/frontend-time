@@ -1,4 +1,5 @@
 export interface TimeData {
+  state?: boolean
   id?: string;
   date: Date;
   activity: ReportActivity;

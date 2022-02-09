@@ -268,15 +268,12 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
     if (start && end) {
       const endMoment = moment(end).add(1, 'days');
       rangeTime.end = endMoment.toDate();
+
       console.log(rangeTime.end);
-
-      // TODO: Horas de otros días
-      // this.fechaHorasOtroDiaStart = moment(start).format('YYYY-MM-DD');
-      // this.fechaHorasOtroDiaEnd = moment(end).format('YYYY-MM-DD');
-
 
       this.userTimeReportService.getAllTimeData(rangeTime, '').subscribe(
         (responseTimeData) => {
+
           this.timeData = responseTimeData.reports;
           this.dataSource.data = this.timeData;
         },

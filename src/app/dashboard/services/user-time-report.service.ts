@@ -23,8 +23,11 @@ export class UserTimeReportService {
 
     let httpOptions = {};
 
+    console.log(rangeTime, userId);
 
     if (rangeTime) {
+
+      console.log('entra');
 
       httpOptions = {
         params: new HttpParams()
@@ -32,10 +35,14 @@ export class UserTimeReportService {
           .set('end', rangeTime.end.toDateString())
           .set('user_id', userId || '')
       };
+
     }
 
-    if (userId !== '' && userId !== undefined)
+    else if (userId !== '' && userId !== undefined) {
+
+      console.log('aquí jue');
       httpOptions = { params: new HttpParams().set('user_id', userId || '') };
+    }
 
     return this.http.get<ResponseTimeData>(`${environment.API_URL}/reports`, httpOptions);
   }

@@ -13,9 +13,12 @@ import { GanttGraphComponent } from './components/gantt-graph/gantt-graph.compon
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { ShowGraphsComponent } from './pages/show-graphs/show-graphs.component';
 
-
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 @NgModule({
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'es-CO' }
+  ],
   declarations: [
     ListUsersComponent,
     CreateUserComponent,

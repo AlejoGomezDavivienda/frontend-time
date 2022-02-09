@@ -13,6 +13,7 @@ import * as moment from 'moment';
 })
 export class BarGraphComponent implements OnInit {
 
+  // Recibe el id del usuario desde la ruta entrante
   @Input()
   idUser: string = '';
 
@@ -25,6 +26,7 @@ export class BarGraphComponent implements OnInit {
 
   // Gráficas
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
+
   public barChartOptions: ChartConfiguration['options'] = {
     responsive: true,
     backgroundColor: '#0080c0',
@@ -100,13 +102,6 @@ export class BarGraphComponent implements OnInit {
           }
         });
 
-
-        // const orederedReports = reports.reports
-        //   .filter((a: any, b: any) => {
-        //     return moment(a.date).toDate() >= moment(a.date).toDate()
-        //   });
-
-        // console.log(reports.reports.reverse());
       },
       (error) => console.log(error)
     );
