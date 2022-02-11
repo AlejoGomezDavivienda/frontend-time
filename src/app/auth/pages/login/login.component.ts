@@ -51,10 +51,12 @@ export class LoginComponent implements OnInit {
 
           // TODO: Agregar VP, SUPERVISOR, CAM roles
           // Si vice, director o jefe
-          if (userData.user.role.code === 'VP_ROLE' ||
-            userData.user.role.code === 'DIRECTOR_ROLE' ||
-            userData.user.role.code === 'LEADER_ROLE')
+          if (userData.user.role.code === 'VP_ROLE' || userData.user.role.code === 'DIRECTOR_ROLE' || userData.user.role.code === 'LEADER_ROLE')
             this.router.navigate(['/admin']);
+
+          // Si es jefe de algún país de CAM
+          else if (userData.user.role.code === 'LEADER_CAM_ROLE')
+            this.router.navigate(['/leader-cam']);
 
           // Si es un usuario va a la ruta /supervisor
           else if (userData.user.role.code === 'SUPERVISOR_ROLE')
@@ -93,6 +95,9 @@ export class LoginComponent implements OnInit {
         if (res.user.role.code === 'VP_ROLE' || res.user.role.code === 'DIRECTOR_ROLE' || res.user.role.code === 'LEADER_ROLE')
           this.router.navigate(['/admin']);
 
+        // Si es jefe de algún país de CAM
+        else if (res.user.role.code === 'LEADER_CAM_ROLE')
+          this.router.navigate(['/leader-cam']);
 
         // Si es un usuario va a la ruta /supervisor
         else if (res.user.role.code === 'SUPERVISOR_ROLE')

@@ -5,7 +5,7 @@ import { ShowActivityComponent } from './pages/show-activity/show-activity.compo
 
 const routes: Routes = [
 
-  // admin/users/:id
+  // {role}/users/:id
   {
     path: ':id',
     component: ShowActivityComponent

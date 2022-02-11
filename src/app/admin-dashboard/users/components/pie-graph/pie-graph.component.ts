@@ -95,9 +95,11 @@ export class PieGraphComponent implements OnInit, AfterViewInit  {
       {
         data: [0],
         backgroundColor: this.backgroundColors,
+        hoverBackgroundColor: this.backgroundColors
       }
     ]
   };
+
 
 
 

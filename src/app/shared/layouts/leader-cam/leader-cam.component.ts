@@ -1,20 +1,20 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { map, shareReplay } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
-import { TokenService } from 'src/app/core/services/token.service';
-import { AuthService } from 'src/app/auth/services/auth.service';
+import { Router } from '@angular/router';
 import { SocialAuthService } from 'angularx-social-login';
+import { Observable } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { TokenService } from 'src/app/core/services/token.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-supervisor-layout',
-  templateUrl: './supervisor-layout.component.html',
-  styleUrls: ['./supervisor-layout.component.scss']
+  selector: 'app-leader-cam',
+  templateUrl: './leader-cam.component.html',
+  styleUrls: ['./leader-cam.component.scss']
 })
-export class SupervisorLayoutComponent implements OnInit {
+export class LeaderCamLayoutComponent implements OnInit {
 
   panelOpenState = false;
   userImg = 'https://firebasestorage.googleapis.com/v0/b/subasta-inversa-d6e7a.appspot.com/o/User-80_icon-icons.com_57249.png?alt=media&token=283572e2-e8d3-4149-9227-8ae3b795652e';
@@ -89,14 +89,14 @@ export class SupervisorLayoutComponent implements OnInit {
   }
 
   goToMyReportPage() {
-    this.router.navigate(['/supervisor/users/performance/' + this.userId]);
+    this.router.navigate(['/leader-cam/users/performance/' + this.userId]);
   }
-
 
   logout() {
     this.authService.logout();
     this.socialAuthService.signOut();
     this.router.navigate(['/']);
   }
+
 
 }

@@ -4,9 +4,25 @@ import { GoogleComponent } from './pages/google/google.component';
 import { LoginComponent } from './pages/login/login.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'google' },
-  { path: 'google', component: GoogleComponent },
-  { path: 'hidden_login', component: LoginComponent }
+  
+  // auth/
+  {
+    path: '',
+    redirectTo: 'google'
+  },
+
+  // auth/google
+  {
+    path: 'google',
+    component: GoogleComponent
+  },
+
+  // TODO: Eliminar al final del desarrollo
+  // auth/hidden_login
+  {
+    path: 'hidden_login',
+    component: LoginComponent
+  }
 ];
 
 @NgModule({

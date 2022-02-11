@@ -87,7 +87,7 @@ export class ResumeProjectPlanComponent implements OnInit, AfterViewInit {
     private router: Router
   ) {
 
-    if(this.userRole == 'VP_ROLE' || this.userRole == 'DIRECTOR_ROLE')
+    if (this.userRole == 'VP_ROLE' || this.userRole == 'DIRECTOR_ROLE')
       this.poseePermisos = true;
 
     this.generalActivitiesSource = new MatTableDataSource(this.generalActivities);
@@ -111,8 +111,6 @@ export class ResumeProjectPlanComponent implements OnInit, AfterViewInit {
     this.activityService.getActivities().subscribe(
       (activities) => {
 
-        console.log(activities.activities);
-
         // Inicializa la tabla de actividades generales
         this.generalActivities = activities.activities.filter(a => a.is_general);
         this.generalActivitiesSource.data = this.generalActivities;
@@ -122,19 +120,25 @@ export class ResumeProjectPlanComponent implements OnInit, AfterViewInit {
         if (this.userRole === 'VP_ROLE')
           this.specificActivities = activities.activities.filter((a) => !a.is_general);
 
+
         // Si es gerente de CAM desde Colombia (Ricardo)
         else if (this.userRole === 'DIRECTOR_ROLE' && this.userCountry === 'CAM') {
           this.specificActivities = activities.activities.filter((a) => !a.is_general && a.country !== 'CO');
-          console.log('llegó aquí');  
+          console.log('llegó aquí');
         }
 
         // Si es director de Colombia (Yaquelyn)
         else if (this.userRole === 'DIRECTOR_ROLE' && this.userCountry === 'CO')
           this.specificActivities = activities.activities.filter((a) => !a.is_general && a.country === 'CO');
 
+        else if (this.userRole === 'LEADER_CAM_ROLE')
+          this.specificActivities = activities.activities.filter((a) => !a.is_general && a.country === this.userCountry);
+
+
         // Si es jefe Normal
         else if (this.userRole === 'LEADER_ROLE')
           this.specificActivities = activities.activities.filter((a) => !a.is_general && a.country === this.userCountry);
+
 
 
         this.specificActivitiesSource.data = this.specificActivities;
@@ -238,8 +242,16 @@ export class ResumeProjectPlanComponent implements OnInit, AfterViewInit {
    * @param {string} idActivity 
    */
   showActivity(idActivity: string) {
-    console.log(idActivity);
-    this.router.navigate(['/admin/activities/' + idActivity]);
+
+    if (this.userRole === 'SUPERVISOR_ROLE')
+      this.router.navigate(['/supervisor/activities/' + idActivity]);
+
+    else if (this.userRole === 'LEADER_CAM_ROLE')
+      this.router.navigate(['/leader-cam/project-plan/activities/' + idActivity]);
+
+    else
+      this.router.navigate(['/admin/activities/' + idActivity]);
+
   }
 
 }

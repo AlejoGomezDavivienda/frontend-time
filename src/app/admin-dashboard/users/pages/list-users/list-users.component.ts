@@ -54,7 +54,7 @@ export class ListUsersComponent implements OnInit, AfterViewInit {
 
   public poseePermisos: boolean = false;
 
-  displayedColumns: string[] = ['image-avatar', 'email', 'name', 'country', 'role',  'actions'];
+  displayedColumns: string[] = ['image-avatar', 'email', 'name', 'country', 'role', 'actions'];
   dataSource: MatTableDataSource<GeneralUser>;
   private usersData: GeneralUser[] = [];
 
@@ -106,6 +106,10 @@ export class ListUsersComponent implements OnInit, AfterViewInit {
         // Si es jefe (Jorge, Luz H, etc, etc)
         else if (this.userRole === 'LEADER_ROLE')
           this.usersData = users.users.filter((u) => u.area.code.toString() === this.userArea);
+
+        else if (this.userRole === 'LEADER_CAM_ROLE')
+          this.usersData = users.users.filter((u) => u.area.code.toString() === this.userArea);
+
 
         // Si es supervisor con equipo fijo
         else if (this.userRole === 'SUPERVISOR_ROLE') {
@@ -189,12 +193,24 @@ export class ListUsersComponent implements OnInit, AfterViewInit {
   }
 
   showUser(id: string) {
-    this.router.navigate(['/admin/users/' + id]);
+    if (this.userRole === 'SUPERVISOR_ROLE')
+      this.router.navigate(['/supervisor/users/' + id]);
+
+    else if (this.userRole === 'LEADER_CAM_ROLE')
+      this.router.navigate(['/leader-cam/users/' + id]);
+
+    else
+      this.router.navigate(['/admin/users/' + id]);
+
   }
 
   showUserPerformance(id: string) {
     if (this.userRole === 'SUPERVISOR_ROLE')
       this.router.navigate(['/supervisor/users/performance/' + id]);
+
+    else if (this.userRole === 'LEADER_CAM_ROLE')
+      this.router.navigate(['/leader-cam/users/performance/' + id]);
+
     else
       this.router.navigate(['/admin/users/performance/' + id]);
   }

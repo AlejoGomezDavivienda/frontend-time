@@ -72,8 +72,6 @@ export class ShowActivityComponent implements OnInit {
         this.activity = activity.activity;
         this.usersData = activity.activity.users;
         this.dataSource = new MatTableDataSource(this.usersData);
-        console.log(activity.total);
-        console.log(this.activity);
       },
       (error) => console.error(error)
     );
@@ -87,8 +85,6 @@ export class ShowActivityComponent implements OnInit {
   }
 
   showUser(user: any) {
-
-    console.log(user);
 
     const dialogRef = this.dialog.open(EditAuditorComponent, {
       width: '75%',
@@ -111,21 +107,15 @@ export class ShowActivityComponent implements OnInit {
           user_log_description_activity: result.description_event
         }
 
-        console.log(assign);
-
 
         this.activityService.assignActivity(assign).subscribe(
-          (user) => {
-            console.log(user);
-          },
+          (user) => this.sweetAlert.presentSuccess('Usuario modificado con éxito'),
           (error) => {
             console.error(error);
             this.sweetAlert.presentError('Error retriving user info');
           }
         );
 
-      } else {
-        console.log('error recibiendo los datos');
       }
     });
   }

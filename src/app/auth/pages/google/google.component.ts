@@ -59,6 +59,10 @@ export class GoogleComponent implements OnInit {
           if (userData.user.role.code === 'VP_ROLE' || userData.user.role.code === 'DIRECTOR_ROLE' || userData.user.role.code === 'LEADER_ROLE')
             this.router.navigate(['/admin']);
 
+          // Si es jefe de algún país de CAM
+          else if (userData.user.role.code === 'LEADER_CAM_ROLE')
+            this.router.navigate(['/leader-cam']);
+
           // Si es un usuario va a la ruta /supervisor
           else if (userData.user.role.code === 'SUPERVISOR_ROLE')
             this.router.navigate(['/supervisor']);
@@ -98,6 +102,11 @@ export class GoogleComponent implements OnInit {
         // Si es un administrador lo mando a la ruta /admin
         if (res.user.role.code === 'VP_ROLE' || res.user.role.code === 'DIRECTOR_ROLE' || res.user.role.code === 'LEADER_ROLE')
           this.router.navigate(['/admin']);
+
+
+        // Si es jefe de algún país de CAM
+        else if (res.user.role.code === 'LEADER_CAM_ROLE')
+          this.router.navigate(['/leader-cam']);
 
 
         // Si es un usuario va a la ruta /supervisor
