@@ -28,6 +28,8 @@ const routes: Routes = [
     component: AdminLayoutComponent,
     children: ADMIN_LAYOUT
   },
+
+  
   {
     path: 'dashboard',
     component: UserLayoutComponent,
