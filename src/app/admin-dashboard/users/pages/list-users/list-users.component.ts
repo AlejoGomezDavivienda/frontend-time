@@ -22,29 +22,6 @@ export class ListUsersComponent implements OnInit, AfterViewInit {
 
   userImg = 'https://firebasestorage.googleapis.com/v0/b/subasta-inversa-d6e7a.appspot.com/o/User-80_icon-icons.com_57249.png?alt=media&token=283572e2-e8d3-4149-9227-8ae3b795652e';
 
-  // countries = [
-  //   {
-  //     name: 'Panamá',
-  //     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Flag_of_Panama.svg/200px-Flag_of_Panama.svg.png'
-  //   },
-  //   {
-  //     name: 'El Salvador',
-  //     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Flag_of_El_Salvador.svg/2560px-Flag_of_El_Salvador.svg.png'
-  //   },
-  //   {
-  //     name: 'Honduras',
-  //     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Flag_of_Honduras.svg/800px-Flag_of_Honduras.svg.png'
-  //   },
-  //   {
-  //     name: 'Costa Rica',
-  //     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Flag_of_Costa_Rica_%28state%29.svg/200px-Flag_of_Costa_Rica_%28state%29.svg.png'
-  //   },
-  //   {
-  //     name: 'Colombia',
-  //     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Colombia.svg/200px-Flag_of_Colombia.svg.png'
-  //   }
-  // ]
-
 
   public userName: string = '';
   public userCountry = localStorage.getItem('country');
@@ -102,6 +79,12 @@ export class ListUsersComponent implements OnInit, AfterViewInit {
         // Si es director de Colombia (Yaquelyn)
         else if (this.userRole === 'DIRECTOR_ROLE')
           this.usersData = users.users.filter((u) => u.area.country.code === 'CO' && u.area.code !== 9 && u.role.code !== 'VP_ROLE');
+
+        else if (this.userRole === 'LEADER_ROLE' && this.userArea === '2') {
+          let tempUsersData = users.users.filter((u) => u.area.code.toString() === this.userArea);
+          let tempUsersData2 =  users.users.filter((u) => u.area.code === 3);
+          this.usersData = tempUsersData.concat(tempUsersData2);
+        }
 
         // Si es jefe (Jorge, Luz H, etc, etc)
         else if (this.userRole === 'LEADER_ROLE')
