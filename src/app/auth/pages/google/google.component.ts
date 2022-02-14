@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SocialAuthService, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
-import { LoginData } from '../../interfaces/LoginData';
 import { AuthService } from '../../services/auth.service';
 import { TokenService } from 'src/app/core/services/token.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';

@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 // Layouts children routing
-import { USER_LAYOUT } from './routes/user-layout-routes';
-import { ADMIN_LAYOUT } from './routes/admin-layout-routes';
+import { USER_LAYOUT } from './routes/user-layout.routing';
+import { ADMIN_LAYOUT } from './routes/admin-layout.routing';
 import { LEADER_CAM_LAYOUT } from './routes/leader-cam-layout.routing';
 import { SUPERVISOR_LAYOUT } from './routes/supervisor.routing';
 
@@ -27,9 +27,7 @@ const routes: Routes = [
     path: 'admin',
     component: AdminLayoutComponent,
     children: ADMIN_LAYOUT
-  },
-
-  
+  },  
   {
     path: 'dashboard',
     component: UserLayoutComponent,

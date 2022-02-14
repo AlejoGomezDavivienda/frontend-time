@@ -29,8 +29,7 @@ export class ShowGraphsComponent implements OnInit {
         code: 'CO',
         name: 'Colombia'
       }
-    },
-    supervised_by: ''
+    }
   };
 
   userImg = 'https://firebasestorage.googleapis.com/v0/b/subasta-inversa-d6e7a.appspot.com/o/User-80_icon-icons.com_57249.png?alt=media&token=283572e2-e8d3-4149-9227-8ae3b795652e';

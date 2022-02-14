@@ -31,7 +31,6 @@ export class ShowUserComponent implements OnInit {
         name: 'Colombia'
       }
     },
-    supervised_by: ''
   };
 
   idUser: string;

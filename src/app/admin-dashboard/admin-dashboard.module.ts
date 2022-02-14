@@ -21,3 +21,4 @@ import { AddSpecificActivityComponent } from './components/add-specific-activity
   ]
 })
 export class AdminDashboardModule { }
+

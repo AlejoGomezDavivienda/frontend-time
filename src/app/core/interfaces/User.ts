@@ -7,7 +7,7 @@ export interface User
     img: string;
     area: Area;
     // Para los que son supervisados
-    supervised_by: any
+    supervised_by?: User
 }
 
 export interface Role {

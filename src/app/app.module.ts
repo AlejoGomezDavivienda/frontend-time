@@ -12,6 +12,8 @@ import { environment } from '../environments/environment';
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
 
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -22,7 +24,7 @@ import { GoogleLoginProvider } from 'angularx-social-login';
     SharedModule,
     CoreModule,
     BrowserAnimationsModule,
-    
+
     // Login with google
     SocialLoginModule,
 
@@ -37,6 +39,8 @@ import { GoogleLoginProvider } from 'angularx-social-login';
     // SharedModule
   ],
   providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'es-CO' },
+    
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {

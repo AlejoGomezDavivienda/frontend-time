@@ -114,7 +114,7 @@ export class ListUsersComponent implements OnInit, AfterViewInit {
         // Si es supervisor con equipo fijo
         else if (this.userRole === 'SUPERVISOR_ROLE') {
 
-          this.usersData = users.users.filter((u) => u.supervised_by === this.userId);
+          this.usersData = users.users.filter((u) => u.supervised_by?.id  === this.userId );
 
           // Si es Tatiana, Rony, Anyela
           if (this.usersData.length === 0)
@@ -159,12 +159,7 @@ export class ListUsersComponent implements OnInit, AfterViewInit {
         if (checkData) {
           const user = result as GeneralUser;
 
-          // Capitalize the user's name
-          // eg: Juan Esteban Gomez Forero
-          // eg: María A. Quintero Rojas
-          user.name = user.name.trim().toLowerCase()
-            .replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));
-
+          user.name = user.name.trim().toLowerCase();
           user.email = user.email.trim().toLowerCase();
 
           this.userService.createUser(user).subscribe(
