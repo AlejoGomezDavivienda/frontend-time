@@ -1,6 +1,9 @@
 import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
+
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
+
+
 import { ResponseTimeData } from 'src/app/dashboard/interfaces/ResponseTimeData';
 import { TimeData } from 'src/app/dashboard/interfaces/TimeData';
 import { UserTimeReportService } from 'src/app/dashboard/services/user-time-report.service';
@@ -21,7 +24,7 @@ import * as moment from 'moment';
   templateUrl: './pie-graph.component.html',
   styleUrls: ['./pie-graph.component.scss']
 })
-export class PieGraphComponent implements OnInit, AfterViewInit  {
+export class PieGraphComponent implements OnInit, AfterViewInit {
 
 
   public range = new FormGroup({
@@ -99,7 +102,6 @@ export class PieGraphComponent implements OnInit, AfterViewInit  {
       }
     ]
   };
-
 
 
 
@@ -195,7 +197,8 @@ export class PieGraphComponent implements OnInit, AfterViewInit  {
         this.generateBarChart(reportes);
 
       },
-        (error) => console.log(error));
+        (error) => console.log(error)
+      );
   }
 
 
@@ -249,13 +252,10 @@ export class PieGraphComponent implements OnInit, AfterViewInit  {
       }
     });
 
-
-
     this.horasTrabajadasEnPromedio = (this.horasTrabajadasEnTotal / this.dataBarChart.length);
 
     this.barChartData.labels = this.labelsBarChart;
     this.barChartData.datasets[0].data = this.dataBarChart;
-
 
   }
 
@@ -291,7 +291,7 @@ export class PieGraphComponent implements OnInit, AfterViewInit  {
           // console.log(this.labelsBarChart.length);
 
           // Llenar tabla de detalle
-          this.fillDetailTable(reportes); 
+          this.fillDetailTable(reportes);
           // Generar el Pie Chart
           this.generatePieChart(reportes);
           // Generar el Bar Chart
