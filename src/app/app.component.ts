@@ -1,7 +1,6 @@
 import { AfterViewInit, Component } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-
-import { filter } from 'rxjs/operators';
+// import { NavigationEnd, Router } from '@angular/router';
+// import { filter } from 'rxjs/operators';
 
 declare const gtag: any
 
@@ -13,20 +12,19 @@ declare const gtag: any
 export class AppComponent implements AfterViewInit {
   title = 'frontend-time';
 
-  constructor(private router: Router) { }
+  constructor() { }
 
   ngAfterViewInit(): void {
 
   }
 
-  googleAnalytics() {
+  // googleAnalytics() {
 
-    const navEndEvents$ = this.router.events.pipe(filter((event) => event instanceof NavigationEnd));
-
-    navEndEvents$.subscribe((event: any) => {
-      gtag('config', 'G-MCFCGQJTF7', {
-        'page_path': event.urlAfterRedirects
-      });
-    }, (error) => console.log(error));
-  }
+  //   const navEndEvents$ = this.router.events.pipe(filter((event) => event instanceof NavigationEnd));
+  //   navEndEvents$.subscribe((event: any) => {
+  //     gtag('config', 'G-MCFCGQJTF7', {
+  //       'page_path': event.urlAfterRedirects
+  //     });
+  //   });
+  // }
 }
