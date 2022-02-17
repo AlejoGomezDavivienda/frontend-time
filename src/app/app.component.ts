@@ -1,7 +1,9 @@
 import { AfterViewInit, Component } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 
-declare const $: any
-declare const jvm:any
+import { filter } from 'rxjs/operators';
+
+declare const gtag: any
 
 @Component({
   selector: 'app-root',
@@ -11,24 +13,20 @@ declare const jvm:any
 export class AppComponent implements AfterViewInit {
   title = 'frontend-time';
 
+  constructor(private router: Router) { }
+
   ngAfterViewInit(): void {
 
+  }
 
-    // $('#world-map').vectorMap({
-    //   map: 'world_mill_en',
-    //   backgroundColor: '#a5bfdd',
-    //   borderColor: '#818181',
-    //   borderOpacity: 0.25,
-    //   borderWidth: 1,
-    //   color: '#f4f3f0',
-    //   enableZoom: true,
-    //   hoverColor: '#c9dfaf',
-    //   hoverOpacity: null,
-    //   normalizeFunction: 'linear',
-    //   scaleColors: ['#b6d6ff', '#005ace'],
-    //   selectedColor: '#c9dfaf',
-    //   selectedRegions: null,
-    //   showTooltip: true
-    // })
+  googleAnalytics() {
+
+    const navEndEvents$ = this.router.events.pipe(filter((event) => event instanceof NavigationEnd));
+
+    navEndEvents$.subscribe((event: any) => {
+      gtag('config', 'G-MCFCGQJTF7', {
+        'page_path': event.urlAfterRedirects
+      });
+    }, (error) => console.log(error));
   }
 }
