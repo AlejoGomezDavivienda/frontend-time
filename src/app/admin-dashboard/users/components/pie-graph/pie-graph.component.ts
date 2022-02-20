@@ -34,7 +34,17 @@ export class PieGraphComponent implements OnInit, AfterViewInit {
 
   private data: TimeData = {
     date: new Date(),
-    activity: { _id: '', name: '' },
+    activity: {
+      id: '',
+      name: '',
+      company: { code: 1, name: '', country: { code: '', name: '', img: '' } },
+      open_state: true,
+      initial_date: new Date(),
+      end_date: new Date(),
+      estimated_hours: 1,
+      worked_hours: 1,
+      is_general: false
+    },
     detail: '',
     hours: 0,
     current_hours: 0,
@@ -98,7 +108,8 @@ export class PieGraphComponent implements OnInit, AfterViewInit {
       {
         data: [0],
         backgroundColor: this.backgroundColors,
-        hoverBackgroundColor: this.backgroundColors
+        hoverBackgroundColor: this.backgroundColors,
+        hoverBorderWidth: 0
       }
     ]
   };

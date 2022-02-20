@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { EditAuditorComponent } from '../edit-auditor/edit-auditor.component';
+import { ResponseActivity } from 'src/app/admin-dashboard/interfaces/ResponseActivity';
 
 
 @Component({
@@ -28,7 +29,10 @@ export class ShowActivityComponent implements OnInit {
     worked_hours: 0,
     is_general: false,
     state: true,
-    country: 'CO'
+    company: {
+      code: 1, name: '',
+      country: { code: '', name: '', img: '' }
+    }
   };
 
   public users: any[] = [];
@@ -69,7 +73,10 @@ export class ShowActivityComponent implements OnInit {
   getActivityById(id: string) {
     this.activityService.getActivityById(id).subscribe(
       (activity: any) => {
+
         this.activity = activity.activity;
+        
+        console.log(this.activity);
         this.usersData = activity.activity.users;
         this.dataSource = new MatTableDataSource(this.usersData);
       },

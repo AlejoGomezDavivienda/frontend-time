@@ -33,6 +33,7 @@ export class ListUsersComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = ['image-avatar', 'email', 'name', 'country', 'role', 'actions'];
   dataSource: MatTableDataSource<GeneralUser>;
+  
   private usersData: GeneralUser[] = [];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -130,7 +131,7 @@ export class ListUsersComponent implements OnInit, AfterViewInit {
 
   addUser() {
     const dialogRef = this.dialog.open(CreateUserComponent, {
-      width: '70%',
+      width: '60%',
       data: this.data
     });
 
@@ -142,28 +143,28 @@ export class ListUsersComponent implements OnInit, AfterViewInit {
         if (checkData) {
           const user = result as GeneralUser;
 
-          user.name = user.name.trim().toLowerCase();
           user.email = user.email.trim().toLowerCase();
 
           this.userService.createUser(user).subscribe(
             () => {
               this.sweetAlert.presentSuccess('Usuario creado con éxito');
-              this.loadData();
             },
             (error) => this.sweetAlert.presentError(error.error.error)
           );
         }
         else {
-          this.sweetAlert.presentError('Información Inválida o faltante');
+          this.sweetAlert.presentError('Información inválida o faltante');
         }
       }
+
+      this.loadData();
     });
   }
 
   verifyUserData(userData: GeneralUser): boolean {
 
 
-    if (userData.email && userData.name && userData.country && userData.rol)
+    if (userData.email && userData.rol)
       if (userData.email.toLowerCase().includes('@davivienda'))
         return true;
 

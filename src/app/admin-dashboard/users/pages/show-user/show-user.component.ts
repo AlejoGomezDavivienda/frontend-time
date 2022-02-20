@@ -28,7 +28,8 @@ export class ShowUserComponent implements OnInit {
       name: 'Ciberseguirdad y TI',
       country: {
         code: 'CO',
-        name: 'Colombia'
+        name: 'Colombia',
+        img: ''
       }
     },
   };
@@ -93,7 +94,7 @@ export class ShowUserComponent implements OnInit {
   loadData() {
     this.activityService.getActivities(true).subscribe(
       (activities) => {
-        this.activities = activities.activities.filter(a => a.country === this.user.area.country.code);
+        this.activities = activities.activities.filter(a => a.company.country.code === this.user.area.country.code);
       },
       (error) => console.error(error)
     );

@@ -1,8 +1,10 @@
+import { Activity } from "src/app/admin-dashboard/interfaces/Activity";
+
 export interface TimeData {
   state?: boolean
   id?: string;
   date: Date;
-  activity: ReportActivity;
+  activity: Activity;
   detail: string;
   hours: number;
   current_hours: number;

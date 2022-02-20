@@ -23,5 +23,6 @@ export interface Area {
 
 export interface Country {
     code: string,
-    name: string
+    name: string,
+    img: string
 }

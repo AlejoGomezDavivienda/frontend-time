@@ -27,7 +27,8 @@ export class ShowGraphsComponent implements OnInit {
       name: 'Ciberseguirdad y TI',
       country: {
         code: 'CO',
-        name: 'Colombia'
+        name: 'Colombia',
+        img: ''
       }
     }
   };

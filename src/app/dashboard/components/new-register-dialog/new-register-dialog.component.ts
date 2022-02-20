@@ -39,8 +39,15 @@ export class NewRegisterDialogComponent implements OnInit {
     this.userTimeReportService.getAllActivitiesFromUser().subscribe(
 
       (activities) => {
-        if (this.data.edit)
-          this.activities = activities.activities.filter((a) => a.name == this.data.activity.name);
+
+        console.log(activities);
+        console.log(this.data);
+
+        if (this.data.edit) {
+
+          this.activities = activities.activities.filter((a) => a.name === this.data.activity.name);
+          console.log(this.activities);
+        }
         else
           this.activities = activities.activities.sort((a, b) => Number(a.is_general) - Number(b.is_general));
 
@@ -51,7 +58,6 @@ export class NewRegisterDialogComponent implements OnInit {
 
   onNoClick(): void {
     this.dialogRef.close();
-
   }
 
 }

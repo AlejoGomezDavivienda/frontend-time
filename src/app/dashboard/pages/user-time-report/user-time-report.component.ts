@@ -25,7 +25,19 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
 
   private data: TimeData = {
     date: new Date(),
-    activity: { _id: '', name: '' },
+
+    activity: {
+      id: '',
+      name: 'ABC',
+      company: { code: 1, name: '', country: { code: '', name: '', img: '' } },
+      open_state: true,
+      initial_date: new Date(),
+      end_date: new Date(),
+      estimated_hours: 1,
+      worked_hours: 1,
+      is_general: false
+    },
+
     detail: '',
     hours: 0,
     current_hours: 0,
@@ -83,10 +95,17 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
 
   loadData() {
 
+    console.log('LLAMADO');
+
     this.horasTrabajadasHoy = 0;
 
     this.userTimeReportService.getAllTimeData().subscribe(
       (responseTimeData) => {
+
+
+        console.log(responseTimeData.reports);
+
+
         this.timeData = responseTimeData.reports;
 
         this.dataSource.data = this.timeData;
@@ -140,55 +159,32 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-
-
         const checkData = this.verifyTimeData(result);
         if (checkData) {
           // Si se desea agregar uno nuevo
           if (!timeData) {
-           
             this.userTimeReportService.createTimeData(result).subscribe(
-              () => {
-                this.sweetAlert.presentSuccess('Registro Creado Correctamente!');
-                this.loadData();
-                this.data = {
-                  date: new Date(),
-                  activity: { _id: '', name: '' },
-                  detail: '',
-                  hours: 0,
-                  current_hours: 0,
-                  edit: false
-                };
-              },
-              () => { this.sweetAlert.presentError('No fue posible crear el registro! Revisa los datos ingresados') }
+              () => this.sweetAlert.presentSuccess('Registro Creado Correctamente!'),
+              (error) => this.sweetAlert.presentError('No fue posible crear el registro! Revisa los datos ingresados')
             );
           }
 
           // Se desea editar un registro
           else {
-
             this.userTimeReportService.editTimeData(timeData).subscribe(
-              () => {
-                this.sweetAlert.presentSuccess('Registro Editado Correctamente!');
-                this.loadData();
-
-                this.data = {
-                  date: new Date(),
-                  activity: { _id: '', name: '' },
-                  detail: '',
-                  hours: 0,
-                  current_hours: 0,
-                  edit: false
-                };
-              },
-              () => { this.sweetAlert.presentError('No Fue Posible Editar El Registro!') }
+              () => this.sweetAlert.presentSuccess('Registro editado correctamente!'),
+              (error) => this.sweetAlert.presentError('No fue posible editar el registro!')
             );
           }
+        
+        } else {
+          this.sweetAlert.presentError('Información inválida!');
         }
-        else {
-          this.sweetAlert.presentError('Información Inválida!');
-        }
-      }
+      } 
+
+      // Una vez se cerró el Dialog modal con o sin cambios
+      this.resetData();
+      this.loadData();
     });
 
 
@@ -240,10 +236,7 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
 
   verifyTimeData(timeData: TimeData): boolean {
 
-    console.log((this.horasTrabajadasHoy - timeData.current_hours + timeData.hours));
-
     if ((this.horasTrabajadasHoy - timeData.current_hours + timeData.hours) > 24) {
-      console.log((this.horasTrabajadasHoy - timeData.current_hours + timeData.hours));
       this.openSnackBar(`Horas diarias excedidas, más de 24 horas diarias. 
       Revisa la información ingresada de tus actividades de hoy y editalas si es necesario`);
       return false;
@@ -320,6 +313,28 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
       duration: 5000,
       verticalPosition: 'top'
     });
+  }
+
+  resetData() {
+                    
+    this.data = {
+      date: new Date(),
+      activity: {
+        id: '',
+        name: 'ABCDEFks',
+        company: { code: 1, name: 'ABC', country: { code: '', name: '', img: '' } },
+        open_state: true,
+        initial_date: new Date(),
+        end_date: new Date(),
+        estimated_hours: 1,
+        worked_hours: 1,
+        is_general: false
+      },
+      detail: '',
+      hours: 0,
+      current_hours: 0,
+      edit: false
+    };
   }
 
 }

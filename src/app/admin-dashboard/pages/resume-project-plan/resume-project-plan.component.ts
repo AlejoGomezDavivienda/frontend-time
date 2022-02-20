@@ -60,7 +60,7 @@ export class ResumeProjectPlanComponent implements OnInit, AfterViewInit {
     worked_hours: 0,
     open_state: true,
     is_general: true,
-    country: 'CO'
+    company: { code: 1, name: '', country: { code: '', name: '', img: '' } }
   };
 
   // Paginator
@@ -123,21 +123,21 @@ export class ResumeProjectPlanComponent implements OnInit, AfterViewInit {
 
         // Si es gerente de CAM desde Colombia (Ricardo)
         else if (this.userRole === 'DIRECTOR_ROLE' && this.userCountry === 'CAM') {
-          this.specificActivities = activities.activities.filter((a) => !a.is_general && a.country !== 'CO');
+          this.specificActivities = activities.activities.filter((a) => !a.is_general && a.company.country.code !== 'CO');
           console.log('llegó aquí');
         }
 
         // Si es director de Colombia (Yaquelyn)
         else if (this.userRole === 'DIRECTOR_ROLE' && this.userCountry === 'CO')
-          this.specificActivities = activities.activities.filter((a) => !a.is_general && a.country === 'CO');
+          this.specificActivities = activities.activities.filter((a) => !a.is_general && a.company.country.code === 'CO');
 
         else if (this.userRole === 'LEADER_CAM_ROLE')
-          this.specificActivities = activities.activities.filter((a) => !a.is_general && a.country === this.userCountry);
+          this.specificActivities = activities.activities.filter((a) => !a.is_general && a.company.country.code === this.userCountry);
 
 
         // Si es jefe Normal
         else if (this.userRole === 'LEADER_ROLE')
-          this.specificActivities = activities.activities.filter((a) => !a.is_general && a.country === this.userCountry);
+          this.specificActivities = activities.activities.filter((a) => !a.is_general && a.company.country.code === this.userCountry);
 
 
 
