@@ -106,6 +106,8 @@ export class CreateUserComponent implements OnInit {
 
   ngOnInit(): void {
 
+    console.log(this.data);
+
     this.getDataBasedCreator();
 
   }

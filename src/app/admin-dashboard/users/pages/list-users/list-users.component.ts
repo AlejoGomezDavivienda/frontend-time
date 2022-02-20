@@ -6,7 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { CreateUserComponent } from '../../components/create-user/create-user.component';
-import { GeneralUser } from '../../interfaces/GeneralUser';
+import { CreateUser, GeneralUser } from '../../interfaces/GeneralUser';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -15,9 +15,10 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./list-users.component.scss']
 })
 export class ListUsersComponent implements OnInit, AfterViewInit {
+  
   private data: GeneralUser = {
     email: '',
-    name: ''
+    rol: '', 
   };
 
   userImg = 'https://firebasestorage.googleapis.com/v0/b/subasta-inversa-d6e7a.appspot.com/o/User-80_icon-icons.com_57249.png?alt=media&token=283572e2-e8d3-4149-9227-8ae3b795652e';
@@ -141,9 +142,11 @@ export class ListUsersComponent implements OnInit, AfterViewInit {
         const checkData = this.verifyUserData(result);
 
         if (checkData) {
-          const user = result as GeneralUser;
+          const user = result as CreateUser;
 
           user.email = user.email.trim().toLowerCase();
+          user.roleCode = result.rol.value,
+          user.areaCode = result.area.code
 
           this.userService.createUser(user).subscribe(
             () => {
@@ -161,10 +164,9 @@ export class ListUsersComponent implements OnInit, AfterViewInit {
     });
   }
 
-  verifyUserData(userData: GeneralUser): boolean {
+  verifyUserData(userData: any): boolean {
 
-
-    if (userData.email && userData.rol)
+    if (userData.email && userData.rol.value && userData.area.code)
       if (userData.email.toLowerCase().includes('@davivienda'))
         return true;
 
