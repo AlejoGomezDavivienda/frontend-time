@@ -60,13 +60,7 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header> País </th>
         <td mat-cell *matCellDef="let row">
 
-            <img md-fab-image class="user-fab" 
-              [src]="
-            row.country == 'PA' ? countries[0].image  
-            : row.country == 'SV' ? countries[1].image  
-            : row.country == 'HN' ? countries[2].image 
-            : row.country == 'CR' ? countries[3].image 
-            : countries[4].image">
+          <img md-fab-image class="user-fab" [src]="row.company.country.img">
 
         </td>
       </ng-container>

@@ -40,9 +40,6 @@ export class NewRegisterDialogComponent implements OnInit {
 
       (activities) => {
 
-        console.log(activities);
-        console.log(this.data);
-
         if (this.data.edit) {
 
           this.activities = activities.activities.filter((a) => a.name === this.data.activity.name);

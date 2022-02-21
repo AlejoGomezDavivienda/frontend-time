@@ -95,9 +95,7 @@ export class UserTimeReportComponent implements OnInit, AfterViewInit {
 
   loadData() {
 
-    console.log('LLAMADO');
-
-    this.horasTrabajadasHoy = 0;
+     this.horasTrabajadasHoy = 0;
 
     this.userTimeReportService.getAllTimeData().subscribe(
       (responseTimeData) => {

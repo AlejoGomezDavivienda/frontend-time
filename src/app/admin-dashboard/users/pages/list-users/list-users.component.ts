@@ -137,6 +137,8 @@ export class ListUsersComponent implements OnInit, AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+
+
       if (result) {
 
         const checkData = this.verifyUserData(result);
@@ -145,13 +147,11 @@ export class ListUsersComponent implements OnInit, AfterViewInit {
           const user = result as CreateUser;
 
           user.email = user.email.trim().toLowerCase();
-          user.roleCode = result.rol.value,
-          user.areaCode = result.area.code
+          user.roleCode = result.rol.value;
+          user.areaCode = result.area.code;
 
           this.userService.createUser(user).subscribe(
-            () => {
-              this.sweetAlert.presentSuccess('Usuario creado con éxito');
-            },
+            () =>  this.sweetAlert.presentSuccess('Usuario creado con éxito'),
             (error) => this.sweetAlert.presentError(error.error.error)
           );
         }
@@ -159,9 +159,8 @@ export class ListUsersComponent implements OnInit, AfterViewInit {
           this.sweetAlert.presentError('Información inválida o faltante');
         }
       }
-
-      this.loadData();
     });
+    this.loadData();
   }
 
   verifyUserData(userData: any): boolean {
