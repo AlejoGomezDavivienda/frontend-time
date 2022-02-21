@@ -82,6 +82,12 @@ export class ListUsersComponent implements OnInit, AfterViewInit {
         else if (this.userRole === 'DIRECTOR_ROLE')
           this.usersData = users.users.filter((u) => u.area.country.code === 'CO' && u.area.code !== 9 && u.role.code !== 'VP_ROLE');
 
+        else if (this.userRole === 'LEADER_ROLE' && this.userArea === '1') {
+          let tempUsersData = users.users.filter((u) => u.area.code.toString() === this.userArea);
+          let tempUsersData2 =  users.users.filter((u) => u.area.code === 11);
+          this.usersData = tempUsersData.concat(tempUsersData2);
+        }
+
         else if (this.userRole === 'LEADER_ROLE' && this.userArea === '2') {
           let tempUsersData = users.users.filter((u) => u.area.code.toString() === this.userArea);
           let tempUsersData2 =  users.users.filter((u) => u.area.code === 3);
