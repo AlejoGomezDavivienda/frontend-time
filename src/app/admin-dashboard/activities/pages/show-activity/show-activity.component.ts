@@ -100,8 +100,6 @@ export class ShowActivityComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
 
-      // console.log(result);
-
       if (result) {
 
         const assign = {
@@ -114,7 +112,6 @@ export class ShowActivityComponent implements OnInit {
           user_log_description_activity: result.description_event
         }
 
-
         this.activityService.assignActivity(assign).subscribe(
           (user) => this.sweetAlert.presentSuccess('Usuario modificado con éxito'),
           (error) => {
@@ -122,7 +119,6 @@ export class ShowActivityComponent implements OnInit {
             this.sweetAlert.presentError('Error retriving user info');
           }
         );
-
       }
     });
   }
